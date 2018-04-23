@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="【“计算机网络”,"流媒体"】," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="RTMP握手过程握手复杂规则：  客户端要等收到S1之后才能发送C2 客户端要等收到S2之后才能发送其他信息（控制信息和真实音视频等数据） 服务端要等到收到C0之后发送S1 服务端必须等到收到C1之后才能发送S2 服务端必须等到收到C2之后才能发送其他信息（控制信息和真实音视频等数据）  实际上为了在保证握手的身份验证功能的基础上尽量减少通信的次数，一般的发送顺序是这样的：｜client｜Serv">
+<meta name="keywords" content="【“计算机网络”,&quot;流媒体&quot;】">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RTMP详解">
+<meta property="og:url" content="http://yoursite.com/2018/01/13/RTMP详解/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="RTMP握手过程握手复杂规则：  客户端要等收到S1之后才能发送C2 客户端要等收到S2之后才能发送其他信息（控制信息和真实音视频等数据） 服务端要等到收到C0之后发送S1 服务端必须等到收到C1之后才能发送S2 服务端必须等到收到C2之后才能发送其他信息（控制信息和真实音视频等数据）  实际上为了在保证握手的身份验证功能的基础上尽量减少通信的次数，一般的发送顺序是这样的：｜client｜Serv">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xpoty.com1.z0.glb.clouddn.com/QQ20160228-0@2x.png">
+<meta property="og:image" content="http://7xpoty.com1.z0.glb.clouddn.com/publish-flow.png">
+<meta property="og:image" content="http://7xpoty.com1.z0.glb.clouddn.com/play-flow.png">
+<meta property="og:updated_time" content="2018-04-23T05:41:33.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RTMP详解">
+<meta name="twitter:description" content="RTMP握手过程握手复杂规则：  客户端要等收到S1之后才能发送C2 客户端要等收到S2之后才能发送其他信息（控制信息和真实音视频等数据） 服务端要等到收到C0之后发送S1 服务端必须等到收到C1之后才能发送S2 服务端必须等到收到C2之后才能发送其他信息（控制信息和真实音视频等数据）  实际上为了在保证握手的身份验证功能的基础上尽量减少通信的次数，一般的发送顺序是这样的：｜client｜Serv">
+<meta name="twitter:image" content="http://7xpoty.com1.z0.glb.clouddn.com/QQ20160228-0@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/13/RTMP详解/"/>
+
+
+
+
+
+  <title>RTMP详解 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTMP详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RTMP详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
+                2018-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="RTMP握手过程"><a href="#RTMP握手过程" class="headerlink" title="RTMP握手过程"></a>RTMP握手过程</h2><p>握手复杂规则：</p>
+<ul>
+<li>客户端要等收到S1之后才能发送C2</li>
+<li>客户端要等收到S2之后才能发送其他信息（控制信息和真实音视频等数据）</li>
+<li>服务端要等到收到C0之后发送S1</li>
+<li>服务端必须等到收到C1之后才能发送S2</li>
+<li>服务端必须等到收到C2之后才能发送其他信息（控制信息和真实音视频等数据）</li>
+</ul>
+<p><strong>实际上为了在保证握手的身份验证功能的基础上尽量减少通信的次数，一般的发送顺序是这样的：</strong><br><br><br>｜client｜Server ｜<br><br>｜－－－C0+C1—-&gt;| <br><br>｜&lt;－－S0+S1+S2– |<br><br>｜－－－C2-－－－&gt; ｜</p>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><ul>
+<li>Timestamp（时间戳）：消息的时间戳（但不一定是当前时间，后面会介绍），4个字节</li>
+<li>Length(长度)：是指Message Payload（消息负载）即音视频等信息的数据的长度，3个字节</li>
+<li>TypeId(类型Id)：消息的类型Id，1个字节</li>
+<li>Message Stream ID（消息的流ID）：每个消息的唯一标识，划分成Chunk和还原Chunk为Message的时候都是根据这个ID来辨识是否是同一个消息的Chunk的，4个字节，并且以小端格式存储</li>
+</ul>
+<h2 id="Chunk"><a href="#Chunk" class="headerlink" title="Chunk"></a>Chunk</h2><p><img src="http://7xpoty.com1.z0.glb.clouddn.com/QQ20160228-0@2x.png" alt="img"></p>
+<ol>
+<li><p>Basic Header</p>
+<p> 包含了chunk stream ID（流通道Id）和chunk type（chunk的类型），chunk stream id一般被简写为CSID，用来唯一标识一个特定的流通道，chunk type决定了后面Message Header的格式。</p>
+</li>
+<li><p>Message Header（消息的头信息）</p>
+<p> 包含了要发送的实际信息（可能是完整的，也可能是一部分）的描述信息。包含前面Message里面提到的4个字段。</p>
+</li>
+</ol>
+<p>chunk size默认为128字节，需要根据实际的带宽情况进行动态调整。</p>
+<h2 id="协议控制消息（Protocol-Control-Message）"><a href="#协议控制消息（Protocol-Control-Message）" class="headerlink" title="协议控制消息（Protocol Control Message）"></a>协议控制消息（Protocol Control Message）</h2><p>在RTMP的chunk流会用一些特殊的值来代表协议的控制消息，它们的Message Stream ID必须为0（代表控制流信息），CSID必须为2，Message Type ID可以为1，2，3，5，6。</p>
+<ul>
+<li>Set Chunk Size</li>
+<li>Abort Message</li>
+<li>Acknowledgement</li>
+<li>Window Acknowledgement Size</li>
+<li>Set Peer Bandwidth</li>
+</ul>
+<p>注意<strong>这是属于RTMPchunk流层的消息，和RTMP中的用户控制消息不同</strong>。</p>
+<h2 id="RTMP-七种Message"><a href="#RTMP-七种Message" class="headerlink" title="RTMP 七种Message"></a>RTMP 七种Message</h2><ol>
+<li>Command Message(命令消息，Message Type ID＝17或20)：表示在客户端盒服务器间传递的在对端执行某些操作的命令消息，如connect表示连接对端，对端如果同意连接的话会记录发送端信息并返回连接成功消息，publish表示开始向对方推流，接受端接到命令后准备好接受对端发送的流信息。</li>
+<li>Data Message（数据消息，Message Type ID＝15或18）：传递一些元数据（MetaData，比如视频名，分辨率等等）或者用户自定义的一些消息。</li>
+<li>Shared Object Message(共享消息，Message Type ID＝16或19)：表示一个Flash类型的对象，由键值对的集合组成，用于多客户端，多实例时使用。</li>
+<li>Audio Message（音频信息，Message Type ID＝8）：音频数据。</li>
+<li>Video Message（视频信息，Message Type ID＝9）：视频数据。</li>
+<li>Aggregate Message (聚集信息，Message Type ID＝22)：多个RTMP子消息的集合。</li>
+<li><strong>User Control Message Events</strong>(用户控制消息，Message Type ID=4):告知对方执行该信息中包含的用户控制事件，比如Stream Begin事件告知对方流信息开始传输。和前面提到的协议控制信息（Protocol Control Message）不同，这是在RTMP协议层的，而不是在RTMP chunk流协议层的，这个很容易弄混。该信息在chunk流中发送时，Message Stream ID=0,Chunk Stream Id=2,Message Type Id=4。</li>
+</ol>
+<h2 id="RTMP"><a href="#RTMP" class="headerlink" title="RTMP"></a>RTMP</h2><ul>
+<li>推流过程<br><img src="http://7xpoty.com1.z0.glb.clouddn.com/publish-flow.png" alt="img"></li>
+</ul>
+<p><strong>Window Acknowledge Size代表发送端在接收到接受端返回的两个ACK间最多可以发送的字节数。</strong></p>
+<ul>
+<li>拉流过程<br><img src="http://7xpoty.com1.z0.glb.clouddn.com/play-flow.png" alt="img"></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/【“计算机网络”-流媒体-】/" rel="tag"># 【“计算机网络”,"流媒体"】</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/13/Java的5种线程状态/" rel="next" title="Java的5种线程状态">
+                <i class="fa fa-chevron-left"></i> Java的5种线程状态
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/14/Android、linux中进程通信方式对比/" rel="prev" title="Android、linux中进程通信方式对比">
+                Android、linux中进程通信方式对比 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/valleypioneer" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13261702056@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RTMP握手过程"><span class="nav-number">1.</span> <span class="nav-text">RTMP握手过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Message"><span class="nav-number">2.</span> <span class="nav-text">Message</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chunk"><span class="nav-number">3.</span> <span class="nav-text">Chunk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协议控制消息（Protocol-Control-Message）"><span class="nav-number">4.</span> <span class="nav-text">协议控制消息（Protocol Control Message）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RTMP-七种Message"><span class="nav-number">5.</span> <span class="nav-text">RTMP 七种Message</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RTMP"><span class="nav-number">6.</span> <span class="nav-text">RTMP</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

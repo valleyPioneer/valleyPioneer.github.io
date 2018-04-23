@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/page/4/"/>
+
+
+
+
+
+  <title>Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/28/Volley 取消请求和错误重传机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/28/Volley 取消请求和错误重传机制/" itemprop="url">Volley取消请求和错误重传机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T00:34:14+08:00">
+                2018-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Volley取消请求"><a href="#Volley取消请求" class="headerlink" title="Volley取消请求"></a>Volley取消请求</h2><p>在Request中有一个boolean类型变量mCanceled用来标识这个Request请求是否被取消. cancel()方法和 isCanceled()方法分别用来取消和获取是否取消<br>所以当我们如果某个网络请求时,只需要request.cancel()即可。</p>
+<p>判断请求是否取消的地方，cacheDispatcher/networkDispatcher/ExecutorDelivery中的run()方法均有判断</p>
+<p><strong>网络请求,缓存请求,结果返回</strong></p>
+<h2 id="Volley错误重传机制"><a href="#Volley错误重传机制" class="headerlink" title="Volley错误重传机制"></a>Volley错误重传机制</h2><p><strong>不用重新插入队列中</strong></p>
+<p>相关的类DefaultRetryPolicy.java和BasicNetwork.java</p>
+<ol>
+<li>DefaultRetryPolicy类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">retry</span><span class="params">(VolleyError error)</span> <span class="keyword">throws</span> VolleyError </span>&#123;</span><br><span class="line">        mCurrentRetryCount++;</span><br><span class="line">        mCurrentTimeoutMs += (mCurrentTimeoutMs * mBackoffMultiplier);</span><br><span class="line">        <span class="keyword">if</span> (!hasAttemptRemaining()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> error;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">hasAttemptRemaining</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mCurrentRetryCount &lt;= mMaxNumRetries;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>用来定义重试机制的策略,例如定义最大尝试次数,最大超时时间,超时时间的乘积因子等.<br>每次重试,变量mCurrentRetryCount就自增1,达到最大的尝试次数,将抛出异常,结束请求</p>
+<ol start="2">
+<li>BasicNetwork类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> NetworkResponse <span class="title">performRequest</span><span class="params">(Request&lt;?&gt; request)</span> <span class="keyword">throws</span> VolleyError </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> requestStart = SystemClock.elapsedRealtime();</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">              ... ...</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> NetworkResponse(statusCode, responseContents, responseHeaders, <span class="keyword">false</span>,</span><br><span class="line">                        SystemClock.elapsedRealtime() - requestStart);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SocketTimeoutException e) &#123;</span><br><span class="line">                attemptRetryOnException(<span class="string">"socket"</span>, request, <span class="keyword">new</span> TimeoutError());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ConnectTimeoutException e) &#123;</span><br><span class="line">                attemptRetryOnException(<span class="string">"connection"</span>, request, <span class="keyword">new</span> TimeoutError());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Bad URL "</span> + request.getUrl(), e);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                <span class="keyword">int</span> statusCode = <span class="number">0</span>;</span><br><span class="line">                NetworkResponse networkResponse = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">if</span> (httpResponse != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    statusCode = httpResponse.getStatusLine().getStatusCode();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> NoConnectionError(e);</span><br><span class="line">                &#125;</span><br><span class="line">                VolleyLog.e(<span class="string">"Unexpected response code %d for %s"</span>, statusCode, request.getUrl());</span><br><span class="line">                <span class="keyword">if</span> (responseContents != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    networkResponse = <span class="keyword">new</span> NetworkResponse(statusCode, responseContents,</span><br><span class="line">                            responseHeaders, <span class="keyword">false</span>, SystemClock.elapsedRealtime() - requestStart);</span><br><span class="line">                    <span class="keyword">if</span> (statusCode == HttpStatus.SC_UNAUTHORIZED ||</span><br><span class="line">                            statusCode == HttpStatus.SC_FORBIDDEN) &#123;</span><br><span class="line">                        attemptRetryOnException(<span class="string">"auth"</span>,</span><br><span class="line">                                request, <span class="keyword">new</span> AuthFailureError(networkResponse));</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="comment">// <span class="doctag">TODO:</span> Only throw ServerError for 5xx status codes.</span></span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> ServerError(networkResponse);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> NetworkError(networkResponse);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>当网络出现异常时候,将会调用attemptRetryOnException()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">attemptRetryOnException</span><span class="params">(String logPrefix, Request&lt;?&gt; request,</span></span></span><br><span class="line"><span class="function"><span class="params">            VolleyError exception)</span> <span class="keyword">throws</span> VolleyError </span>&#123;</span><br><span class="line">        RetryPolicy retryPolicy = request.getRetryPolicy();</span><br><span class="line">        <span class="keyword">int</span> oldTimeout = request.getTimeoutMs();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            retryPolicy.retry(exception);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (VolleyError e) &#123;</span><br><span class="line">            request.addMarker(</span><br><span class="line">                    String.format(<span class="string">"%s-timeout-giveup [timeout=%s]"</span>, logPrefix, oldTimeout));</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">        request.addMarker(String.format(<span class="string">"%s-retry [timeout=%s]"</span>, logPrefix, oldTimeout));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>attemptRetryOnException()方法会会根据DefaultRetryPolicy对象来判断是否还需要重试,如果不需要,则直接throw error来退出死循环. <strong>如果需要,那么不再抛出异常, 这样由于while(true)死循环就再次执行这个request请求.</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/25/Android 自定义轮播图的要点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/25/Android 自定义轮播图的要点/" itemprop="url">Android 自定义轮播图的要点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-25T00:34:14+08:00">
+                2018-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="ViewPager的长度为实际数据集长度-2"><a href="#ViewPager的长度为实际数据集长度-2" class="headerlink" title="ViewPager的长度为实际数据集长度+2"></a>ViewPager的长度为实际数据集长度+2</h2><p>轮播图有5张图片，用户看到的也应该是5张图片，而实际上我们的ViewPager会有7张图片，因为第1张图片和第6张图片是同一张图片，第7张图片和第2张图片是同一张图片，保证无缝跳转。</p>
+<p>以下是在<strong>AutoChangePagerAdapter</strong>中的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//ViewPager的实际长度是他的数据的长度+2</span></span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mDatas == <span class="keyword">null</span> || mDatas.isEmpty() ? <span class="number">0</span> : mDatas.size() + <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过实际的position计算用户所理解的position</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getActualPosition</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (position == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//如果是头节点，返回最后一个数据的position</span></span><br><span class="line">            <span class="comment">//因为头节点的数据和最后一个数据是一样的。</span></span><br><span class="line">            <span class="keyword">return</span> mDatas.size() - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position == getCount() - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">//如果是尾节点，返回第一个数据的position</span></span><br><span class="line">            <span class="comment">//因为尾节点的数据和第一个数据是一样的。</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//除了头尾以外，position节点的数据是mDatas中的第position - 1的下标的数据</span></span><br><span class="line">            <span class="keyword">return</span> position - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置ViewPager的滚动速度"><a href="#设置ViewPager的滚动速度" class="headerlink" title="设置ViewPager的滚动速度"></a>设置ViewPager的滚动速度</h2><p>ViewPager有自己的mScroller属性，负责控制ViewPager的滚动速度。<strong>但是ViewPager的默认滚动速度太快了，而且ViewPager并没有提供方法设置mScroller的滚动速度也没有提供方法设置mScroller</strong>，所以我们需要通过反射用自己的mScroller替换掉ViewPager的mScroller，使我们可以完全控制和操作ViewPager的mScroller属性。</p>
+<p>以下是<strong>AutoChangeViewPager</strong>代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/通过反射替换掉mBannerViewPager的mScroller属性</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">replaceViewPagerScroll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Field field = ViewPager.class.getDeclaredField(<span class="string">"mScroller"</span>);</span><br><span class="line">            field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            mScroller = <span class="keyword">new</span> ViewPagerScroller(mContext,</span><br><span class="line">                    <span class="keyword">new</span> AccelerateInterpolator());</span><br><span class="line">            field.set(mBannerViewPager, mScroller);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置轮播图的滚动速度</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> scrollDuration</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CustomBanner&lt;T&gt; <span class="title">setScrollDuration</span><span class="params">(<span class="keyword">int</span> scrollDuration)</span> </span>&#123;</span><br><span class="line">        mScroller.setScrollDuration(scrollDuration);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>自定义ViewPagerScroller<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewPagerScroller</span> <span class="keyword">extends</span> <span class="title">Scroller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mScrollDuration = <span class="number">550</span>;</span><br><span class="line">    <span class="comment">//是否无缝跳转</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> sudden;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewPagerScroller</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewPagerScroller</span><span class="params">(Context context, Interpolator interpolator)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, interpolator);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewPagerScroller</span><span class="params">(Context context, Interpolator interpolator,</span></span></span><br><span class="line"><span class="function"><span class="params">                             <span class="keyword">boolean</span> flywheel)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, interpolator, flywheel);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startScroll</span><span class="params">(<span class="keyword">int</span> startX, <span class="keyword">int</span> startY, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span> duration)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.startScroll(startX, startY, dx, dy, sudden ? <span class="number">0</span> : mScrollDuration);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startScroll</span><span class="params">(<span class="keyword">int</span> startX, <span class="keyword">int</span> startY, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.startScroll(startX, startY, dx, dy, sudden ? <span class="number">0</span> : mScrollDuration);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getScrollDuration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mScrollDuration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setScrollDuration</span><span class="params">(<span class="keyword">int</span> scrollDuration)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mScrollDuration = scrollDuration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSudden</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sudden;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSudden</span><span class="params">(<span class="keyword">boolean</span> zero)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sudden = zero;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="实现ViewPager的自动轮播"><a href="#实现ViewPager的自动轮播" class="headerlink" title="实现ViewPager的自动轮播"></a>实现ViewPager的自动轮播</h2><p>利用Handler延迟发送消息的功能来进行<strong>轮播滚动的计时</strong>，在消息的处理中改变ViewPager显示的Item，达到ViewPager的自动滚动效果，然后再Handler发送一个延迟消息，形成循环。</p>
+<p>以下是AutoChangeViewPager中的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startAutoChange</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mIsAutoChange = <span class="keyword">true</span>;</span><br><span class="line">        removeCallbacks(mChangeTask);</span><br><span class="line">        postDelayed(mChangeTask, getRealChangeInterval());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span> Runnable mChangeTask = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != getAdapter() &amp;&amp; SCROLL_STATE_IDLE == mPageScrollState &amp;&amp; getAdapter().getCount()!=<span class="number">0</span>) &#123;</span><br><span class="line">               <span class="comment">//还需要判断在末尾时使用非平滑移动</span></span><br><span class="line">                setCurrentItem((currentPage + <span class="number">1</span>) % getAdapter().getCount(),</span><br><span class="line">                        <span class="keyword">true</span>);</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            postDelayed(mChangeTask, getRealChangeInterval());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="IndicatorView的更新操作"><a href="#IndicatorView的更新操作" class="headerlink" title="IndicatorView的更新操作"></a>IndicatorView的更新操作</h2><p>IndicatorView继承自LinearLayout，主要逻辑为：</p>
+<ol>
+<li>初始化时根据ViewPager的页数创建相应数量的子View，然后添加进父ViewGroup中。</li>
+<li>对ViewPager添加OnPageChangeListener监听器，在onPageSelected回调方法中获取当前ViewPager显示的位置。</li>
+<li>根据ViewPager的显示位置设置子View控件的图片背景更新（此处使用StateListDrawable的选中和未选中状态来更新图片）</li>
+</ol>
+<h2 id="AutoChangePagerAdapter的精髓在于"><a href="#AutoChangePagerAdapter的精髓在于" class="headerlink" title="AutoChangePagerAdapter的精髓在于"></a>AutoChangePagerAdapter的精髓在于</h2><p>imageList为5张，对应viewList为5个view，<strong>getrealPos()方法生效的地方在于container（ViewGroup）中需要对应生成7个View</strong>，分别在instantiateItem()以及destroyItem()中调用</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/21/IP详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/21/IP详解/" itemprop="url">IP详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T00:34:14+08:00">
+                2018-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="IPv4报文格式"><a href="#IPv4报文格式" class="headerlink" title="IPv4报文格式"></a>IPv4报文格式</h2><p><img src="http://img.blog.csdn.net/20131220194104812?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2UxMjNfemhvdXdlaQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="img"></p>
+<ol>
+<li>版本:占4位,指IP协议的版本.通信双方使用的IP协议版本必须一致.日前广泛使用的 IP协议版本号为 4 (即 IPv4).IPv6 目前还处于起步阶段.</li>
+<li>首部长度:占 4 位,可表示的最大十进制数值是15.请注意,这个字段所表示数的单位是32位字 (1个32位字长是4 字节),因此,当 IP 的首部长度为 1111 时 (即十进制的 15),首部长度就达到 60字节.当 IP 分组的首部长度不是4字节的整数倍时,必须利用最后的填充字段加以填充.因此数据部分永远在 4字节的整数倍开始,这样在实现 IP协议时较为方便.首部长度限制为 60字节的缺点是有时可能不够用.这样做的目的是希望用户尽量减少开销.最常用的首部长度就是 20 字节 (即首部长度为 0101),这时不使用任何选项.</li>
+<li>服务:占 8 位,用来获得更好的服务.这个字段在旧标准中叫做服务类型,但实际上一直没有被使用过.1998年IETF把这个字段改名为区分服务 DS(Differentiated Services).只有在使用区分服务时,这个字段才起作用.</li>
+<li>总长度:总长度指首都及数据之和的长度,单位为字节.因为总长度字段为 16位,所以数据报的最大长度为 216-1=65 535字节.在IP层下面的每一种数据链路层都有自己的帧格式,其中包括帧格式中的数据字段的最大长度,即最大传送单元 MTU (Maximum Transfer Unit).当一个数据报封装成链路层的帧时,此数据报的总长度 (即首部加上数据部分)一定不能超过下面的数据链路层的MTU值,否则要分片.</li>
+<li>标识 (Identification):占 16位.IP软件在存储器中维持一个计数器,每产生一个数据报,计数器就加 1,并将此值赋给标识字段.但这个”标识”并不是序号,因为 IP是无连接的服务,数据报不存在按序接收的问题.当数据报由于长度超过网络的 MTU 而必须分片时,这个标识字段的值就被复制到所有的数据报的标识字段中.相同的标识字段的值使分片后的各数据报片最后能正确地重装成为原来的数据报.</li>
+<li>标志 (Flag):占3 位,但目前只有2位有意义. 标志字段中的最低位记为 MF(More Fragment).MF=1即表示后面”还有分片”的数据报.MF=0表示这已是若干数据报片中的最后一个.标志字段中间的一位记为DF(Don’t Fragment),意思是”不能分片”,只有当 DF=0时才允许分片.</li>
+<li>片偏移:占 13位.较长的分组在分片后,某片在原分组中的相对位置.也就是说,相对用户数据字段的起点,该片从何处开始.片偏移以 8个字节为偏移单位,这就是说,每个分片的长度一定是 8字节(64位)的整数倍.</li>
+<li>生存时间:占 8位,生存时间字段常用的英文缩写是TTL(Time To Live),其表明数据报在网络中的寿命.由发出数据报的源点设置这个字段.其目的是防止无法交付的数据报无限制地在因特网中兜圈子,因而白白消耗网络资源.最初的设计是以秒作为 TTL的单位.每经过一个路由器时,就把TTL减去数据报在路由器消耗掉的一段时间.若数据报在路由器消耗的时间小于 1 秒,就把TTL值减 1.当 TTL值为 0时,就丢弃这个数据报.</li>
+<li>协议:占 8 位.协议字段指出此数据报携带的数据是使用何种协议,以便使目的主机的IP层知道应将数据部分上交给哪个处理过程.详细资料请看文章最后的注释.</li>
+<li>首部检验和:占 16位.这个字段只检验数据报的首部,但不包括数据部分.这是因为数据报每经过一个路由器,都要重新计算一下首都检验和 (一些字段,如生存时间,标志,片偏移等都可能发生变化),不检验数据部分可减少计算的工作量.</li>
+<li>源地址:占32位.</li>
+<li>目的地址:占 32位.</li>
+</ol>
+<h2 id="IP服务的三大特点"><a href="#IP服务的三大特点" class="headerlink" title="IP服务的三大特点"></a>IP服务的三大特点</h2><ol>
+<li><p>无状态</p>
+<p> 无状态是指IP通信双方不同步传输数据的状态信息，<strong>所有IP数据报的发送、传输、接受都是相互独立、没有上下文关系的</strong>。这种服务优点在于简单、高效。最大的缺点是无法处理乱序和重复的IP数据报，确保IP数据报完整的工作只能交给上层协议来完成。</p>
+</li>
+<li><p>无连接</p>
+<p> 无连接是指IP通信双方都不长久地维持对方的任何信息。上层协议每次发送数据的时候，都需要明确指出对方的IP地址。</p>
+</li>
+<li><p>不可靠</p>
+<p> 不可靠是指IP协议不能保证IP数据报准确到达接收端，它指承诺尽最大努力交付。IP模块一旦检测到数据报发送失败，就通知上层协议，而不会试图重传。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/20/MTU和MSS区别与联系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/20/MTU和MSS区别与联系/" itemprop="url">MTU和MSS区别与联系</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-20T00:34:14+08:00">
+                2018-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="MTU"><a href="#MTU" class="headerlink" title="MTU"></a>MTU</h2><p>Maximum Transmission Unit <strong>最大传输单元</strong></p>
+<p>一般出现在以太网帧中，默认为1500</p>
+<h2 id="MSS"><a href="#MSS" class="headerlink" title="MSS"></a>MSS</h2><p>Maximum Segment Size <strong>最大分段大小</strong></p>
+<p>出现在tcp协议中的概念，通常为1460</p>
+<p>MSS就是TCP数据包每次能够传输的最大数据分段。为了达到最佳的传输效能<br>TCP协议在建立连接的时候通常要协商双方的MSS值，这个值TCP协议在实现的<br>时候往往用MTU值代替（需要减去IP数据包包头的大小20Bytes和TCP数据段的<br>包头20Bytes）所以往往MSS为1460。==通讯双方会根据双方提供的MSS值得最小<br>值确定为这次连接的最大MSS值。==</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/15/TCP和UDP报文的最大和最小长度/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/15/TCP和UDP报文的最大和最小长度/" itemprop="url">TCP和UDP报文的最大和最小长度</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T00:34:14+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>UDP允许传输的最大长度理论上2^16 -1 - udp head - iphead（ 65507 字节 = 65535 - 20 - 8）</p>
+<p>但是实际上UDP数据报的数据区<strong>最大长度</strong>为1472字节=1500 - 20 - 8</p>
+<h2 id="超过1500字节怎么办"><a href="#超过1500字节怎么办" class="headerlink" title="超过1500字节怎么办"></a>超过1500字节怎么办</h2><p>这也就是说IP数据报大于1500字节,大于MTU.这个时候发送方IP层就需要分片(fragmentation).<br>把数据报分成若干片,使每一片都小于MTU.而接收方IP层则需要进行数据报的重组.<br>这样就会多做许多事情,而更严重的是,由于UDP的特性,当某一片数据传送中丢失时,接收方便<br>无法重组数据报.将导致丢弃整个UDP数据报。    </p>
+<p><strong>因此,在普通的局域网环境下，我建议将UDP的数据控制在1472字节以下为好</strong>.    </p>
+<p>鉴于Internet上的标准MTU值为576字节,<strong>在进行Internet的UDP编程时. 最好将UDP的数据长度控件在548字节(576-8-20)以内.</strong></p>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p>TCP 包的大小就应该是 1500 - IP头(20) - TCP头(20) = 1460 (Bytes)</p>
+<p><strong>不一定tcp报文段都有时间戳选项</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/14/Android、linux中进程通信方式对比/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/14/Android、linux中进程通信方式对比/" itemprop="url">Android、linux中进程通信方式对比</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-14T00:34:14+08:00">
+                2018-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Android中IPC方式"><a href="#Android中IPC方式" class="headerlink" title="Android中IPC方式"></a>Android中IPC方式</h2><ol>
+<li>intent</li>
+<li>文件共享<ul>
+<li>文件读写</li>
+<li>序列化和反序列化</li>
+<li>sharedPreferences</li>
+</ul>
+</li>
+<li>Messenger(基于aidl，主要用于消息的传递，串行工作)</li>
+<li>AIDL（基于binder）</li>
+<li>socket</li>
+<li>Broadcast</li>
+</ol>
+<h2 id="Linux中IPC方式"><a href="#Linux中IPC方式" class="headerlink" title="Linux中IPC方式"></a>Linux中IPC方式</h2><ol>
+<li><p>管道、流管道、命名管道FiFO</p>
+<ul>
+<li>管道：具有两种限制。一是半双工的通信，数据只能单向流动，二是只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</li>
+<li>流管道：去除了第一种限制,可以双向传输.</li>
+<li>命名管道：除具有管道所具有的功能外，它还允许无亲缘关系进程间的通信。</li>
+</ul>
+</li>
+<li><p>信号</p>
+<p> 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</p>
+<p> 主要作为进程间以及同一进程不同线程之间的同步手段。</p>
+</li>
+<li><p>信号量</p>
+<p> 信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。</p>
+<p> 主要作为进程间以及同一进程内不同线程之间的同步手段。</p>
+</li>
+<li><p>共享内存</p>
+<p> 使得多个进程可以访问同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。往往与其它通信机制，如信号量结合使用，来达到进程间的同步及互斥。</p>
+</li>
+<li><p>消息队列</p>
+<p> 消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</p>
+</li>
+<li><p>socket</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTMP详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/13/RTMP详解/" itemprop="url">RTMP详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
+                2018-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="RTMP握手过程"><a href="#RTMP握手过程" class="headerlink" title="RTMP握手过程"></a>RTMP握手过程</h2><p>握手复杂规则：</p>
+<ul>
+<li>客户端要等收到S1之后才能发送C2</li>
+<li>客户端要等收到S2之后才能发送其他信息（控制信息和真实音视频等数据）</li>
+<li>服务端要等到收到C0之后发送S1</li>
+<li>服务端必须等到收到C1之后才能发送S2</li>
+<li>服务端必须等到收到C2之后才能发送其他信息（控制信息和真实音视频等数据）</li>
+</ul>
+<p><strong>实际上为了在保证握手的身份验证功能的基础上尽量减少通信的次数，一般的发送顺序是这样的：</strong><br><br><br>｜client｜Server ｜<br><br>｜－－－C0+C1—-&gt;| <br><br>｜&lt;－－S0+S1+S2– |<br><br>｜－－－C2-－－－&gt; ｜</p>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><ul>
+<li>Timestamp（时间戳）：消息的时间戳（但不一定是当前时间，后面会介绍），4个字节</li>
+<li>Length(长度)：是指Message Payload（消息负载）即音视频等信息的数据的长度，3个字节</li>
+<li>TypeId(类型Id)：消息的类型Id，1个字节</li>
+<li>Message Stream ID（消息的流ID）：每个消息的唯一标识，划分成Chunk和还原Chunk为Message的时候都是根据这个ID来辨识是否是同一个消息的Chunk的，4个字节，并且以小端格式存储</li>
+</ul>
+<h2 id="Chunk"><a href="#Chunk" class="headerlink" title="Chunk"></a>Chunk</h2><p><img src="http://7xpoty.com1.z0.glb.clouddn.com/QQ20160228-0@2x.png" alt="img"></p>
+<ol>
+<li><p>Basic Header</p>
+<p> 包含了chunk stream ID（流通道Id）和chunk type（chunk的类型），chunk stream id一般被简写为CSID，用来唯一标识一个特定的流通道，chunk type决定了后面Message Header的格式。</p>
+</li>
+<li><p>Message Header（消息的头信息）</p>
+<p> 包含了要发送的实际信息（可能是完整的，也可能是一部分）的描述信息。包含前面Message里面提到的4个字段。</p>
+</li>
+</ol>
+<p>chunk size默认为128字节，需要根据实际的带宽情况进行动态调整。</p>
+<h2 id="协议控制消息（Protocol-Control-Message）"><a href="#协议控制消息（Protocol-Control-Message）" class="headerlink" title="协议控制消息（Protocol Control Message）"></a>协议控制消息（Protocol Control Message）</h2><p>在RTMP的chunk流会用一些特殊的值来代表协议的控制消息，它们的Message Stream ID必须为0（代表控制流信息），CSID必须为2，Message Type ID可以为1，2，3，5，6。</p>
+<ul>
+<li>Set Chunk Size</li>
+<li>Abort Message</li>
+<li>Acknowledgement</li>
+<li>Window Acknowledgement Size</li>
+<li>Set Peer Bandwidth</li>
+</ul>
+<p>注意<strong>这是属于RTMPchunk流层的消息，和RTMP中的用户控制消息不同</strong>。</p>
+<h2 id="RTMP-七种Message"><a href="#RTMP-七种Message" class="headerlink" title="RTMP 七种Message"></a>RTMP 七种Message</h2><ol>
+<li>Command Message(命令消息，Message Type ID＝17或20)：表示在客户端盒服务器间传递的在对端执行某些操作的命令消息，如connect表示连接对端，对端如果同意连接的话会记录发送端信息并返回连接成功消息，publish表示开始向对方推流，接受端接到命令后准备好接受对端发送的流信息。</li>
+<li>Data Message（数据消息，Message Type ID＝15或18）：传递一些元数据（MetaData，比如视频名，分辨率等等）或者用户自定义的一些消息。</li>
+<li>Shared Object Message(共享消息，Message Type ID＝16或19)：表示一个Flash类型的对象，由键值对的集合组成，用于多客户端，多实例时使用。</li>
+<li>Audio Message（音频信息，Message Type ID＝8）：音频数据。</li>
+<li>Video Message（视频信息，Message Type ID＝9）：视频数据。</li>
+<li>Aggregate Message (聚集信息，Message Type ID＝22)：多个RTMP子消息的集合。</li>
+<li><strong>User Control Message Events</strong>(用户控制消息，Message Type ID=4):告知对方执行该信息中包含的用户控制事件，比如Stream Begin事件告知对方流信息开始传输。和前面提到的协议控制信息（Protocol Control Message）不同，这是在RTMP协议层的，而不是在RTMP chunk流协议层的，这个很容易弄混。该信息在chunk流中发送时，Message Stream ID=0,Chunk Stream Id=2,Message Type Id=4。</li>
+</ol>
+<h2 id="RTMP"><a href="#RTMP" class="headerlink" title="RTMP"></a>RTMP</h2><ul>
+<li>推流过程<br><img src="http://7xpoty.com1.z0.glb.clouddn.com/publish-flow.png" alt="img"></li>
+</ul>
+<p><strong>Window Acknowledge Size代表发送端在接收到接受端返回的两个ACK间最多可以发送的字节数。</strong></p>
+<ul>
+<li>拉流过程<br><img src="http://7xpoty.com1.z0.glb.clouddn.com/play-flow.png" alt="img"></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/Java的5种线程状态/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/13/Java的5种线程状态/" itemprop="url">Java的5种线程状态</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
+                2018-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>新建状态new</li>
+<li>就绪状态runnable</li>
+<li>运行状态running</li>
+<li>阻塞状态blocked</li>
+<li>终止状态dead</li>
+</ol>
+<h2 id="阻塞的三种情况"><a href="#阻塞的三种情况" class="headerlink" title="阻塞的三种情况"></a>阻塞的三种情况</h2><ul>
+<li><p>等待阻塞</p>
+<p>  运行的线程执行wait()方法，该线程会释放占用的所有资源，JVM会把该线程放入“等待池”中。进入这个状态后，是不能自动唤醒的，必须依靠其他线程调用notify()或notifyAll()方法才能被唤醒，</p>
+</li>
+<li><p>同步阻塞</p>
+<p>  运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入“锁池”中。</p>
+</li>
+<li><p>其他阻塞</p>
+<p>  运行的线程执行sleep()或join()方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</p>
+</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20140828202610671" alt="img"></p>
+<h2 id="java死锁的原因"><a href="#java死锁的原因" class="headerlink" title="java死锁的原因"></a>java死锁的原因</h2><p>suspend()挂起以及不指定超时期限的wait()方法的调用</p>
+<h2 id="wait和suspend、sleep区别"><a href="#wait和suspend、sleep区别" class="headerlink" title="wait和suspend、sleep区别"></a>wait和suspend、sleep区别</h2><p>wait会释放线程占用的锁、而suspend以及sleep不会</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTSP协议详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/13/RTSP协议详解/" itemprop="url">RTSP协议详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
+                2018-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="RTSP协议简介"><a href="#RTSP协议简介" class="headerlink" title="RTSP协议简介"></a>RTSP协议简介</h2><p>RTSP是研究如何有效地在IP网络上传输流媒体数据的应用层协议。RTSP对流媒体提供了诸如暂停，快进等控制，而它本身并不传输数据，RTSP的作用相当于流媒体服务器的远程控制。服务器端可以自行选择使用TCP或UDP来传送串流内容。</p>
+<p><strong>RTSP的对带宽的要求更低，RTMP实时性更好</strong></p>
+<p>特点：</p>
+<ul>
+<li>允许同时多个串流需求控制（Multicast），支持多方视频会议</li>
+<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求，可以实现流量的重新导向。</li>
+</ul>
+<h2 id="RTSP和HTTP区别"><a href="#RTSP和HTTP区别" class="headerlink" title="RTSP和HTTP区别"></a>RTSP和HTTP区别</h2><ol>
+<li>相同点</li>
+</ol>
+<ul>
+<li>两者都用纯文本来发送消息，且rtsp协议的语法也和HTTP类似。</li>
+</ul>
+<ol start="2">
+<li>不同点</li>
+</ol>
+<ul>
+<li>RTSP有状态，HTTP无状态，rtsp的命令总是按照顺序来发送。</li>
+</ul>
+<h2 id="RTSP和SIP区别"><a href="#RTSP和SIP区别" class="headerlink" title="RTSP和SIP区别"></a>RTSP和SIP区别</h2><p>SIP是基于IP的一个应用层控制协议。</p>
+<ol>
+<li>相同点</li>
+</ol>
+<ul>
+<li>sip和rtsp都是应用层的控制协议，负责一次通信过程的建立和控制和结束，不负责中间的传输部分。</li>
+<li>他们都是基于纯文本的信令协议，支持tcp、udp，支持多方通信。</li>
+<li><strong>sip和rtsp 都使用sdp协议来传送媒体参数，使用rtp（rtcp）协议来传输媒体流。</strong></li>
+</ul>
+<ol start="2">
+<li>不同点</li>
+</ol>
+<ul>
+<li>rtsp是专门为流媒体制定的协议，在多个媒体流的时间同步方面比sip强大。</li>
+<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求。</li>
+<li>sip一般用来创建一次音频、视频通话（双向），而rtsp一般用来做视频点播、视频监控等（单向）。从原理上讲，rtsp也可以做双向的视频通话。</li>
+</ul>
+<h2 id="RTSP和RTP（rtcp）的关系"><a href="#RTSP和RTP（rtcp）的关系" class="headerlink" title="RTSP和RTP（rtcp）的关系"></a>RTSP和RTP（rtcp）的关系</h2><p><img src="http://images.cnblogs.com/cnblogs_com/whyandinside/RTPRTSP.jpg" alt="img"></p>
+<p>rtsp负责建立和控制会话，rtp负责多媒体的传输，rtcp配合rtp做控制和流量统计，他们是合作的关系。</p>
+<h2 id="RTSP消息"><a href="#RTSP消息" class="headerlink" title="RTSP消息"></a>RTSP消息</h2><h3 id="请求格式"><a href="#请求格式" class="headerlink" title="请求格式"></a>请求格式</h3><p><strong>请求消息</strong>格式：<br><br>       方法 URI RTSP版本 CR LF<br><br>       消息头 CR LF CR LF<br>       消息体 CR LF</p>
+<h3 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h3><p><strong>回应消息</strong>格式：<br><br>       RTSP版本 状态码 解释 CR LF<br><br>       消息头 CR LF CR LF<br><br>       消息体 CR LF</p>
+<h2 id="RTSP请求方法介绍"><a href="#RTSP请求方法介绍" class="headerlink" title="RTSP请求方法介绍"></a>RTSP请求方法介绍</h2><ol>
+<li>OPTION</li>
+</ol>
+<p>目的是得到服务器提供的可用方法</p>
+<ol start="2">
+<li>DESCRIBE</li>
+</ol>
+<p>C向S发起DESCRIBE请求,为了得到会话描述信息(SDP)</p>
+<ol start="3">
+<li>SETUP</li>
+</ol>
+<p>客户端提醒服务器建立会话,并确定传输模式</p>
+<ol start="4">
+<li>PLAY</li>
+</ol>
+<p>客户端发送播放请求</p>
+<ol start="5">
+<li>TEARDOWN</li>
+</ol>
+<p>客户端发起关闭请求</p>
+<p><img src="http://img.blog.csdn.net/20130924000903765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVpeGlhb2h1YTEwMjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<ul>
+<li>第一步，只要服务器客户端约定好，有哪些方法可用，则<strong>option请求可以不要</strong>。</li>
+<li>第二步，如果我们有其他途径得到媒体初始化描述信息（比如http请求等等），则我们也<strong>不需要通过rtsp中的describe请求来完成</strong>。</li>
+</ul>
+<h2 id="RTSP推流过程"><a href="#RTSP推流过程" class="headerlink" title="RTSP推流过程"></a>RTSP推流过程</h2><p>options -&gt; announce(发送一些媒体对象描述信息sdp格式) -&gt; setup（定义实时流的传输模式） -&gt; record(初始化媒体数据记录范围，主要包括开始和结束时间)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/View的工作原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/11/View的工作原理/" itemprop="url">View的工作原理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T00:34:14+08:00">
+                2018-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>View的绘制流程从ViewRoot（对应与ViewRootImpl类）的performTraversals方法开始，经过measure、layout、draw三个过程才能最终将一个View绘制出来。</p>
+<h2 id="调用链"><a href="#调用链" class="headerlink" title="调用链"></a>调用链</h2><p>performMeasure -&gt; measure -&gt; onMeasure -&gt; <strong>measure(View) -&gt; …</strong></p>
+<p>performLayout -&gt; layout -&gt; onLayout -&gt; <strong>layout(View) -&gt; …</strong></p>
+<p>performDraw -&gt; draw -&gt; onDraw -&gt; <strong>draw(View) -&gt; …</strong></p>
+<p>唯一的<strong>小区别</strong>是draw过程中onDraw()方法只是绘制当前View，绘制子View的传递是在draw方法中通过dispatchDraw实现的。</p>
+<h2 id="支持wrap-content"><a href="#支持wrap-content" class="headerlink" title="支持wrap_content"></a>支持wrap_content</h2><p>需要在onMeasure方法中设置specMode == AT_Most时的setMeasuredDimesion()</p>
+<h2 id="处理padding"><a href="#处理padding" class="headerlink" title="处理padding"></a>处理padding</h2><p>在onDraw方法中通过getPadding()方法得到设置的padding值，进而针对性绘制</p>
+<h2 id="自定义View的分类（4种）"><a href="#自定义View的分类（4种）" class="headerlink" title="自定义View的分类（4种）"></a>自定义View的分类（4种）</h2><h3 id="继承View重写onDraw方法"><a href="#继承View重写onDraw方法" class="headerlink" title="继承View重写onDraw方法"></a>继承View重写onDraw方法</h3><p>主要用于实现一些不规则的效果。</p>
+<p><strong>需要自己支持wrap_content以及处理padding</strong></p>
+<h3 id="继承ViewGroup实现新的Layout布局"><a href="#继承ViewGroup实现新的Layout布局" class="headerlink" title="继承ViewGroup实现新的Layout布局"></a>继承ViewGroup实现新的Layout布局</h3><p>比较复杂，<strong>需要处理ViewGroup的测量和布局两个过程，并且同时处理子元素的测量和布局过程。</strong></p>
+<h3 id="继承特定的View（比如TextView）"><a href="#继承特定的View（比如TextView）" class="headerlink" title="继承特定的View（比如TextView）"></a>继承特定的View（比如TextView）</h3><p>主要用于扩展某种已有的View功能</p>
+<p><strong>不需要自己支持wrap_content和padding</strong></p>
+<h3 id="继承特定的ViewGroup（比如LinearLayout）"><a href="#继承特定的ViewGroup（比如LinearLayout）" class="headerlink" title="继承特定的ViewGroup（比如LinearLayout）"></a>继承特定的ViewGroup（比如LinearLayout）</h3><p>一般用于某种效果可以用几种View组合起来实现时</p>
+<p><strong>不需要自己处理ViewGroup的测量和布局过程</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/valleypioneer" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13261702056@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
