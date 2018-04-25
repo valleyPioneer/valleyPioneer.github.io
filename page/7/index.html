@@ -249,6 +249,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/20/Git Merge和Git Rebase详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/20/Git Merge和Git Rebase详解/" itemprop="url">Git Merge和Git Rebase详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-20T00:34:14+08:00">
+                2017-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="git-merge参数简介"><a href="#git-merge参数简介" class="headerlink" title="git merge参数简介"></a>git merge参数简介</h2><ol>
+<li><p>–ff快速合并，git merge默认参数<br> 如果合并过程出现冲突，git会显示出冲突并等待手动解决（<strong>解决完之后，需要add修改，然后再次提交，此时会有merge conflict的提交信息</strong>）</p>
+</li>
+<li><p>–ff-only只有能快速合并的情况才合并<br> 如果合并过程出现冲突，git会自动abort此次merge</p>
+</li>
+<li><p>–no-ff不使用快速合并<br> 会生成一个新的提交记录，这个记录只是标识在这里进行了一次merge操作</p>
+</li>
+<li><p>–squash压缩合并<br> 将待合并的分支内容压缩成一个新的提交合并进来</p>
+</li>
+</ol>
+<p><strong>快速合并</strong>指的是master分支切出dev分支后没有新的提交，也就是说只有dev分支有更新，此时才可以快速合并</p>
+<p>git merge会自动识别出最佳的同源合并点，然后进行共同祖先节点+分支1最新提交点+分支2最新提交点的<strong>三方合并</strong>，生成新的提交点</p>
+<h2 id="git-merge图解"><a href="#git-merge图解" class="headerlink" title="git merge图解"></a>git merge图解</h2><p><img src="http://upload-images.jianshu.io/upload_images/697285-b52fdd23cfc86d35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<h2 id="git-rebase图解"><a href="#git-rebase图解" class="headerlink" title="git rebase图解"></a>git rebase图解</h2><p><img src="http://upload-images.jianshu.io/upload_images/697285-d12ab4a3d26ebcfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>这些命令会把你的”mywork”分支里的每个提交(commit)取消掉，并且把它们临时保存为补丁(patch)(这些补丁放到”.git/rebase”目录中),然后把”mywork”分支更新 为最新的”origin”分支，最后把保存的这些补丁应用到”mywork”分支上。</p>
+<p>当’mywork’分支更新之后，它会指向这些新创建的提交(commit),而那些老的提交会被丢弃。 如果运行垃圾收集命令(pruning garbage collection), 这些被丢弃的提交就会删除. （请查看 git gc)</p>
+<h2 id="git-rebase解决冲突的方法"><a href="#git-rebase解决冲突的方法" class="headerlink" title="git rebase解决冲突的方法"></a>git rebase解决冲突的方法</h2><ul>
+<li><p>rebase出现冲突时，git会停止rebase并让用户手动解决冲突。<strong>当解决完成之后，用git add命令添加修改，然后无需执行git commit，只需要执行git rebase –continue</strong>，这样git会继续应用（apply）余下的补丁</p>
+</li>
+<li><p>可以在任何时候执行 git rebase –abort来终止rebase的行动，并且正在rebase的分支会回到rebase之前的状态</p>
+</li>
+</ul>
+<h2 id="git-rebase和git-merge的区别"><a href="#git-rebase和git-merge的区别" class="headerlink" title="git rebase和git merge的区别"></a>git rebase和git merge的区别</h2><p><img src="http://upload-images.jianshu.io/upload_images/697285-9ae8ecdf2a9f7b5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>假设C3提交于9:00AM,C5提交于10:00AM,C4提交于11:00AM，C6提交于12:00AM,</p>
+<p>对于使用git merge来合并所看到的commit的顺序（从新到旧）是：C7 ,C6,C4,C5,C3,C2,C1</p>
+<p>对于使用git rebase来合并所看到的commit的顺序（从新到旧）是：C7 ,C6‘,C5’,C4,C3,C2,C1</p>
+<p>因为C6’提交只是C6提交的克隆，C5’提交只是C5提交的克隆，从用户的角度看使用git rebase来合并后所看到的commit的顺序（从新到旧）是：C7 ,C6,C5,C4,C3,C2,C1</p>
+<h2 id="rebase黄金法则"><a href="#rebase黄金法则" class="headerlink" title="rebase黄金法则"></a>rebase黄金法则</h2><p>绝对不要在公共的分支上使用rebase</p>
+<p>含义：</p>
+<ol>
+<li><strong>不要==出现rebase ==本地公共分支== onto ==本地其他分支的情况</strong></li>
+<li><strong>允许==rebase ==本地公共分支== onto ==远端公共分支</strong>，这样历史树会比较清晰，而且有一种“新增改动commit”的感觉，大多数情况下，更加符合直接</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/18/Java内存模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -936,7 +1110,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/C++和C中const的区别/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/03/Android强引用、弱引用、软引用、虚引用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -955,7 +1129,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/02/C++和C中const的区别/" itemprop="url">C++和C中const的区别</a></h1>
+                <a class="post-title-link" href="/2017/11/03/Android强引用、弱引用、软引用、虚引用/" itemprop="url">Android强引用、弱引用、软引用、虚引用</a></h1>
         
 
         <div class="post-meta">
@@ -967,173 +1141,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">
-                2017-11-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><ul>
-<li>C++中可以使用const完全取代#define</li>
-<li><strong>const属于常量</strong></li>
-</ul>
-<h2 id="C-1"><a href="#C-1" class="headerlink" title="C"></a>C</h2><ul>
-<li>C中const作用不大，多用#define</li>
-<li><strong>const属于不能改变的普通变量</strong></li>
-</ul>
-<h2 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h2><ol>
-<li><p>c中是变量，总是占用内存，而且属于全局变量，而c++中是常量</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> size = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">char</span> strs[size]; <span class="comment">// c中报错，c++中可以，主要是c编译器在编译期无法知道该值</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>c中默认const是外部连接，c++默认是内部连接</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> size;<span class="comment">//c中可以，c++中报错</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> size;<span class="comment">//c++写法</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="内部连接和外部连接"><a href="#内部连接和外部连接" class="headerlink" title="内部连接和外部连接"></a>内部连接和外部连接</h2><ul>
-<li><p>内部连接</p>
-<p>  假如一个名称对于他的编译单元来说是局部的，并且在连接时不会和其他编译单元中的同样的名称相冲突，那么这个名称有内部连接。</p>
-</li>
-<li><p>外部连接</p>
-<p>  在一个多文件程序中,如果一个名称在连接时可以和其他编译单元交互,那么这个名称就具有外部连接。具有外部连接对应的名称在程序中必须是唯一的。</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/Android View的层级架构/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/02/Android View的层级架构/" itemprop="url">Android View的层级架构</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">
-                2017-11-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T00:34:14+08:00">
+                2017-11-03
               </time>
             
 
@@ -1194,12 +1203,43 @@
       
         
           
-            <h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><p><img src="http://img.blog.csdn.net/20170108144228706?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlueGlubGl1MQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ol>
-<li>DectorView为window中最顶级的View</li>
-<li>DectorView继承自Framelayout，其中包含标题栏和内容栏</li>
-<li>内容栏mContentParent为id为 content的FrameLayout内容布局</li>
-</ol>
+            <h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>回收机制</th>
+<th>生命周期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StrongReference(强引用)</td>
+<td>StrongReference(强引用)</td>
+<td>进程终止</td>
+</tr>
+<tr>
+<td>SoftReference(软引用)</td>
+<td>当内存不足时才回收</td>
+<td>内存不足，进程GC的时候</td>
+</tr>
+<tr>
+<td>WeakReference(弱引用)</td>
+<td>GC的时候回收</td>
+<td>GC后终止</td>
+</tr>
+<tr>
+<td>PhantomReference(虚引用)</td>
+<td>和没有引用一样</td>
+<td>任何时候都可能被回收</td>
+</tr>
+</tbody>
+</table>
+<h2 id="引用队列"><a href="#引用队列" class="headerlink" title="引用队列"></a>引用队列</h2><p>一旦弱引用对象开始返回null，该弱引用指向的对象就被标记成了垃圾。而这个弱引用对象（非其指向的对象）就没有什么用了。通常这时候需要进行一些清理工作。比如WeakHashMap会在这时候移除没用的条目来避免保存无限制增长的没有意义的弱引用。</p>
+<p>引用队列可以很容易地实现跟踪不需要的引用。当你在构造WeakReference时传入一个ReferenceQueue对象，当该引用指向的对象被标记为垃圾的时候，这个引用对象会自动地加入到引用队列里面。接下来，你就可以在固定的周期，处理传入的引用队列，比如做一些清理工作来处理这些没有用的引用对象。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><p>以前我们使用的大部分引用实际上都是强引用，这是使用最普遍的引用。如果一个对象具有强引用，那就类似于必不可少的生活用品，垃圾回收器绝不会回收它。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题。</p>
+<h3 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h3><p>如果一个对象只具有软引用，那就类似于可有可物的生活用品。如果内存空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存。</p>
+<h3 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h3><p>如果一个对象只具有弱引用，那就类似于可有可物的生活用品。弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它 所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程， 因此不一定会很快发现那些只具有弱引用的对象。</p>
+<h3 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h3><p>与软引用，弱引用不同，虚引用指向的对象十分脆弱，<strong>我们不可以通过get方法来得到其指向的对象</strong>。它的唯一作用就是当其指向的对象被回收之后，自己被加入到引用队列，用作记录该引用指向的对象已被销毁。</p>
 
           
         
@@ -1421,6 +1461,318 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/Android View的层级架构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/02/Android View的层级架构/" itemprop="url">Android View的层级架构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">
+                2017-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><p><img src="http://img.blog.csdn.net/20170108144228706?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlueGlubGl1MQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ol>
+<li>DectorView为window中最顶级的View</li>
+<li>DectorView继承自Framelayout，其中包含标题栏和内容栏</li>
+<li>内容栏mContentParent为id为 content的FrameLayout内容布局</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/C++和C中const的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/02/C++和C中const的区别/" itemprop="url">C++和C中const的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">
+                2017-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-C/" itemprop="url" rel="index">
+                    <span itemprop="name">C/C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><ul>
+<li>C++中可以使用const完全取代#define</li>
+<li><strong>const属于常量</strong></li>
+</ul>
+<h2 id="C-1"><a href="#C-1" class="headerlink" title="C"></a>C</h2><ul>
+<li>C中const作用不大，多用#define</li>
+<li><strong>const属于不能改变的普通变量</strong></li>
+</ul>
+<h2 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h2><ol>
+<li><p>c中是变量，总是占用内存，而且属于全局变量，而c++中是常量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> size = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">char</span> strs[size]; <span class="comment">// c中报错，c++中可以，主要是c编译器在编译期无法知道该值</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>c中默认const是外部连接，c++默认是内部连接</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> size;<span class="comment">//c中可以，c++中报错</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> size;<span class="comment">//c++写法</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="内部连接和外部连接"><a href="#内部连接和外部连接" class="headerlink" title="内部连接和外部连接"></a>内部连接和外部连接</h2><ul>
+<li><p>内部连接</p>
+<p>  假如一个名称对于他的编译单元来说是局部的，并且在连接时不会和其他编译单元中的同样的名称相冲突，那么这个名称有内部连接。</p>
+</li>
+<li><p>外部连接</p>
+<p>  在一个多文件程序中,如果一个名称在连接时可以和其他编译单元交互,那么这个名称就具有外部连接。具有外部连接对应的名称在程序中必须是唯一的。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/30/Android finish方法与异常生命周期/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1561,299 +1913,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android Crash如何捕捉/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/25/Android Crash如何捕捉/" itemprop="url">Android Crash如何捕捉</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T00:34:14+08:00">
-                2017-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="重写UncaughtExceptionhandler接口"><a href="#重写UncaughtExceptionhandler接口" class="headerlink" title="重写UncaughtExceptionhandler接口"></a>重写UncaughtExceptionhandler接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WholeCrashHandler</span> <span class="keyword">implements</span> <span class="title">UncaughtExceptionHandler</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"TAG"</span>;  </span><br><span class="line">    <span class="comment">/***************************** 单例模式 ***************************************/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> WholeCrashHandler crashHandler = <span class="keyword">new</span> WholeCrashHandler();  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">WholeCrashHandler</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> WholeCrashHandler <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> crashHandler;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/***************************************************************************/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> ISOPEN = <span class="keyword">true</span>; <span class="comment">// 是否打开日志写入和发送  </span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> Thread.UncaughtExceptionHandler mDefaultHandler;  </span><br><span class="line">    <span class="keyword">private</span> Context context;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;  </span><br><span class="line">        LogUtils.i(TAG, <span class="string">"zhuce**=**"</span>);  </span><br><span class="line">        <span class="keyword">this</span>.context = context;  </span><br><span class="line">        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();  </span><br><span class="line">        Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">this</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uncaughtException</span><span class="params">(Thread thread, Throwable ex)</span> </span>&#123;  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">if</span> (!handleException(ex) &amp;&amp; mDefaultHandler != <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="comment">// 如果用户没有处理则让系统默认的异常处理器来处理  </span></span><br><span class="line">            mDefaultHandler.uncaughtException(thread, ex);  </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            Activity currentActivity = ActivityUtils.Instance().getCurrentActivity();  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"current===&gt;&gt;&gt;&gt;."</span>+currentActivity);  </span><br><span class="line">            ActivityUtils.Instance().finishAll();  </span><br><span class="line">            Intent intent = <span class="keyword">new</span> Intent();  </span><br><span class="line">            intent.setClass(context, CrashHintActivity1.class);  </span><br><span class="line">            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"zhuce**111=**"</span>);  </span><br><span class="line">            context.startActivity(intent);  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"zhuce**2222=**"</span>);  </span><br><span class="line">            android.os.Process.killProcess(android.os.Process.myPid());  </span><br><span class="line">  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 异常处理 </span></span><br><span class="line"><span class="comment">     *  </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ex </span></span><br><span class="line"><span class="comment">     *            异常信息 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean true 已处理，false 未处理 </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">handleException</span><span class="params">(Throwable ex)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span> (ex == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (!ISOPEN) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//收集设备信息  </span></span><br><span class="line">          </span><br><span class="line">        <span class="comment">// 写入本地文件  </span></span><br><span class="line">        LogUtils.write(ex);  </span><br><span class="line">          </span><br><span class="line">        <span class="comment">//可以在这直接操作发送log日志  </span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/" itemprop="url">onSaveInstanceState调用时机</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T00:34:14+08:00">
-                2017-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>当某个activity容易被系统销毁时（具有可能性，但是还没有被销毁）。</p>
-<ol>
-<li>按下home键</li>
-<li>长按home键，选择运行其他程序</li>
-<li>按下电源键（关闭屏幕显示）</li>
-<li>从当前活动启动一个新的活动</li>
-<li>屏幕方向切换时，从竖屏切换至横屏</li>
-<li>电话打入等情况</li>
-</ol>
-<h2 id="onRestoreInstanceState调用时机"><a href="#onRestoreInstanceState调用时机" class="headerlink" title="onRestoreInstanceState调用时机"></a>onRestoreInstanceState调用时机</h2><p>onSaveInstanceState方法和onRestoreInstanceState方法“不一定”是成对的被调用的，onRestoreInstanceState被调用的前提是，activity A“确实”被系统销毁了，而如果仅仅是停留在有这种可能性的情况下，则该方法不会被调用，例如，当正在显示activity A的时候，用户按下HOME键回到主界面，然后用户紧接着又返回到activity A，这种情况下activity A一般不会因为内存的原因被系统销毁，故activity A的onRestoreInstanceState方法不会被执行。</p>
-<p>onRestoreInstanceState方法中bundle参数和onCreate方法中bundle参数相同，都是onSaveInstanceState方法中返回的，<strong>因此也可以选择在onCreate中做数据还原。</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1904,7 +1963,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1926,7 +1985,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

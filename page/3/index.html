@@ -249,6 +249,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/22/Volley解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/22/Volley解析/" itemprop="url">Volley解析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T00:34:14+08:00">
+                2018-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>Volley中自带三种Request抽象类的具体实现类，分别是StringRequest、JsonObjectRequest、JsonArrayRequest三个具体请求类</li>
+<li><p>一般需要通过自定义GsonRequest来实现Gson解析json字符串的功能，具体做法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line">gson.fromJson(json字符串，mclass（泛型类）);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一般来说重写两个方法即可，parseNetworkResponse()和deliverResponse()方法<br>*如果需要通过post或者put请求使用json方式来传递数据，getBodyContentType()方法也是需要重写的。</p>
+<pre><code>return &quot;application/json; charset=utf-8&quot; 
+</code></pre></li>
+<li><p>一般来说：<br>==如果使用的是键值对（String类型的数据）的方式可以通过getParams()方法直接设置；<br>如果是通过json的形式需要通过getBody()方式进行设置==。<br>其实getbody函数中就调用了getParams方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">byte</span>[] getBody() <span class="keyword">throws</span> AuthFailureError &#123;</span><br><span class="line">        Map&lt;String, String&gt; params = getParams();</span><br><span class="line">        <span class="keyword">if</span> (params != <span class="keyword">null</span> &amp;&amp; params.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> encodeParameters(params, getParamsEncoding());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在重写了getbody之后一般需要考虑重写getBodyContentType()方法</p>
+</li>
+<li>get请求携带的参数放在url中，而post请求的参数放在body里面</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/21/java序列化和RPC详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1419,149 +1575,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/06/Java动态代理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/06/Java动态代理/" itemprop="url">Java动态代理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-06T00:34:14+08:00">
-                2018-02-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>java动态代理可以动态地创建代理并且动态地处理对所代理方法的调用。</p>
-<p>在动态代理上做的所有调用都会被重定向到单一的调用处理器（InvocationHandler）上</p>
-<h2 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object proxied;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyHandler</span><span class="params">(Object proxied)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.proxied = proxied;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy,Method method,Object[] args)</span> <span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">        <span class="comment">//对传入的参数做一些逻辑处理</span></span><br><span class="line">        <span class="keyword">return</span> method.invoke(proxied,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">RealObject realObject = <span class="keyword">new</span> RealObject();</span><br><span class="line"></span><br><span class="line">Interface proxy = (Interface)Proxy.newProxyInstance(Interface.class.getClassLoader(),<span class="keyword">new</span> Class[]&#123;Interface.class&#125;,<span class="keyword">new</span> ProxyHandler(realObject));</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/06/java自身实现观察者模式的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1704,7 +1717,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/OKHTTP缓存机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/06/Java动态代理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -1723,7 +1736,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/05/OKHTTP缓存机制/" itemprop="url">OKHTTP缓存机制</a></h1>
+                <a class="post-title-link" href="/2018/02/06/Java动态代理/" itemprop="url">Java动态代理</a></h1>
         
 
         <div class="post-meta">
@@ -1735,8 +1748,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-05T00:34:14+08:00">
-                2018-02-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-06T00:34:14+08:00">
+                2018-02-06
               </time>
             
 
@@ -1758,8 +1771,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1797,33 +1810,9 @@
       
         
           
-            <h2 id="HTTP-Response中Cache-Control字段的含义"><a href="#HTTP-Response中Cache-Control字段的含义" class="headerlink" title="HTTP Response中Cache-Control字段的含义"></a>HTTP Response中Cache-Control字段的含义</h2><ul>
-<li><strong>max-age</strong>：这个参数告诉浏览器将页面缓存多长时间，超过这个时间后才再次向服务器发起请求检查页面是否有更新。对于静态的页面，比如图片、CSS、Javascript，一般都不大变更，因此通常我们将存储这些内容的时间设置为较长的时间，这样浏览器会不会向浏览器反复发起请求，也不会去检查是否更新了。</li>
-<li>s-maxage：这个参数告诉缓存服务器(proxy，如Squid)的缓存页面的时间。如果不单独指定，缓存服务器将使用max-age。对于动态内容(比如文档的查看页面)，我们可告诉浏览器很快就过时了(max-age=0)，并告诉缓存服务器(Squid)保留内容一段时间(比如，s-maxage=7200)。一旦我们更新文档，我们将告诉Squid清除老的缓存版本。</li>
-<li>must-revalidate：这告诉浏览器，一旦缓存的内容过期，一定要向服务器询问是否有新版本。</li>
-<li>proxy-revalidate：proxy上的缓存一旦过期，一定要向服务器询问是否有新版本。</li>
-<li><strong>no-cache</strong>：不做缓存。</li>
-<li><strong>no-store</strong>：数据不在硬盘中临时保存，这对需要保密的内容比较重要。</li>
-<li>public：告诉缓存服务器, 即便是对于不该缓存的内容也缓存起来，比如当用户已经认证的时候。所有的静态内容(图片、Javascript、CSS等)应该是public的。</li>
-<li>private：告诉proxy不要缓存，但是浏览器可使用private cache进行缓存。一般登录后的个性化页面是private的。</li>
-<li>no-transform: 告诉proxy不进行转换，比如告诉手机浏览器不要下载某些图片。</li>
-<li><strong>max-stale</strong>指示客户机可以接收超出超时期间的响应消息。如果指定max-stale消息的值，那么客户机可以接收超出超时期指定值之内的响应消息。</li>
-</ul>
-<h2 id="OKHTTP缓存设置"><a href="#OKHTTP缓存设置" class="headerlink" title="OKHTTP缓存设置"></a>OKHTTP缓存设置</h2><ol>
-<li><strong>服务器支持缓存</strong></li>
-</ol>
-<p>cache-control字段返回max-age,只需要手动给okhttp设置缓存就可以让okhttp自动帮你缓存,这个缓存时间也可以自定义修改。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">httpClientBuilder</span><br><span class="line">    .cache(cache)</span><br><span class="line">    .connectTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br><span class="line">    .readTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>连接时间：发送请求开始到与目标主机建立连接所需的时间。</p>
-</blockquote>
-<blockquote>
-<p>读取时间：已经连接到了目标服务器后，将数据完全读取所需的时间。</p>
-</blockquote>
-<ol start="2">
-<li><strong>服务器不支持缓存</strong></li>
-</ol>
-<p>cache-control字段未指定或者指定为no-store等等，此时可以用interceptor拦截response并手动添加header</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheInterceptor</span> <span class="keyword">implements</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Request request = chain.request();</span><br><span class="line">        Response response = chain.proceed(request);</span><br><span class="line">        Response response1 = response.newBuilder()</span><br><span class="line">            .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">            .removeHeader(<span class="string">"Cache-Control"</span>)</span><br><span class="line">            <span class="comment">//cache for 30 days</span></span><br><span class="line">            .header(<span class="string">"Cache-Control"</span>, <span class="string">"max-age="</span> + <span class="number">3600</span> * <span class="number">24</span> * <span class="number">30</span>)</span><br><span class="line">            .build();</span><br><span class="line">        <span class="keyword">return</span> response1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">httpClientBuilder</span><br><span class="line">    .addNetworkInterceptor(<span class="keyword">new</span> CacheInterceptor())</span><br><span class="line">    .cache(cache)</span><br><span class="line">    .connectTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br><span class="line">    .readTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br></pre></td></tr></table></figure>
+            <p>java动态代理可以动态地创建代理并且动态地处理对所代理方法的调用。</p>
+<p>在动态代理上做的所有调用都会被重定向到单一的调用处理器（InvocationHandler）上</p>
+<h2 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object proxied;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyHandler</span><span class="params">(Object proxied)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.proxied = proxied;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy,Method method,Object[] args)</span> <span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">        <span class="comment">//对传入的参数做一些逻辑处理</span></span><br><span class="line">        <span class="keyword">return</span> method.invoke(proxied,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">RealObject realObject = <span class="keyword">new</span> RealObject();</span><br><span class="line"></span><br><span class="line">Interface proxy = (Interface)Proxy.newProxyInstance(Interface.class.getClassLoader(),<span class="keyword">new</span> Class[]&#123;Interface.class&#125;,<span class="keyword">new</span> ProxyHandler(realObject));</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1908,7 +1897,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1930,7 +1919,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
