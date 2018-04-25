@@ -249,156 +249,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/Java Synchronized关键字总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/28/Java Synchronized关键字总结/" itemprop="url">Java Synchronized关键字总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T00:34:14+08:00">
-                2017-12-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="对象锁"><a href="#对象锁" class="headerlink" title="对象锁"></a>对象锁</h2><ol>
-<li>synchronized修饰非静态方法</li>
-<li>synchronized(this)</li>
-<li>synchronized(非this对象)</li>
-</ol>
-<h2 id="类锁"><a href="#类锁" class="headerlink" title="类锁"></a>类锁</h2><ol>
-<li>synchronized修饰静态方法</li>
-<li>synchronized (类.class)</li>
-</ol>
-<h2 id="类锁和对象锁互不干预"><a href="#类锁和对象锁互不干预" class="headerlink" title="类锁和对象锁互不干预"></a>类锁和对象锁互不干预</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/LRU和LFU的Java实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -572,7 +422,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/27/Socket编程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/Java Synchronized关键字总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -591,7 +441,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/27/Socket编程/" itemprop="url">Socket编程</a></h1>
+                <a class="post-title-link" href="/2017/12/28/Java Synchronized关键字总结/" itemprop="url">Java Synchronized关键字总结</a></h1>
         
 
         <div class="post-meta">
@@ -603,8 +453,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-27T00:34:14+08:00">
-                2017-12-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T00:34:14+08:00">
+                2017-12-28
               </time>
             
 
@@ -626,8 +476,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -665,29 +515,16 @@
       
         
           
-            <h2 id="Socket通信模型"><a href="#Socket通信模型" class="headerlink" title="Socket通信模型"></a>Socket通信模型</h2><p><img src="http://img.blog.csdn.net/20150206102959685" alt="img"></p>
-<h2 id="基于TCP"><a href="#基于TCP" class="headerlink" title="基于TCP"></a>基于TCP</h2><ol>
-<li><strong>服务器端监听阻塞，accept一直阻塞到建立连接成功</strong></li>
-<li><strong>客服端创建Socket对象阻塞，一直阻塞到建立连接成功</strong></li>
-<li>客服端与服务器端通过Socket的输入流进行接收数据，输出流进行发送数据。</li>
+            <h2 id="对象锁"><a href="#对象锁" class="headerlink" title="对象锁"></a>对象锁</h2><ol>
+<li>synchronized修饰非静态方法</li>
+<li>synchronized(this)</li>
+<li>synchronized(非this对象)</li>
 </ol>
-<p><img src="http://img.blog.csdn.net/20150206151354460" alt="img"></p>
-<h2 id="基于UDP"><a href="#基于UDP" class="headerlink" title="基于UDP"></a>基于UDP</h2><p>注意要点：<strong>UDP程序在receive()方法处阻塞，直到收到一个数据报文或等待超时</strong>。由于UDP协议是不可靠协议，如果数据报在传输过程中发生丢失，那么程序将会一直阻塞在receive()方法处，这样客户端将永远都接收不到服务器端发送回来的数据，但是又没有任何提示。为了避免这个问题，我们在客户端使用DatagramSocket类的setSoTimeout()方法来制定receive()方法的最长阻塞时间，并指定重发数据报的次数，如果每次阻塞都超时，并且重发次数达到了设置的上限，则关闭客户端。</p>
-<h3 id="客户端流程"><a href="#客户端流程" class="headerlink" title="客户端流程"></a>客户端流程</h3><ol>
-<li>创建一个DatagramSocket实例，可以有选择地对本地地址和端口号进行设置，如果设置了端口号，则客户端会在该端口号上监听从服务器端发送来的数据；</li>
-<li>使用DatagramSocket实例的send（）和receive（）方法来发送和接收DatagramPacket实例，进行通信；</li>
-<li>通信完成后，调用DatagramSocket实例的close（）方法来关闭该套接字。</li>
+<h2 id="类锁"><a href="#类锁" class="headerlink" title="类锁"></a>类锁</h2><ol>
+<li>synchronized修饰静态方法</li>
+<li>synchronized (类.class)</li>
 </ol>
-<h3 id="服务器流程"><a href="#服务器流程" class="headerlink" title="服务器流程"></a>服务器流程</h3><ol>
-<li>创建一个DatagramSocket实例，指定本地端口号，并可以有选择地指定本地地址，此时，服务器已经准备好从任何客户端接收数据报文；</li>
-<li>使用DatagramSocket实例的receive（）方法接收一个DatagramPacket实例，当receive（）方法返回时，数据报文就包含了客户端的地址，这样就知道了回复信息应该发送到什么地方；</li>
-<li>使用DatagramSocket实例的send（）方法向客户端返回DatagramPacket实例。</li>
-</ol>
-<h2 id="TCP-UDP的区别"><a href="#TCP-UDP的区别" class="headerlink" title="TCP UDP的区别"></a>TCP UDP的区别</h2><ol>
-<li>由于UDP是无连接的，因此<strong>UDP服务端不需要等待客户端的请求以建立连接</strong>。</li>
-<li><strong>UDP服务器为所有通信使用同一套接字</strong>，这点与TCP服务器不同，TCP服务器则为每个成功返回的accept()方法创建一个新的套接字。</li>
-</ol>
-
+<h2 id="类锁和对象锁互不干预"><a href="#类锁和对象锁互不干预" class="headerlink" title="类锁和对象锁互不干预"></a>类锁和对象锁互不干预</h2>
           
         
       
@@ -948,6 +785,169 @@
 <p>缺点：</p>
 <ol>
 <li>访问效率下降，取数据需要访问内存3次</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/27/Socket编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/27/Socket编程/" itemprop="url">Socket编程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-27T00:34:14+08:00">
+                2017-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Socket通信模型"><a href="#Socket通信模型" class="headerlink" title="Socket通信模型"></a>Socket通信模型</h2><p><img src="http://img.blog.csdn.net/20150206102959685" alt="img"></p>
+<h2 id="基于TCP"><a href="#基于TCP" class="headerlink" title="基于TCP"></a>基于TCP</h2><ol>
+<li><strong>服务器端监听阻塞，accept一直阻塞到建立连接成功</strong></li>
+<li><strong>客服端创建Socket对象阻塞，一直阻塞到建立连接成功</strong></li>
+<li>客服端与服务器端通过Socket的输入流进行接收数据，输出流进行发送数据。</li>
+</ol>
+<p><img src="http://img.blog.csdn.net/20150206151354460" alt="img"></p>
+<h2 id="基于UDP"><a href="#基于UDP" class="headerlink" title="基于UDP"></a>基于UDP</h2><p>注意要点：<strong>UDP程序在receive()方法处阻塞，直到收到一个数据报文或等待超时</strong>。由于UDP协议是不可靠协议，如果数据报在传输过程中发生丢失，那么程序将会一直阻塞在receive()方法处，这样客户端将永远都接收不到服务器端发送回来的数据，但是又没有任何提示。为了避免这个问题，我们在客户端使用DatagramSocket类的setSoTimeout()方法来制定receive()方法的最长阻塞时间，并指定重发数据报的次数，如果每次阻塞都超时，并且重发次数达到了设置的上限，则关闭客户端。</p>
+<h3 id="客户端流程"><a href="#客户端流程" class="headerlink" title="客户端流程"></a>客户端流程</h3><ol>
+<li>创建一个DatagramSocket实例，可以有选择地对本地地址和端口号进行设置，如果设置了端口号，则客户端会在该端口号上监听从服务器端发送来的数据；</li>
+<li>使用DatagramSocket实例的send（）和receive（）方法来发送和接收DatagramPacket实例，进行通信；</li>
+<li>通信完成后，调用DatagramSocket实例的close（）方法来关闭该套接字。</li>
+</ol>
+<h3 id="服务器流程"><a href="#服务器流程" class="headerlink" title="服务器流程"></a>服务器流程</h3><ol>
+<li>创建一个DatagramSocket实例，指定本地端口号，并可以有选择地指定本地地址，此时，服务器已经准备好从任何客户端接收数据报文；</li>
+<li>使用DatagramSocket实例的receive（）方法接收一个DatagramPacket实例，当receive（）方法返回时，数据报文就包含了客户端的地址，这样就知道了回复信息应该发送到什么地方；</li>
+<li>使用DatagramSocket实例的send（）方法向客户端返回DatagramPacket实例。</li>
+</ol>
+<h2 id="TCP-UDP的区别"><a href="#TCP-UDP的区别" class="headerlink" title="TCP UDP的区别"></a>TCP UDP的区别</h2><ol>
+<li>由于UDP是无连接的，因此<strong>UDP服务端不需要等待客户端的请求以建立连接</strong>。</li>
+<li><strong>UDP服务器为所有通信使用同一套接字</strong>，这点与TCP服务器不同，TCP服务器则为每个成功返回的accept()方法创建一个新的套接字。</li>
 </ol>
 
           
@@ -1782,7 +1782,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/20/Http与Https的区别/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/20/Git Merge和Git Rebase详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -1801,7 +1801,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/20/Http与Https的区别/" itemprop="url">Http与Https的区别</a></h1>
+                <a class="post-title-link" href="/2017/11/20/Git Merge和Git Rebase详解/" itemprop="url">Git Merge和Git Rebase详解</a></h1>
         
 
         <div class="post-meta">
@@ -1836,8 +1836,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
                   </a>
                 </span>
 
@@ -1875,22 +1875,38 @@
       
         
           
-            <h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p><strong>安全套接字层</strong>超文本传输协议HTTPS，为了数据传输的安全，HTTPS在HTTP的基础上加入了SSL协议，SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。</p>
-<h2 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h2><ol>
-<li>https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。</li>
-<li>http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。</li>
-<li>http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</li>
-<li>http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</li>
+            <h2 id="git-merge参数简介"><a href="#git-merge参数简介" class="headerlink" title="git merge参数简介"></a>git merge参数简介</h2><ol>
+<li><p>–ff快速合并，git merge默认参数<br> 如果合并过程出现冲突，git会显示出冲突并等待手动解决（<strong>解决完之后，需要add修改，然后再次提交，此时会有merge conflict的提交信息</strong>）</p>
+</li>
+<li><p>–ff-only只有能快速合并的情况才合并<br> 如果合并过程出现冲突，git会自动abort此次merge</p>
+</li>
+<li><p>–no-ff不使用快速合并<br> 会生成一个新的提交记录，这个记录只是标识在这里进行了一次merge操作</p>
+</li>
+<li><p>–squash压缩合并<br> 将待合并的分支内容压缩成一个新的提交合并进来</p>
+</li>
 </ol>
-<h2 id="HTTPS的通信过程"><a href="#HTTPS的通信过程" class="headerlink" title="HTTPS的通信过程"></a>HTTPS的通信过程</h2><p><img src="http://www.mahaixiang.cn/uploads/allimg/1507/1-150H120343I41.jpg" alt="img"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2517129-53d3514677aeb681.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/648" alt="img"></p>
+<p><strong>快速合并</strong>指的是master分支切出dev分支后没有新的提交，也就是说只有dev分支有更新，此时才可以快速合并</p>
+<p>git merge会自动识别出最佳的同源合并点，然后进行共同祖先节点+分支1最新提交点+分支2最新提交点的<strong>三方合并</strong>，生成新的提交点</p>
+<h2 id="git-merge图解"><a href="#git-merge图解" class="headerlink" title="git merge图解"></a>git merge图解</h2><p><img src="http://upload-images.jianshu.io/upload_images/697285-b52fdd23cfc86d35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<h2 id="git-rebase图解"><a href="#git-rebase图解" class="headerlink" title="git rebase图解"></a>git rebase图解</h2><p><img src="http://upload-images.jianshu.io/upload_images/697285-d12ab4a3d26ebcfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>这些命令会把你的”mywork”分支里的每个提交(commit)取消掉，并且把它们临时保存为补丁(patch)(这些补丁放到”.git/rebase”目录中),然后把”mywork”分支更新 为最新的”origin”分支，最后把保存的这些补丁应用到”mywork”分支上。</p>
+<p>当’mywork’分支更新之后，它会指向这些新创建的提交(commit),而那些老的提交会被丢弃。 如果运行垃圾收集命令(pruning garbage collection), 这些被丢弃的提交就会删除. （请查看 git gc)</p>
+<h2 id="git-rebase解决冲突的方法"><a href="#git-rebase解决冲突的方法" class="headerlink" title="git rebase解决冲突的方法"></a>git rebase解决冲突的方法</h2><ul>
+<li><p>rebase出现冲突时，git会停止rebase并让用户手动解决冲突。<strong>当解决完成之后，用git add命令添加修改，然后无需执行git commit，只需要执行git rebase –continue</strong>，这样git会继续应用（apply）余下的补丁</p>
+</li>
+<li><p>可以在任何时候执行 git rebase –abort来终止rebase的行动，并且正在rebase的分支会回到rebase之前的状态</p>
+</li>
+</ul>
+<h2 id="git-rebase和git-merge的区别"><a href="#git-rebase和git-merge的区别" class="headerlink" title="git rebase和git merge的区别"></a>git rebase和git merge的区别</h2><p><img src="http://upload-images.jianshu.io/upload_images/697285-9ae8ecdf2a9f7b5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>假设C3提交于9:00AM,C5提交于10:00AM,C4提交于11:00AM，C6提交于12:00AM,</p>
+<p>对于使用git merge来合并所看到的commit的顺序（从新到旧）是：C7 ,C6,C4,C5,C3,C2,C1</p>
+<p>对于使用git rebase来合并所看到的commit的顺序（从新到旧）是：C7 ,C6‘,C5’,C4,C3,C2,C1</p>
+<p>因为C6’提交只是C6提交的克隆，C5’提交只是C5提交的克隆，从用户的角度看使用git rebase来合并后所看到的commit的顺序（从新到旧）是：C7 ,C6,C5,C4,C3,C2,C1</p>
+<h2 id="rebase黄金法则"><a href="#rebase黄金法则" class="headerlink" title="rebase黄金法则"></a>rebase黄金法则</h2><p>绝对不要在公共的分支上使用rebase</p>
+<p>含义：</p>
 <ol>
-<li>客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</li>
-<li>Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。</li>
-<li>客户端的浏览器与Web服务器开始协商SSL连接的安全等级，也就是信息加密的等级。</li>
-<li>客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</li>
-<li>Web服务器利用自己的私钥解密出会话密钥。</li>
-<li>Web服务器利用会话密钥加密与客户端之间的通信。</li>
+<li><strong>不要==出现rebase ==本地公共分支== onto ==本地其他分支的情况</strong></li>
+<li><strong>允许==rebase ==本地公共分支== onto ==远端公共分支</strong>，这样历史树会比较清晰，而且有一种“新增改动commit”的感觉，大多数情况下，更加符合直接</li>
 </ol>
 
           
