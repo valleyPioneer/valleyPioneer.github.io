@@ -249,6 +249,359 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTMP详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/13/RTMP详解/" itemprop="url">RTMP详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
+                2018-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="RTMP握手过程"><a href="#RTMP握手过程" class="headerlink" title="RTMP握手过程"></a>RTMP握手过程</h2><p>握手复杂规则：</p>
+<ul>
+<li>客户端要等收到S1之后才能发送C2</li>
+<li>客户端要等收到S2之后才能发送其他信息（控制信息和真实音视频等数据）</li>
+<li>服务端要等到收到C0之后发送S1</li>
+<li>服务端必须等到收到C1之后才能发送S2</li>
+<li>服务端必须等到收到C2之后才能发送其他信息（控制信息和真实音视频等数据）</li>
+</ul>
+<p><strong>实际上为了在保证握手的身份验证功能的基础上尽量减少通信的次数，一般的发送顺序是这样的：</strong><br><br><br>｜client｜Server ｜<br><br>｜－－－C0+C1—-&gt;| <br><br>｜&lt;－－S0+S1+S2– |<br><br>｜－－－C2-－－－&gt; ｜</p>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><ul>
+<li>Timestamp（时间戳）：消息的时间戳（但不一定是当前时间，后面会介绍），4个字节</li>
+<li>Length(长度)：是指Message Payload（消息负载）即音视频等信息的数据的长度，3个字节</li>
+<li>TypeId(类型Id)：消息的类型Id，1个字节</li>
+<li>Message Stream ID（消息的流ID）：每个消息的唯一标识，划分成Chunk和还原Chunk为Message的时候都是根据这个ID来辨识是否是同一个消息的Chunk的，4个字节，并且以小端格式存储</li>
+</ul>
+<h2 id="Chunk"><a href="#Chunk" class="headerlink" title="Chunk"></a>Chunk</h2><p><img src="http://7xpoty.com1.z0.glb.clouddn.com/QQ20160228-0@2x.png" alt="img"></p>
+<ol>
+<li><p>Basic Header</p>
+<p> 包含了chunk stream ID（流通道Id）和chunk type（chunk的类型），chunk stream id一般被简写为CSID，用来唯一标识一个特定的流通道，chunk type决定了后面Message Header的格式。</p>
+</li>
+<li><p>Message Header（消息的头信息）</p>
+<p> 包含了要发送的实际信息（可能是完整的，也可能是一部分）的描述信息。包含前面Message里面提到的4个字段。</p>
+</li>
+</ol>
+<p>chunk size默认为128字节，需要根据实际的带宽情况进行动态调整。</p>
+<h2 id="协议控制消息（Protocol-Control-Message）"><a href="#协议控制消息（Protocol-Control-Message）" class="headerlink" title="协议控制消息（Protocol Control Message）"></a>协议控制消息（Protocol Control Message）</h2><p>在RTMP的chunk流会用一些特殊的值来代表协议的控制消息，它们的Message Stream ID必须为0（代表控制流信息），CSID必须为2，Message Type ID可以为1，2，3，5，6。</p>
+<ul>
+<li>Set Chunk Size</li>
+<li>Abort Message</li>
+<li>Acknowledgement</li>
+<li>Window Acknowledgement Size</li>
+<li>Set Peer Bandwidth</li>
+</ul>
+<p>注意<strong>这是属于RTMPchunk流层的消息，和RTMP中的用户控制消息不同</strong>。</p>
+<h2 id="RTMP-七种Message"><a href="#RTMP-七种Message" class="headerlink" title="RTMP 七种Message"></a>RTMP 七种Message</h2><ol>
+<li>Command Message(命令消息，Message Type ID＝17或20)：表示在客户端盒服务器间传递的在对端执行某些操作的命令消息，如connect表示连接对端，对端如果同意连接的话会记录发送端信息并返回连接成功消息，publish表示开始向对方推流，接受端接到命令后准备好接受对端发送的流信息。</li>
+<li>Data Message（数据消息，Message Type ID＝15或18）：传递一些元数据（MetaData，比如视频名，分辨率等等）或者用户自定义的一些消息。</li>
+<li>Shared Object Message(共享消息，Message Type ID＝16或19)：表示一个Flash类型的对象，由键值对的集合组成，用于多客户端，多实例时使用。</li>
+<li>Audio Message（音频信息，Message Type ID＝8）：音频数据。</li>
+<li>Video Message（视频信息，Message Type ID＝9）：视频数据。</li>
+<li>Aggregate Message (聚集信息，Message Type ID＝22)：多个RTMP子消息的集合。</li>
+<li><strong>User Control Message Events</strong>(用户控制消息，Message Type ID=4):告知对方执行该信息中包含的用户控制事件，比如Stream Begin事件告知对方流信息开始传输。和前面提到的协议控制信息（Protocol Control Message）不同，这是在RTMP协议层的，而不是在RTMP chunk流协议层的，这个很容易弄混。该信息在chunk流中发送时，Message Stream ID=0,Chunk Stream Id=2,Message Type Id=4。</li>
+</ol>
+<h2 id="RTMP"><a href="#RTMP" class="headerlink" title="RTMP"></a>RTMP</h2><ul>
+<li>推流过程<br><img src="http://7xpoty.com1.z0.glb.clouddn.com/publish-flow.png" alt="img"></li>
+</ul>
+<p><strong>Window Acknowledge Size代表发送端在接收到接受端返回的两个ACK间最多可以发送的字节数。</strong></p>
+<ul>
+<li>拉流过程<br><img src="http://7xpoty.com1.z0.glb.clouddn.com/play-flow.png" alt="img"></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/Java的5种线程状态/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/13/Java的5种线程状态/" itemprop="url">Java的5种线程状态</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
+                2018-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>新建状态new</li>
+<li>就绪状态runnable</li>
+<li>运行状态running</li>
+<li>阻塞状态blocked</li>
+<li>终止状态dead</li>
+</ol>
+<h2 id="阻塞的三种情况"><a href="#阻塞的三种情况" class="headerlink" title="阻塞的三种情况"></a>阻塞的三种情况</h2><ul>
+<li><p>等待阻塞</p>
+<p>  运行的线程执行wait()方法，该线程会释放占用的所有资源，JVM会把该线程放入“等待池”中。进入这个状态后，是不能自动唤醒的，必须依靠其他线程调用notify()或notifyAll()方法才能被唤醒，</p>
+</li>
+<li><p>同步阻塞</p>
+<p>  运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入“锁池”中。</p>
+</li>
+<li><p>其他阻塞</p>
+<p>  运行的线程执行sleep()或join()方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</p>
+</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20140828202610671" alt="img"></p>
+<h2 id="java死锁的原因"><a href="#java死锁的原因" class="headerlink" title="java死锁的原因"></a>java死锁的原因</h2><p>suspend()挂起以及不指定超时期限的wait()方法的调用</p>
+<h2 id="wait和suspend、sleep区别"><a href="#wait和suspend、sleep区别" class="headerlink" title="wait和suspend、sleep区别"></a>wait和suspend、sleep区别</h2><p>wait会释放线程占用的锁、而suspend以及sleep不会</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/以太网帧详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -345,6 +698,161 @@
             <h2 id="以太网帧结构"><a href="#以太网帧结构" class="headerlink" title="以太网帧结构"></a>以太网帧结构</h2><p><img src="http://img.blog.csdn.net/20140329140332687" alt="img"></p>
 <p>以太网帧数据域长度为46-1500字节</p>
 <p>以太网帧头长度为18字节</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/View的工作原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/11/View的工作原理/" itemprop="url">View的工作原理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T00:34:14+08:00">
+                2018-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>View的绘制流程从ViewRoot（对应与ViewRootImpl类）的performTraversals方法开始，经过measure、layout、draw三个过程才能最终将一个View绘制出来。</p>
+<h2 id="调用链"><a href="#调用链" class="headerlink" title="调用链"></a>调用链</h2><p>performMeasure -&gt; measure -&gt; onMeasure -&gt; <strong>measure(View) -&gt; …</strong></p>
+<p>performLayout -&gt; layout -&gt; onLayout -&gt; <strong>layout(View) -&gt; …</strong></p>
+<p>performDraw -&gt; draw -&gt; onDraw -&gt; <strong>draw(View) -&gt; …</strong></p>
+<p>唯一的<strong>小区别</strong>是draw过程中onDraw()方法只是绘制当前View，绘制子View的传递是在draw方法中通过dispatchDraw实现的。</p>
+<h2 id="支持wrap-content"><a href="#支持wrap-content" class="headerlink" title="支持wrap_content"></a>支持wrap_content</h2><p>需要在onMeasure方法中设置specMode == AT_Most时的setMeasuredDimesion()</p>
+<h2 id="处理padding"><a href="#处理padding" class="headerlink" title="处理padding"></a>处理padding</h2><p>在onDraw方法中通过getPadding()方法得到设置的padding值，进而针对性绘制</p>
+<h2 id="自定义View的分类（4种）"><a href="#自定义View的分类（4种）" class="headerlink" title="自定义View的分类（4种）"></a>自定义View的分类（4种）</h2><h3 id="继承View重写onDraw方法"><a href="#继承View重写onDraw方法" class="headerlink" title="继承View重写onDraw方法"></a>继承View重写onDraw方法</h3><p>主要用于实现一些不规则的效果。</p>
+<p><strong>需要自己支持wrap_content以及处理padding</strong></p>
+<h3 id="继承ViewGroup实现新的Layout布局"><a href="#继承ViewGroup实现新的Layout布局" class="headerlink" title="继承ViewGroup实现新的Layout布局"></a>继承ViewGroup实现新的Layout布局</h3><p>比较复杂，<strong>需要处理ViewGroup的测量和布局两个过程，并且同时处理子元素的测量和布局过程。</strong></p>
+<h3 id="继承特定的View（比如TextView）"><a href="#继承特定的View（比如TextView）" class="headerlink" title="继承特定的View（比如TextView）"></a>继承特定的View（比如TextView）</h3><p>主要用于扩展某种已有的View功能</p>
+<p><strong>不需要自己支持wrap_content和padding</strong></p>
+<h3 id="继承特定的ViewGroup（比如LinearLayout）"><a href="#继承特定的ViewGroup（比如LinearLayout）" class="headerlink" title="继承特定的ViewGroup（比如LinearLayout）"></a>继承特定的ViewGroup（比如LinearLayout）</h3><p>一般用于某种效果可以用几种View组合起来实现时</p>
+<p><strong>不需要自己处理ViewGroup的测量和布局过程</strong></p>
 
           
         
@@ -1189,156 +1697,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/Java Synchronized关键字总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/28/Java Synchronized关键字总结/" itemprop="url">Java Synchronized关键字总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T00:34:14+08:00">
-                2017-12-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="对象锁"><a href="#对象锁" class="headerlink" title="对象锁"></a>对象锁</h2><ol>
-<li>synchronized修饰非静态方法</li>
-<li>synchronized(this)</li>
-<li>synchronized(非this对象)</li>
-</ol>
-<h2 id="类锁"><a href="#类锁" class="headerlink" title="类锁"></a>类锁</h2><ol>
-<li>synchronized修饰静态方法</li>
-<li>synchronized (类.class)</li>
-</ol>
-<h2 id="类锁和对象锁互不干预"><a href="#类锁和对象锁互不干预" class="headerlink" title="类锁和对象锁互不干预"></a>类锁和对象锁互不干预</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/LRU和LFU的Java实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1499,436 +1857,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/27/操作系统的内存管理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/27/操作系统的内存管理/" itemprop="url">操作系统的内存管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-27T00:34:14+08:00">
-                2017-12-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机系统/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机系统</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="内存管理方式"><a href="#内存管理方式" class="headerlink" title="内存管理方式"></a>内存管理方式</h2><h3 id="连续分配存储管理方式"><a href="#连续分配存储管理方式" class="headerlink" title="连续分配存储管理方式"></a>连续分配存储管理方式</h3><ol>
-<li><p>单一连续分配方式</p>
-<p> 在这种管理方式中，内存被分为两个区域：系统区和用户区。应用程序装入到用户区，可使用用户区全部空间。其特点是，最简单，适用于单用户、单任务的操作系统。CP／M和 DOS 2．0以下就是采用此种方式。这种方式的最大优点就是易于管理。但也存在着一些问题和不足之处，例如对要求内存空间少的程序，造成内存浪费；程序全部装入，使得很少使用的程序部分也占用—定数量的内存。</p>
-</li>
-<li><p>分区式存储管理</p>
-<p> 为了支持多道程序系统和分时系统，支持多个程序并发执行，引入了分区式存储管理。分区式存储管理是把内存分为一些大小相等或不等的分区，操作系统占用其中一个分区，其余的分区由应用程序使用，每个应用程序占用一个或几个分区。分区式存储管理虽然可以支持并发，但难以进行内存分区的共享。</p>
-<ul>
-<li><strong>内碎片</strong>：内碎片是占用分区内未被利用的空间</li>
-<li><p><strong>外碎片</strong>：占用分区之间难以利用的空闲分区(通常是小空闲分区)</p>
-<p>分区式存储管理常采用的一项技术就是<strong>内存紧缩</strong>(compaction)。</p>
-</li>
-</ul>
-<ol>
-<li><p>固定分区：</p>
-<p> 固定式分区的特点是把内存划分为若干个固定大小的连续分区，分区大小可以相等，也可以不等。会存在内碎片的问题。</p>
-</li>
-<li><p>动态分区：</p>
-<p> 动态分区的特点是动态创建分区：在装入程序时按其初始要求分配，或在其执行过程中通过系统调用进行分配或改变分区大小。与固定分区相比较其优点是：没有内碎片。但它却引入了另一种碎片——外碎片。</p>
-<ul>
-<li><strong>最先适配法(first-fit)</strong>：按分区在内存的先后次序从头查找，找到符合要求的第一个分区进行分配。该算法的分配和释放的时间性能较好，较大的空闲分区可以被保留在内存高端。但随着低端分区不断划分会产生较多小分区，每次分配时查找时间开销便会增大。</li>
-<li><strong>下次适配法(循环首次适应算法 next fit)</strong>：按分区在内存的先后次序，从上次分配的分区起查找(到最后{区时再从头开始}，找到符合要求的第一个分区进行分配。该算法的分配和释放的时间性能较好，使空闲分区分布得更均匀，但较大空闲分区不易保留。</li>
-<li><strong>最佳适配法(best-fit)</strong>：按分区在内存的先后次序从头查找，找到其大小与要求相差最小的空闲分区进行分配。从个别来看，外碎片较小；但从整体来看，会形成较多外碎片优点是较大的空闲分区可以被保留。</li>
-<li><strong>最坏适配法(worst- fit)</strong>：按分区在内存的先后次序从头查找，找到最大的空闲分区进行分配。基本不留下小空闲分区，不易形成外碎片。但由于较大的空闲分区不被保留，当对内存需求较大的进程需要运行时，其要求不易被满足。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="内存覆盖与交换技术"><a href="#内存覆盖与交换技术" class="headerlink" title="内存覆盖与交换技术"></a>内存覆盖与交换技术</h3><h4 id="内存覆盖技术"><a href="#内存覆盖技术" class="headerlink" title="内存覆盖技术"></a>内存覆盖技术</h4><p>引入覆盖 (overlay)技术的目标是在较小的可用内存中运行较大的程序。这种技术常用于多道程序系统之中，与分区式存储管理配合使用。</p>
-<p>覆盖技术的原理：一个程序的几个代码段或数据段，按照时间先后来占用公共的内存空间。将程序必要部分(常用功能)的代码和数据常驻内存；可选部分(不常用功能)平时存放在外存(覆盖文件)中，在需要时才装入内存。不存在调用关系的模块不必同时装入到内存，从而可以相互覆盖。</p>
-<h4 id="交换技术"><a href="#交换技术" class="headerlink" title="交换技术"></a>交换技术</h4><p>交换 (swapping)技术在多个程序并发执行时，可以将暂时不能执行的程序（进程）送到外存中，从而获得空闲内存空间来装入新程序（进程），或读人保存在外存中而处于就绪状态的程序。<strong>交换单位为整个进程的地址空间</strong>。交换技术常用于多道程序系统或小型分时系统中，因为这些系统大多采用分区存储管理方式。与分区式存储管理配合使用又称作“对换”或“滚进／滚出” (roll-in／roll-out)。</p>
-<h4 id="两种技术的对比"><a href="#两种技术的对比" class="headerlink" title="两种技术的对比"></a>两种技术的对比</h4><ul>
-<li>与覆盖技术相比，交换不要求程序员给出程序段之间的覆盖结构。</li>
-<li>交换主要是在<strong>进程与作业==之间进行，而覆盖则主要在==同一作业或进程</strong>内进行。 另外覆盖只能覆盖那些与覆盖程序段无关的程序段。</li>
-</ul>
-<h3 id="页式和段式存储管理"><a href="#页式和段式存储管理" class="headerlink" title="页式和段式存储管理"></a>页式和段式存储管理</h3><h4 id="与连续式存储管理之间的区别"><a href="#与连续式存储管理之间的区别" class="headerlink" title="与连续式存储管理之间的区别"></a>与连续式存储管理之间的区别</h4><p>在前面的几种存储管理方法中，为进程分配的空间是连续的，使用的地址都是物理地址。如果允许将一个进程分散到许多不连续的空间，就可以避免内存紧缩，减少碎片。基于这一思想，通过引入进程的逻辑地址，把进程地址空间与实际存储空间分离，增加存储管理的灵活性。</p>
-<h4 id="地址空间与存储空间"><a href="#地址空间与存储空间" class="headerlink" title="地址空间与存储空间"></a>地址空间与存储空间</h4><ul>
-<li>地址空间：将源程序经过编译后得到的目标程序，存在于它所限定的地址范围内，这个范围称为地址空间。<strong>地址空间是逻辑地址的集合</strong>。</li>
-<li>存储空间：指主存中一系列存储信息的物理单元的集合，这些单元的编号称为物理地址。<strong>存储空间是物理地址的集合</strong>。</li>
-</ul>
-<h4 id="页式存储管理"><a href="#页式存储管理" class="headerlink" title="页式存储管理"></a>页式存储管理</h4><ul>
-<li><p>基本原理</p>
-<p>  将程序的逻辑地址空间划分为固定大小的页(page)，而物理内存划分为同样大小的页框(page frame)。程序加载时，可将任意一页放人内存中任意一个页框，这些页框不必连续，从而实现了离散分配。该方法需要CPU的硬件支持，来实现逻辑地址和物理地址之间的映射。在页式存储管理方式中地址结构由两部构成，前一部分是页号，后一部分为页内地址w（位移量）</p>
-<p>  <img src="http://img.my.csdn.net/uploads/201210/15/1350298040_3440.jpg" alt="img"></p>
-</li>
-<li><p>优缺点</p>
-<ol>
-<li>优点：<ol>
-<li><strong>没有外碎片，每个内碎片不超过页面大小。</strong></li>
-<li>一个程序不必连续存放。</li>
-<li>便于改变程序占用空间的大小(主要指随着程序运行，动态生成的数据增多，所要求的地址空间相应增长)。</li>
-</ol>
-</li>
-<li><p>缺点：</p>
-<p> 要求程序全部装入内存，没有足够的内存，程序就不能执行。</p>
-</li>
-</ol>
-</li>
-<li><p>页式管理的数据结构</p>
-<ol>
-<li>进程页表：完成逻辑页号(本进程的地址空间)到物理页面号(实际内存空间，也叫块号)的映射。<br><img src="http://img.my.csdn.net/uploads/201210/15/1350298240_4127.jpg" alt="img"></li>
-<li>物理页面表：整个系统有一个物理页面表，描述物理内存空间的分配使用状况，其数据结构可采用位示图和空闲页链表。<br><img src="http://img.my.csdn.net/uploads/201210/15/1350298483_3536.jpg" alt="img"></li>
-<li>请求表：整个系统有一个请求表，描述系统内各个进程页表的位置和大小，用于地址转换也可以结合到各进程的PCB(进程控制块)里。<br><img src="http://img.my.csdn.net/uploads/201210/15/1350298698_2367.jpg" alt="img"></li>
-</ol>
-</li>
-<li><p>页式管理地址变换</p>
-<p>  CPU中的内存管理单元(MMU)按逻辑页号通过查进程页表得到物理页框号，将物理页框号与页内地址相加形成物理地址。<br>  <img src="http://img.my.csdn.net/uploads/201210/15/1350281320_9095.png" alt="img"></p>
-<p>  一般来说，页表存储在主存之中。这样处理器每访问一个在内存中的操作数，就要<strong>访问两次内存</strong>。第一次用来查找页表将操作数的 逻辑地址变换为物理地址，第二次完成真正的读写操作。       </p>
-<p>  <strong>利用CPU内部的关联存储器（块表，按内容查找）缩短查找时间</strong>：</p>
-<p>  为缩短查找时间，可以将页表从内存装入CPU内部的关联存储器(例如，快表) 中，实现按内容查找。此时的地址变换过程是：在CPU给出有效地址后，由地址变换机构自动将页号送人快表，并将此页号与快表中的所有页号进行比较，而且这 种比较是同时进行的。若其中有与此相匹配的页号，表示要访问的页的页表项在快表中。于是可直接读出该页所对应的物理页号，这样就无需访问内存中的页表。由于关联存储器的访问速度比内存的访问速度快得多。</p>
-</li>
-</ul>
-<h4 id="段式存储管理"><a href="#段式存储管理" class="headerlink" title="段式存储管理"></a>段式存储管理</h4><ul>
-<li><p>基本原理</p>
-<p>  在段式存储管理中，将程序的地址空间划分为若干个段(segment)，这样每个进程有一个二维的地址空间。在前面所介绍的动态分区分配方式中，系统为整个进程分配一个连续的内存空间。而在段式存储管理系统中，则为每个段分配一个连续的分区，而进程中的各个段可以不连续地存放在内存的不同分区中。程序加载时，操作系统为所有段分配其所需内存，这些段不必连续，<strong>物理内存的管理采用动态分区的管理方法。</strong></p>
-<p>  在为某个段分配物理内存时，可以采用首先适配法、下次适配法、最佳适配法等方法。</p>
-<p>  在回收某个段所占用的空间时，要注意将收回的空间与其相邻的空间合并。（<strong>内存紧缩</strong>）</p>
-</li>
-<li><p>优缺点</p>
-<ol>
-<li>优点<ol>
-<li>程序通过分段划分为多个模块，如代码段、数据段、共享段，可以分别编写和编译</li>
-<li>可以针对不同类型的段采取不同的保护</li>
-<li>可以按段为单位来进行共享</li>
-<li><strong>没有内碎片，外碎片可以通过内存紧缩来消除</strong></li>
-</ol>
-</li>
-<li><p>缺点</p>
-<p> 与页式存储管理的缺点相同，进程必须全部装入内存。</p>
-</li>
-</ol>
-</li>
-<li><p>段式管理的数据结构</p>
-<ol>
-<li>进程段表：描述组成进程地址空间的各段，可以是指向系统段表中表项的索引。每段有段基址。</li>
-<li>系统段表：系统中已经分配的段。</li>
-</ol>
-</li>
-<li><p>段式管理的地址变换</p>
-</li>
-</ul>
-<p><img src="http://img.my.csdn.net/uploads/201210/15/1350281407_7063.png" alt="img"></p>
-<p>在段式 管理系统中，整个进程的地址空间是二维的，即其逻辑地址由段号和段内地址两部分组成。为了完成进程逻辑地址到物理地址的映射，处理器会查找内存中的段表，由段号得到段的首地址，加上段内地址，得到实际的物理地址。这个过程也是由处理器的硬件直接完成的，操作系统只需在进程切换时，将进程段表的首地址装入处理器的特定寄存器当中。这个寄存器一般被称作段表地址寄存器。</p>
-<h3 id="页式管理和段式管理的区别"><a href="#页式管理和段式管理的区别" class="headerlink" title="页式管理和段式管理的区别"></a><strong>页式管理和段式管理的区别</strong></h3><ol>
-<li>需求：是信息的物理单位，分页是为了实现离散分配方式，以减少内存的碎片，提高内存的利用率。或者说，分页仅仅是由于系统管理的需要，而不是用户的需要。段是信息的逻辑单位，它含有一组其意义相对完整的信息。分段的目的是为了更好地满足用户的需要。一条指令或一个操作数可能会跨越两个页的分界处，而不会跨越两个段的分界处。</li>
-<li>大小：页大小固定且由系统决定，把逻辑地址划分为页号和页内地址两部分，是由机器硬件实现的。段的长度不固定，且决定于用户所编写的程序，通常由编译系统在对源程序进行编译时根据信息的性质来划分。</li>
-<li>逻辑地址表示：页式系统地址空间是一维的，即单一的线性地址空间，程序员只需利用一个标识符，即可表示一个地址。分段的作业地址空间是二维的，程序员在标识一个地址时，既需给出段名，又需给出段内地址。</li>
-<li>比页大，因而段表比页表短，可以缩短查找时间，提高访问速度。</li>
-</ol>
-<h3 id="段页式内存管理"><a href="#段页式内存管理" class="headerlink" title="段页式内存管理"></a>段页式内存管理</h3><p>在段页式存储中，每个分段又被分成若干个固定大小的页。<strong>采用分段的方式管理用户地址空间，用分页的方式管理物理内存空间。</strong></p>
-<p>逻辑地址由段号S、段内页号P与段内偏移量W三部分组成。<br><img src="http://img.blog.csdn.net/20160311131908934" alt="img"></p>
-<p>地址变换机制<br><img src="http://img.blog.csdn.net/20160311131913252" alt="img"></p>
-<p>优点：</p>
-<ol>
-<li>分散存储（段式优点）</li>
-<li>内存利用率高（页式优点）</li>
-</ol>
-<p>缺点：</p>
-<ol>
-<li>访问效率下降，取数据需要访问内存3次</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/27/Socket编程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/27/Socket编程/" itemprop="url">Socket编程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-27T00:34:14+08:00">
-                2017-12-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Socket通信模型"><a href="#Socket通信模型" class="headerlink" title="Socket通信模型"></a>Socket通信模型</h2><p><img src="http://img.blog.csdn.net/20150206102959685" alt="img"></p>
-<h2 id="基于TCP"><a href="#基于TCP" class="headerlink" title="基于TCP"></a>基于TCP</h2><ol>
-<li><strong>服务器端监听阻塞，accept一直阻塞到建立连接成功</strong></li>
-<li><strong>客服端创建Socket对象阻塞，一直阻塞到建立连接成功</strong></li>
-<li>客服端与服务器端通过Socket的输入流进行接收数据，输出流进行发送数据。</li>
-</ol>
-<p><img src="http://img.blog.csdn.net/20150206151354460" alt="img"></p>
-<h2 id="基于UDP"><a href="#基于UDP" class="headerlink" title="基于UDP"></a>基于UDP</h2><p>注意要点：<strong>UDP程序在receive()方法处阻塞，直到收到一个数据报文或等待超时</strong>。由于UDP协议是不可靠协议，如果数据报在传输过程中发生丢失，那么程序将会一直阻塞在receive()方法处，这样客户端将永远都接收不到服务器端发送回来的数据，但是又没有任何提示。为了避免这个问题，我们在客户端使用DatagramSocket类的setSoTimeout()方法来制定receive()方法的最长阻塞时间，并指定重发数据报的次数，如果每次阻塞都超时，并且重发次数达到了设置的上限，则关闭客户端。</p>
-<h3 id="客户端流程"><a href="#客户端流程" class="headerlink" title="客户端流程"></a>客户端流程</h3><ol>
-<li>创建一个DatagramSocket实例，可以有选择地对本地地址和端口号进行设置，如果设置了端口号，则客户端会在该端口号上监听从服务器端发送来的数据；</li>
-<li>使用DatagramSocket实例的send（）和receive（）方法来发送和接收DatagramPacket实例，进行通信；</li>
-<li>通信完成后，调用DatagramSocket实例的close（）方法来关闭该套接字。</li>
-</ol>
-<h3 id="服务器流程"><a href="#服务器流程" class="headerlink" title="服务器流程"></a>服务器流程</h3><ol>
-<li>创建一个DatagramSocket实例，指定本地端口号，并可以有选择地指定本地地址，此时，服务器已经准备好从任何客户端接收数据报文；</li>
-<li>使用DatagramSocket实例的receive（）方法接收一个DatagramPacket实例，当receive（）方法返回时，数据报文就包含了客户端的地址，这样就知道了回复信息应该发送到什么地方；</li>
-<li>使用DatagramSocket实例的send（）方法向客户端返回DatagramPacket实例。</li>
-</ol>
-<h2 id="TCP-UDP的区别"><a href="#TCP-UDP的区别" class="headerlink" title="TCP UDP的区别"></a>TCP UDP的区别</h2><ol>
-<li>由于UDP是无连接的，因此<strong>UDP服务端不需要等待客户端的请求以建立连接</strong>。</li>
-<li><strong>UDP服务器为所有通信使用同一套接字</strong>，这点与TCP服务器不同，TCP服务器则为每个成功返回的accept()方法创建一个新的套接字。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1974,7 +1907,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

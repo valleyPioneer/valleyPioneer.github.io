@@ -249,6 +249,500 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/21/java序列化和RPC详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/21/java序列化和RPC详解/" itemprop="url">java序列化和RPC详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-21T00:34:14+08:00">
+                2018-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="RMI和RPC"><a href="#RMI和RPC" class="headerlink" title="RMI和RPC"></a>RMI和RPC</h2><p>RMI（Remote Method Invocation）是Java中的远程过程调用（Remote Procedure Call，RPC）实现，是一种分布式Java应用的实现方式。它的目的在于对开发人员屏蔽横跨不同JVM和网络连接等细节，使得分布在不同JVM上的对 象像是存在于一个统一的JVM中一样，可以很方便的互相通讯。</p>
+<h2 id="RMI动态代理对象原理"><a href="#RMI动态代理对象原理" class="headerlink" title="RMI动态代理对象原理"></a>RMI动态代理对象原理</h2><ul>
+<li>当客户端通过RMI注册表找到一个远程接口的时候，所得到的其实是远程接口的一个动态代理对象。</li>
+<li>当客户端调用 其中的方法的时候，方法的参数对象会在序列化之后，传输到服务器端。</li>
+<li>服务器端接收到之后，进行反序列化得到参数对象。并使用这些参数对象，在服务器端调用 实际的方法。</li>
+<li>调用的返回值Java对象经过序列化之后，再发送回客户端。</li>
+<li>客户端再经过反序列化之后得到Java对象，返回给调用者。</li>
+<li><strong>这中间的序列化过程对 于使用者来说是透明的，由动态代理对象自动完成。</strong></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/20/JAVA中的正则表达式用法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/20/JAVA中的正则表达式用法/" itemprop="url">JAVA中的正则表达式用法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-20T00:34:14+08:00">
+                2018-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Pattern和Matcher的关系"><a href="#Pattern和Matcher的关系" class="headerlink" title="Pattern和Matcher的关系"></a>Pattern和Matcher的关系</h2><ul>
+<li>Pattern实例订制了一个所用语法与PERL的类似的正则表达式经编译后的模式。</li>
+<li>Matcher实例在这个给定的Pattern实例的模式控制下进行字符串的匹配工作。</li>
+</ul>
+<h2 id="Pattern"><a href="#Pattern" class="headerlink" title="Pattern"></a>Pattern</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(<span class="string">"\\w+"</span>); </span><br><span class="line">p.pattern();<span class="comment">//返回 \w+</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>pattern.split(charSequence input)</p>
+<p> Pattern有一个split(CharSequence input)方法,用于分隔字符串,并返回一个String[]</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(<span class="string">"\\d+"</span>); </span><br><span class="line">String[] str=p.split(<span class="string">"我的QQ是:456456我的电话是:0532214我的邮箱是:aaa@aaa.com"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Pattern.matcher(String regex,CharSequence input)是一个静态方法,用于快速匹配字符串,该方法适合用于只匹配一次,且匹配全部字符串.</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pattern.matches(<span class="string">"\\d+"</span>,<span class="string">"2223"</span>);<span class="comment">//返回true </span></span><br><span class="line">Pattern.matches(<span class="string">"\\d+"</span>,<span class="string">"2223aa"</span>);<span class="comment">//返回false,需要匹配到所有字符串才能返回true,这里aa不能匹配到 </span></span><br><span class="line">Pattern.matches(<span class="string">"\\d+"</span>,<span class="string">"22bb23"</span>);<span class="comment">//返回false,需要匹配到所有字符串才能返回true,这里bb不能匹配到</span></span><br></pre></td></tr></table></figure>
+<p> 该方法的源码为：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern.compile(regex).matcher(input).matches()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Matcher"><a href="#Matcher" class="headerlink" title="Matcher"></a>Matcher</h2><p>Pattern类只能做一些简单的匹配操作,要想得到更强更便捷的正则匹配操作,那就需要将Pattern与Matcher一起合作.Matcher类提供了对正则表达式的分组支持,以及对正则表达式的多次匹配支持. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(<span class="string">"\\d+"</span>); </span><br><span class="line">Matcher m=p.matcher(<span class="string">"22bb23"</span>); </span><br><span class="line">m.pattern();<span class="comment">//返回p 也就是返回该Matcher对象是由哪个Pattern对象的创建的</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>Matcher.matches()/ Matcher.lookingAt()/ Matcher.find()</p>
+<ol>
+<li>matches()对整个字符串进行匹配,只有整个字符串都匹配了才返回true </li>
+<li>lookingAt()对前面的字符串进行匹配,只有匹配到的字符串在最前面才返回true </li>
+<li>find()对字符串进行匹配,匹配到的字符串可以在任何位置. </li>
+</ol>
+</li>
+<li><p>Mathcer.start()/ Matcher.end()/ Matcher.group()</p>
+<p> 当使用matches(),lookingAt(),find()执行匹配操作后,就可以利用以上三个方法得到更详细的信息. </p>
+<ol>
+<li>start()返回匹配到的子字符串在字符串中的索引位置. </li>
+<li>end()返回匹配到的子字符串的最后一个字符在字符串中的索引位置(<strong>其实是索引位置加1</strong>). </li>
+<li>group()返回匹配到的子字符串 </li>
+</ol>
+</li>
+</ol>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(<span class="string">"\\d+"</span>); </span><br><span class="line">Matcher m=p.matcher(<span class="string">"aaa2223bb"</span>); </span><br><span class="line">m.find();<span class="comment">//匹配2223 </span></span><br><span class="line">m.start();<span class="comment">//返回3 </span></span><br><span class="line">m.end();<span class="comment">//返回7,返回的是2223后的索引号 </span></span><br><span class="line">m.group();<span class="comment">//返回2223 </span></span><br><span class="line"></span><br><span class="line">Mathcer m2=m.matcher(<span class="string">"2223bb"</span>); </span><br><span class="line">m.lookingAt();   <span class="comment">//匹配2223 </span></span><br><span class="line">m.start();   <span class="comment">//返回0,由于lookingAt()只能匹配前面的字符串,所以当使用lookingAt()匹配时,start()方法总是返回0 </span></span><br><span class="line">m.end();   <span class="comment">//返回4 </span></span><br><span class="line">m.group();   <span class="comment">//返回2223 </span></span><br><span class="line"></span><br><span class="line">Matcher m3=m.matcher(<span class="string">"2223bb"</span>); </span><br><span class="line">m.matches();   <span class="comment">//匹配整个字符串 </span></span><br><span class="line">m.start();   <span class="comment">//返回0,原因相信大家也清楚了 </span></span><br><span class="line">m.end();   <span class="comment">//返回6,原因相信大家也清楚了,因为matches()需要匹配所有字符串 </span></span><br><span class="line">m.group();   <span class="comment">//返回2223bb</span></span><br></pre></td></tr></table></figure>
+</code></pre><p><strong>start、end方法都是调用了重载方法start、end(0),传入的参数是第0组</strong></p>
+<ol start="3">
+<li>Matcher.groupCount()以及Matcher.start(i),end(i),group(i)重载方法</li>
+</ol>
+<p>其中groupCount方法最后返回的组数，计数从1开始，即第0组不包含在最后的计数中。</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(<span class="string">"([a-z]+)(\\d+)"</span>); </span><br><span class="line">Matcher m=p.matcher(<span class="string">"aaa2223bb"</span>); </span><br><span class="line">m.find();   <span class="comment">//匹配aaa2223 </span></span><br><span class="line">m.groupCount();   <span class="comment">//返回2,因为有2组 </span></span><br><span class="line">m.start(<span class="number">1</span>);   <span class="comment">//返回0 返回第一组匹配到的子字符串在字符串中的索引号 </span></span><br><span class="line">m.start(<span class="number">2</span>);   <span class="comment">//返回3 </span></span><br><span class="line">m.end(<span class="number">1</span>);   <span class="comment">//返回3 返回第一组匹配到的子字符串的最后一个字符在字符串中的索引位置. </span></span><br><span class="line">m.end(<span class="number">2</span>);   <span class="comment">//返回7 </span></span><br><span class="line">m.group(<span class="number">1</span>);   <span class="comment">//返回aaa,返回第一组匹配到的子字符串 </span></span><br><span class="line">m.group(<span class="number">2</span>);   <span class="comment">//返回2223,返回第二组匹配到的子字符串</span></span><br></pre></td></tr></table></figure>
+</code></pre><p>具体使用方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(<span class="string">"\\d+"</span>); </span><br><span class="line">Matcher m=p.matcher(<span class="string">"我的QQ是:456456 我的电话是:0532214 我的邮箱是:aaa123@aaa.com"</span>); </span><br><span class="line"><span class="keyword">while</span>(m.find()) &#123; </span><br><span class="line">     System.out.println(m.group()); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>每次执行匹配操作后start(),end(),group()三个方法的值都会改变,改变成匹配到的子字符串的信息,以及它们的重载方法,也会改变成相应的信息.</li>
+<li>只有当匹配操作成功,才可以使用start(),end(),group()三个方法,否则会抛出java.lang.IllegalStateException,也就是当matches(),lookingAt(),find()其中任意一个方法返回true时,才可以使用.</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/17/JVM类加载双亲(父亲)委托模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/17/JVM类加载双亲(父亲)委托模式/" itemprop="url">JVM类加载双亲(父亲)委托模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-17T00:34:14+08:00">
+                2018-02-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>除了java虚拟机自带的根类加载器之外，其余的类加载器都有且只有一个父加载器。</p>
+<h2 id="根类加载器-BootStrap"><a href="#根类加载器-BootStrap" class="headerlink" title="根类加载器(BootStrap)"></a>根类加载器(BootStrap)</h2><p>该加载器没有父加载器。它负责加载虚拟机的核心类库，如java.lang.*等。例如java.lang.Object就是由根类加载器加载的。根类加载器从系统属性sun.boot.class.path所指定的目录中加载类库。根类加载器的实现依赖于底层操作系统，属于虚拟机的实现的一部分，它并没有继承java.lang.ClassLoader类。</p>
+<h2 id="扩展类加载器-Extension"><a href="#扩展类加载器-Extension" class="headerlink" title="扩展类加载器(Extension)"></a>扩展类加载器(Extension)</h2><p>它的父加载器为根类加载器。它从java.ext.dirs系统属性所指定的目录中加载类库，或者从JDK的安装目录的jre/lib/ext子目录（扩展目录）下加载类库，如果把用户创建的JAR文件放在这个目录下，也会自动由扩展类加载器加载。扩展类加载器是纯Java类，是java.lang.ClassLoader类的子类。</p>
+<h2 id="系统类加载器-System-App"><a href="#系统类加载器-System-App" class="headerlink" title="系统类加载器(System/App)"></a>系统类加载器(System/App)</h2><p>也称为应用类加载器，它的父加载器为扩展类加载器。它从环境变量classpath或者系统属性java.class.path所指定的目录中加载类，它是用户自定义的类加载器的默认父加载器。系统类加载器是纯Java类，是java.lang.ClassLoader类的子类。</p>
+<p><strong>父子加载器并非继承关系，也就是说子加载器不一定是继承了父加载器。</strong></p>
+<h2 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h2><p>除了以上虚拟机自带的加载器以外，用户还可以定制自己的类加载器（User-defined Class Loader）。Java提供了抽象类java.lang.ClassLoader，所有用户自定义的类加载器应该继承ClassLoader类。</p>
+<p><img src="http://www.itzhai.com/wp-content/uploads/2011/11/20111105-JVM001.png" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class sampleClass = loader2.loadClass(<span class="string">"Sample"</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="加载过程"><a href="#加载过程" class="headerlink" title="加载过程"></a>加载过程</h3><p>loader2首先从自己的命名空间中查找Sample类是否已经被加载，如果已经加载，就直接返回代表Sample类的Class对象的引用。</p>
+<p>如果Sample类还没有被加载，loader2首先请求loader1代为加载，loader1再请求系统类加载器代为加载，系统类加载器再请求扩展类加载器代为架子啊，扩展类加载器在请求根类加载器代为加载。若根加载器和扩展加载器都不能加载，则系统类加载器尝试加载，若能加载成功，则将Sample类所对应的Class对象的引用返回给loader1，loader1再将引用返回给loader2，从而成功将Sample类加载进虚拟机。若系统类加载器不能加载Sample类，则loader1尝试加载Sample类，若laoder1也不能成功加载，则loader2尝试加载。若所有的父加载器及laoder2本身都不能加载，则抛出ClassNotFoundException异常。</p>
+<h2 id="加载器之间的关系"><a href="#加载器之间的关系" class="headerlink" title="加载器之间的关系"></a>加载器之间的关系</h2><p>加载器之间的父子关系实际上指的是加载器对象之间的<strong>包装关系==，而不是类之间的继承关系。一对父子加载器==可能是同一个加载器类的两个实例</strong>，也可能不是。在子加载器对象中包装了一个父加载器对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ClassLoader loader1 = <span class="keyword">new</span> MyClassLoader();  </span><br><span class="line"><span class="comment">//参数loader1将作为loader2的父加载器  </span></span><br><span class="line">ClassLoader loader2 = <span class="keyword">new</span> MyClassLoader(loader1);</span><br></pre></td></tr></table></figure>
+<h2 id="双亲委托模式的优点"><a href="#双亲委托模式的优点" class="headerlink" title="双亲委托模式的优点"></a>双亲委托模式的优点</h2><p>父委托机制的优点是能够提高软件系统的安全性。因为在此机制下，<strong>用户自定义的类加载器不可能加载应该由父加载器加载的可靠类</strong>，从而防止不可靠甚至恶意的代码代替由父加载器加载的可靠代码。</p>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>每个类加载器都有自己的命名空间，<strong>命名空间由该加载器及所有父加载器所加载的类组成</strong>。在同一个命名空间中，不会出现类的完整名字（包括类的包名）相同的两个类；在不同的命名空间中，有可能会出现类的完整名字（包括类的包名）相同的两个类。</p>
+<h2 id="运行时包"><a href="#运行时包" class="headerlink" title="运行时包"></a>运行时包</h2><p><strong>由同一类加载器加载的属于相同包的类</strong>组成了运行时包。决定两个类是不是属于同一个运行时包，不仅要看它们的包名是否相同，还要看定义类加载器是否相同。只有属于同一运行时包的类才能相互访问包可见（即默认访问级别）的类和成员。这样的限制能避免用户自定义的类冒充核心类库的类，去访问核心类库的包可见成员。假设用户自己定义了一个java.lang.Spy，并用用户自定义的类加载器加载，由于java.lang.Spy和核心类库java.lang.*由不同的加载器加载，它们属于不同的运行时包，所以java.lang.Spy不能访问核心类库java.lang包中的包可见成员。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/13/RTMP、RTSP、HLS、HTTP FLV、SIP区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1364,492 +1858,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/03/Volley源码解析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/03/Volley源码解析/" itemprop="url">Volley源码解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-03T00:34:14+08:00">
-                2018-02-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Volley工作流程图"><a href="#Volley工作流程图" class="headerlink" title="Volley工作流程图"></a>Volley工作流程图</h2><p><img src="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/Volley-run-flow-chart.png" alt="img"></p>
-<h2 id="从Volley-newRequestQueue-this-到Request-deliveryResponse-中Listener-onResponse-的回调全过程"><a href="#从Volley-newRequestQueue-this-到Request-deliveryResponse-中Listener-onResponse-的回调全过程" class="headerlink" title="从Volley.newRequestQueue(this)到Request.deliveryResponse()中Listener.onResponse()的回调全过程"></a>从Volley.newRequestQueue(this)到Request.deliveryResponse()中Listener.onResponse()的回调全过程</h2><ol>
-<li><p>Volley.newRequestQueue(this)</p>
-<ol>
-<li>首先调用两个参数的构造方法，context和BaseHttpStack（null）</li>
-<li>然后构造Network接口的具体实现BasicNetWork，分api版本判断，如果是大于等于9，使用httpurlconnection（对应HurlStack），如果小于9，使用httpclient（对应HttpClientStack）</li>
-<li>最后调用真正的构造方法，也是两个参数，context和network，在其中new RequestQueue实例，传入cache（系统默认是DiskBasedCache）和network</li>
-<li>requestQueue构造方法里面最后调用到四个参数的构造方法，分别对应cache、network、网络请求的线程数量、ResponseDelivery。其中ResponseDelivery的具体实现类是ExecutorDelivery,其构造方法中传入了Looper.getMainLooper()获取的主线程的Looper，因此也<strong>决定了Volley的响应默认是回调在主线程中==（==这里充分体现出Volley设计的特点：针对接口编程，不针对具体实现编程,策略模式</strong>）</li>
-<li>然后最后在newRequestQueue最后调用queue.start()</li>
-</ol>
-</li>
-<li><p>RequestQueue.start()</p>
-<ol>
-<li>主要作用是启动CacheDispatcher和NetworkDispatcher(默认是1个cacheDispatcher和4个NetworkDispatcher，最多5个后台线程)</li>
-<li>其中RequestQueue中保存的cacheQueue和networkQueue都是PriorityBlockingQueue,线程安全的优先级阻塞队列。（<strong>通过put/take进行操作</strong>）</li>
-</ol>
-</li>
-<li><p>CacheDispatcher <strong>extends Thread</strong></p>
-<ol>
-<li>cacheDispatcher构造方法传入四个参数，mCacheQueue,mNetworkQueue,mCache,mDelivery,<strong>最后在构造函数中还会初始化一个WaitingRequestManager的实例</strong>，其主要作用是保存那些重复的请求，其中主要的数据结构是一个Map&lt;String,List<request>&gt;,对应cacheKey（默认是url）和重复的请求列表</request></li>
-<li>run()方法中有个死循环，里面是processRequest()处理请求</li>
-<li>请求包括两种情况，cache hit和cache miss，hit包括soft-expired和completely unexpired,miss包括不存在对应cache和expired</li>
-<li>miss情况下直接将request放进mNetworkQueue中</li>
-<li>hit情况下需要分情况考虑，如果完全未过期，直接调用mDelivery.postResponse(response,request)，解析response并且传给mDeliverz中定义的(Executor)mResponsePoster进行处理;如果快过期，需要先传递cache中的response，然后再重新做一次网络请求。<strong>这时还需要分情况判断，如果这个请求是重复的，那么不需要做网络请求，如果不是则需要</strong>。分别调用mDelivery.postResponse(response,request)和mDelivery.postResponse(response,request,runnable)方法，runnable会在传递完成之后执行。</li>
-</ol>
-</li>
-</ol>
-<ol start="4">
-<li><p>NetworkDispatcher <strong>extends Thread</strong></p>
-<ol>
-<li>networkDispatcher构造方法传入四个参数，mNetworkQueue,mNetwork,mCache,mDelivery</li>
-<li>run()方法中有个死循环，里面是processRequest()处理请求</li>
-<li>其中<strong>由mNetwork.performRequest(request)完成网络请求，传入的network接口实现是BasicNetwork，其中传入的初始化参数为BaseHttpStack的实现类HurlStack，所以最后调用hurlstack中的executeRequest()方法，这时候使用httpurlconnection来进行网络请求，然后返回原始网络数据（raw response）</strong></li>
-<li>然后调用reqeust的parseNetworkResponse方法来将原始的响应数据解析成正确格式的数据。</li>
-<li>判断是否应该写入缓存，如果需要，则写入mCache中</li>
-<li>最后调用mDelivery.postResponse(reqeust,reponse)来传递数据。</li>
-</ol>
-</li>
-<li><p>ResponseDelivery.postResponse()</p>
-<ol>
-<li>具体实现类是ExecutorDelivery，然后最后都会调用postResponse(request,response,runnable)方法</li>
-<li>该方法解析response并且传给mDelivery中定义的(Executor)mResponsePoster进行处理，由于之前传入的是主线程的Looper，所以在execute（）方法调用的handler.post()方法对应会在主线程执行</li>
-<li>然后传入的execute()方法的runnable对象是私有内部类实例,ResponseDeliveryRunnable,构造函数中传入request,response,runnable,主要逻辑是判断response是否成功，如果成功回调request.deliverResponse()，不成功，回调request.deliverError(),，然后最后执行runnable。<strong>其中deliverResponse()通常自定义request时需要重写，一般在其中回调listenr.onResponse()方法，从而显示响应结果。</strong></li>
-</ol>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/JNI创建线程的方式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/02/JNI创建线程的方式/" itemprop="url">JNI创建线程的方式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T00:34:14+08:00">
-                2018-02-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="调用C语言函数"><a href="#调用C语言函数" class="headerlink" title="调用C语言函数"></a>调用C语言函数</h2><ol>
-<li>pthread_create(&amp;mThread, NULL, AlertThreadStub, NULL)</li>
-<li>attachCurrentThread()、detachCurrentThread()<br><br> 很多时候，你的native代码建立自己的线程（比如建立线程监听），并在合适的时候回调 Java 代码，我们没有办法像上面那样直接获得 JNIEnv，<strong>获取它的实例需要把你的线程 Attach到JavaVM上去</strong>，调用的方法是 JavaVM::AttachCurrentThread</li>
-</ol>
-<p>具体实例：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">thread_fun</span><span class="params">(<span class="keyword">void</span>* arg)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">     JNIEnv *env;</span><br><span class="line">     jclass cls;</span><br><span class="line">     jmethodID mid;</span><br><span class="line"> </span><br><span class="line">     <span class="comment">//Attach主线程</span></span><br><span class="line">     <span class="keyword">if</span>((*g_jvm)-&gt;AttachCurrentThread(g_jvm, &amp;env, <span class="literal">NULL</span>) != JNI_OK)</span><br><span class="line">     &#123;</span><br><span class="line">         LOGE(<span class="string">"%s: AttachCurrentThread() failed"</span>, __FUNCTION__);</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//找到对应的类</span></span><br><span class="line">     cls = (*env)-&gt;GetObjectClass(env,g_obj);</span><br><span class="line">     <span class="keyword">if</span>(cls == <span class="literal">NULL</span>)</span><br><span class="line">     &#123;</span><br><span class="line">         LOGE(<span class="string">"FindClass() Error....."</span>);</span><br><span class="line">         <span class="keyword">goto</span> error; </span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//再获得类中的方法</span></span><br><span class="line">     mid = (*env)-&gt;GetStaticMethodID(env, cls, <span class="string">"fromJNI"</span>, <span class="string">"(I)V"</span>);</span><br><span class="line">     <span class="keyword">if</span> (mid == <span class="literal">NULL</span>) </span><br><span class="line">     &#123;</span><br><span class="line">         LOGE(<span class="string">"GetMethodID() Error....."</span>);</span><br><span class="line">         <span class="keyword">goto</span> error;  </span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//最后调用java中的静态方法</span></span><br><span class="line">         (*env)-&gt;CallStaticVoidMethod(env, cls, mid ,(<span class="keyword">int</span>)arg);</span><br><span class="line">     </span><br><span class="line"> </span><br><span class="line"> error:    </span><br><span class="line">     <span class="comment">//Detach主线程</span></span><br><span class="line">     <span class="keyword">if</span>((*g_jvm)-&gt;DetachCurrentThread(g_jvm) != JNI_OK)</span><br><span class="line">     &#123;</span><br><span class="line">         LOGE(<span class="string">"%s: DetachCurrentThread() failed"</span>, __FUNCTION__);     &#125;</span><br><span class="line">     </span><br><span class="line"> </span><br><span class="line">     pthread_exit(<span class="number">0</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由java调用以创建子线程</span></span><br><span class="line"> <span class="function">JNIEXPORT <span class="keyword">void</span> <span class="title">Java_com_nan_thread_MyThreadActivity_mainThread</span><span class="params">( JNIEnv* env, jobject obj)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> i;</span><br><span class="line">     <span class="keyword">pthread_t</span> pt[NUMTHREADS];</span><br><span class="line">     </span><br><span class="line">     <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; NUMTHREADS; i++)</span><br><span class="line">         <span class="comment">//创建子线程</span></span><br><span class="line">         pthread_create(&amp;pt[i], <span class="literal">NULL</span>, &amp;thread_fun, (<span class="keyword">void</span> *)i);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/01/java类加载时机/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/01/java类加载时机/" itemprop="url">java类加载时机</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T00:34:14+08:00">
-                2018-02-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>遇到了new、getstatic、putstatic和invokestatic这4条字节码指令时</li>
-<li>利用反射方法对类进行反射调用时，如果类还没有进行过初始化</li>
-<li>当初始化一个类时，发现其父类还没有进行过初始化</li>
-<li>当虚拟机启动时，用户需要指定一个<strong>要执行的主类（包含main方法）</strong>，虚拟机会先初始化这个主类</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1895,7 +1908,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
