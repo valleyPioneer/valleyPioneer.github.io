@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTSP协议详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/20/MTU和MSS区别与联系/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/13/RTSP协议详解/" itemprop="url">RTSP协议详解</a></h1>
+                <a class="post-title-link" href="/2018/01/20/MTU和MSS区别与联系/" itemprop="url">MTU和MSS区别与联系</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
-                2018-01-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-20T00:34:14+08:00">
+                2018-01-20
               </time>
             
 
@@ -342,72 +342,338 @@
       
         
           
-            <h2 id="RTSP协议简介"><a href="#RTSP协议简介" class="headerlink" title="RTSP协议简介"></a>RTSP协议简介</h2><p>RTSP是研究如何有效地在IP网络上传输流媒体数据的应用层协议。RTSP对流媒体提供了诸如暂停，快进等控制，而它本身并不传输数据，RTSP的作用相当于流媒体服务器的远程控制。服务器端可以自行选择使用TCP或UDP来传送串流内容。</p>
-<p><strong>RTSP的对带宽的要求更低，RTMP实时性更好</strong></p>
-<p>特点：</p>
-<ul>
-<li>允许同时多个串流需求控制（Multicast），支持多方视频会议</li>
-<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求，可以实现流量的重新导向。</li>
+            <h2 id="MTU"><a href="#MTU" class="headerlink" title="MTU"></a>MTU</h2><p>Maximum Transmission Unit <strong>最大传输单元</strong></p>
+<p>一般出现在以太网帧中，默认为1500</p>
+<h2 id="MSS"><a href="#MSS" class="headerlink" title="MSS"></a>MSS</h2><p>Maximum Segment Size <strong>最大分段大小</strong></p>
+<p>出现在tcp协议中的概念，通常为1460</p>
+<p>MSS就是TCP数据包每次能够传输的最大数据分段。为了达到最佳的传输效能<br>TCP协议在建立连接的时候通常要协商双方的MSS值，这个值TCP协议在实现的<br>时候往往用MTU值代替（需要减去IP数据包包头的大小20Bytes和TCP数据段的<br>包头20Bytes）所以往往MSS为1460。==通讯双方会根据双方提供的MSS值得最小<br>值确定为这次连接的最大MSS值。==</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/15/TCP和UDP报文的最大和最小长度/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/15/TCP和UDP报文的最大和最小长度/" itemprop="url">TCP和UDP报文的最大和最小长度</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T00:34:14+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>UDP允许传输的最大长度理论上2^16 -1 - udp head - iphead（ 65507 字节 = 65535 - 20 - 8）</p>
+<p>但是实际上UDP数据报的数据区<strong>最大长度</strong>为1472字节=1500 - 20 - 8</p>
+<h2 id="超过1500字节怎么办"><a href="#超过1500字节怎么办" class="headerlink" title="超过1500字节怎么办"></a>超过1500字节怎么办</h2><p>这也就是说IP数据报大于1500字节,大于MTU.这个时候发送方IP层就需要分片(fragmentation).<br>把数据报分成若干片,使每一片都小于MTU.而接收方IP层则需要进行数据报的重组.<br>这样就会多做许多事情,而更严重的是,由于UDP的特性,当某一片数据传送中丢失时,接收方便<br>无法重组数据报.将导致丢弃整个UDP数据报。    </p>
+<p><strong>因此,在普通的局域网环境下，我建议将UDP的数据控制在1472字节以下为好</strong>.    </p>
+<p>鉴于Internet上的标准MTU值为576字节,<strong>在进行Internet的UDP编程时. 最好将UDP的数据长度控件在548字节(576-8-20)以内.</strong></p>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p>TCP 包的大小就应该是 1500 - IP头(20) - TCP头(20) = 1460 (Bytes)</p>
+<p><strong>不一定tcp报文段都有时间戳选项</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/14/Android、linux中进程通信方式对比/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/14/Android、linux中进程通信方式对比/" itemprop="url">Android、linux中进程通信方式对比</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-14T00:34:14+08:00">
+                2018-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Android中IPC方式"><a href="#Android中IPC方式" class="headerlink" title="Android中IPC方式"></a>Android中IPC方式</h2><ol>
+<li>intent</li>
+<li>文件共享<ul>
+<li>文件读写</li>
+<li>序列化和反序列化</li>
+<li>sharedPreferences</li>
 </ul>
-<h2 id="RTSP和HTTP区别"><a href="#RTSP和HTTP区别" class="headerlink" title="RTSP和HTTP区别"></a>RTSP和HTTP区别</h2><ol>
-<li>相同点</li>
+</li>
+<li>Messenger(基于aidl，主要用于消息的传递，串行工作)</li>
+<li>AIDL（基于binder）</li>
+<li>socket</li>
+<li>Broadcast</li>
 </ol>
+<h2 id="Linux中IPC方式"><a href="#Linux中IPC方式" class="headerlink" title="Linux中IPC方式"></a>Linux中IPC方式</h2><ol>
+<li><p>管道、流管道、命名管道FiFO</p>
 <ul>
-<li>两者都用纯文本来发送消息，且rtsp协议的语法也和HTTP类似。</li>
+<li>管道：具有两种限制。一是半双工的通信，数据只能单向流动，二是只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</li>
+<li>流管道：去除了第一种限制,可以双向传输.</li>
+<li>命名管道：除具有管道所具有的功能外，它还允许无亲缘关系进程间的通信。</li>
 </ul>
-<ol start="2">
-<li>不同点</li>
+</li>
+<li><p>信号</p>
+<p> 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</p>
+<p> 主要作为进程间以及同一进程不同线程之间的同步手段。</p>
+</li>
+<li><p>信号量</p>
+<p> 信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。</p>
+<p> 主要作为进程间以及同一进程内不同线程之间的同步手段。</p>
+</li>
+<li><p>共享内存</p>
+<p> 使得多个进程可以访问同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。往往与其它通信机制，如信号量结合使用，来达到进程间的同步及互斥。</p>
+</li>
+<li><p>消息队列</p>
+<p> 消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</p>
+</li>
+<li><p>socket</p>
+</li>
 </ol>
-<ul>
-<li>RTSP有状态，HTTP无状态，rtsp的命令总是按照顺序来发送。</li>
-</ul>
-<h2 id="RTSP和SIP区别"><a href="#RTSP和SIP区别" class="headerlink" title="RTSP和SIP区别"></a>RTSP和SIP区别</h2><p>SIP是基于IP的一个应用层控制协议。</p>
-<ol>
-<li>相同点</li>
-</ol>
-<ul>
-<li>sip和rtsp都是应用层的控制协议，负责一次通信过程的建立和控制和结束，不负责中间的传输部分。</li>
-<li>他们都是基于纯文本的信令协议，支持tcp、udp，支持多方通信。</li>
-<li><strong>sip和rtsp 都使用sdp协议来传送媒体参数，使用rtp（rtcp）协议来传输媒体流。</strong></li>
-</ul>
-<ol start="2">
-<li>不同点</li>
-</ol>
-<ul>
-<li>rtsp是专门为流媒体制定的协议，在多个媒体流的时间同步方面比sip强大。</li>
-<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求。</li>
-<li>sip一般用来创建一次音频、视频通话（双向），而rtsp一般用来做视频点播、视频监控等（单向）。从原理上讲，rtsp也可以做双向的视频通话。</li>
-</ul>
-<h2 id="RTSP和RTP（rtcp）的关系"><a href="#RTSP和RTP（rtcp）的关系" class="headerlink" title="RTSP和RTP（rtcp）的关系"></a>RTSP和RTP（rtcp）的关系</h2><p><img src="http://images.cnblogs.com/cnblogs_com/whyandinside/RTPRTSP.jpg" alt="img"></p>
-<p>rtsp负责建立和控制会话，rtp负责多媒体的传输，rtcp配合rtp做控制和流量统计，他们是合作的关系。</p>
-<h2 id="RTSP消息"><a href="#RTSP消息" class="headerlink" title="RTSP消息"></a>RTSP消息</h2><h3 id="请求格式"><a href="#请求格式" class="headerlink" title="请求格式"></a>请求格式</h3><p><strong>请求消息</strong>格式：<br><br>       方法 URI RTSP版本 CR LF<br><br>       消息头 CR LF CR LF<br>       消息体 CR LF</p>
-<h3 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h3><p><strong>回应消息</strong>格式：<br><br>       RTSP版本 状态码 解释 CR LF<br><br>       消息头 CR LF CR LF<br><br>       消息体 CR LF</p>
-<h2 id="RTSP请求方法介绍"><a href="#RTSP请求方法介绍" class="headerlink" title="RTSP请求方法介绍"></a>RTSP请求方法介绍</h2><ol>
-<li>OPTION</li>
-</ol>
-<p>目的是得到服务器提供的可用方法</p>
-<ol start="2">
-<li>DESCRIBE</li>
-</ol>
-<p>C向S发起DESCRIBE请求,为了得到会话描述信息(SDP)</p>
-<ol start="3">
-<li>SETUP</li>
-</ol>
-<p>客户端提醒服务器建立会话,并确定传输模式</p>
-<ol start="4">
-<li>PLAY</li>
-</ol>
-<p>客户端发送播放请求</p>
-<ol start="5">
-<li>TEARDOWN</li>
-</ol>
-<p>客户端发起关闭请求</p>
-<p><img src="http://img.blog.csdn.net/20130924000903765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVpeGlhb2h1YTEwMjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<ul>
-<li>第一步，只要服务器客户端约定好，有哪些方法可用，则<strong>option请求可以不要</strong>。</li>
-<li>第二步，如果我们有其他途径得到媒体初始化描述信息（比如http请求等等），则我们也<strong>不需要通过rtsp中的describe请求来完成</strong>。</li>
-</ul>
-<h2 id="RTSP推流过程"><a href="#RTSP推流过程" class="headerlink" title="RTSP推流过程"></a>RTSP推流过程</h2><p>options -&gt; announce(发送一些媒体对象描述信息sdp格式) -&gt; setup（定义实时流的传输模式） -&gt; record(初始化媒体数据记录范围，主要包括开始和结束时间)</p>
 
           
         
@@ -809,7 +1075,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/以太网帧详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTSP协议详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -828,7 +1094,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/11/以太网帧详解/" itemprop="url">以太网帧详解</a></h1>
+                <a class="post-title-link" href="/2018/01/13/RTSP协议详解/" itemprop="url">RTSP协议详解</a></h1>
         
 
         <div class="post-meta">
@@ -840,8 +1106,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T00:34:14+08:00">
-                2018-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
+                2018-01-13
               </time>
             
 
@@ -902,9 +1168,72 @@
       
         
           
-            <h2 id="以太网帧结构"><a href="#以太网帧结构" class="headerlink" title="以太网帧结构"></a>以太网帧结构</h2><p><img src="http://img.blog.csdn.net/20140329140332687" alt="img"></p>
-<p>以太网帧数据域长度为46-1500字节</p>
-<p>以太网帧头长度为18字节</p>
+            <h2 id="RTSP协议简介"><a href="#RTSP协议简介" class="headerlink" title="RTSP协议简介"></a>RTSP协议简介</h2><p>RTSP是研究如何有效地在IP网络上传输流媒体数据的应用层协议。RTSP对流媒体提供了诸如暂停，快进等控制，而它本身并不传输数据，RTSP的作用相当于流媒体服务器的远程控制。服务器端可以自行选择使用TCP或UDP来传送串流内容。</p>
+<p><strong>RTSP的对带宽的要求更低，RTMP实时性更好</strong></p>
+<p>特点：</p>
+<ul>
+<li>允许同时多个串流需求控制（Multicast），支持多方视频会议</li>
+<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求，可以实现流量的重新导向。</li>
+</ul>
+<h2 id="RTSP和HTTP区别"><a href="#RTSP和HTTP区别" class="headerlink" title="RTSP和HTTP区别"></a>RTSP和HTTP区别</h2><ol>
+<li>相同点</li>
+</ol>
+<ul>
+<li>两者都用纯文本来发送消息，且rtsp协议的语法也和HTTP类似。</li>
+</ul>
+<ol start="2">
+<li>不同点</li>
+</ol>
+<ul>
+<li>RTSP有状态，HTTP无状态，rtsp的命令总是按照顺序来发送。</li>
+</ul>
+<h2 id="RTSP和SIP区别"><a href="#RTSP和SIP区别" class="headerlink" title="RTSP和SIP区别"></a>RTSP和SIP区别</h2><p>SIP是基于IP的一个应用层控制协议。</p>
+<ol>
+<li>相同点</li>
+</ol>
+<ul>
+<li>sip和rtsp都是应用层的控制协议，负责一次通信过程的建立和控制和结束，不负责中间的传输部分。</li>
+<li>他们都是基于纯文本的信令协议，支持tcp、udp，支持多方通信。</li>
+<li><strong>sip和rtsp 都使用sdp协议来传送媒体参数，使用rtp（rtcp）协议来传输媒体流。</strong></li>
+</ul>
+<ol start="2">
+<li>不同点</li>
+</ol>
+<ul>
+<li>rtsp是专门为流媒体制定的协议，在多个媒体流的时间同步方面比sip强大。</li>
+<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求。</li>
+<li>sip一般用来创建一次音频、视频通话（双向），而rtsp一般用来做视频点播、视频监控等（单向）。从原理上讲，rtsp也可以做双向的视频通话。</li>
+</ul>
+<h2 id="RTSP和RTP（rtcp）的关系"><a href="#RTSP和RTP（rtcp）的关系" class="headerlink" title="RTSP和RTP（rtcp）的关系"></a>RTSP和RTP（rtcp）的关系</h2><p><img src="http://images.cnblogs.com/cnblogs_com/whyandinside/RTPRTSP.jpg" alt="img"></p>
+<p>rtsp负责建立和控制会话，rtp负责多媒体的传输，rtcp配合rtp做控制和流量统计，他们是合作的关系。</p>
+<h2 id="RTSP消息"><a href="#RTSP消息" class="headerlink" title="RTSP消息"></a>RTSP消息</h2><h3 id="请求格式"><a href="#请求格式" class="headerlink" title="请求格式"></a>请求格式</h3><p><strong>请求消息</strong>格式：<br><br>       方法 URI RTSP版本 CR LF<br><br>       消息头 CR LF CR LF<br>       消息体 CR LF</p>
+<h3 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h3><p><strong>回应消息</strong>格式：<br><br>       RTSP版本 状态码 解释 CR LF<br><br>       消息头 CR LF CR LF<br><br>       消息体 CR LF</p>
+<h2 id="RTSP请求方法介绍"><a href="#RTSP请求方法介绍" class="headerlink" title="RTSP请求方法介绍"></a>RTSP请求方法介绍</h2><ol>
+<li>OPTION</li>
+</ol>
+<p>目的是得到服务器提供的可用方法</p>
+<ol start="2">
+<li>DESCRIBE</li>
+</ol>
+<p>C向S发起DESCRIBE请求,为了得到会话描述信息(SDP)</p>
+<ol start="3">
+<li>SETUP</li>
+</ol>
+<p>客户端提醒服务器建立会话,并确定传输模式</p>
+<ol start="4">
+<li>PLAY</li>
+</ol>
+<p>客户端发送播放请求</p>
+<ol start="5">
+<li>TEARDOWN</li>
+</ol>
+<p>客户端发起关闭请求</p>
+<p><img src="http://img.blog.csdn.net/20130924000903765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVpeGlhb2h1YTEwMjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<ul>
+<li>第一步，只要服务器客户端约定好，有哪些方法可用，则<strong>option请求可以不要</strong>。</li>
+<li>第二步，如果我们有其他途径得到媒体初始化描述信息（比如http请求等等），则我们也<strong>不需要通过rtsp中的describe请求来完成</strong>。</li>
+</ul>
+<h2 id="RTSP推流过程"><a href="#RTSP推流过程" class="headerlink" title="RTSP推流过程"></a>RTSP推流过程</h2><p>options -&gt; announce(发送一些媒体对象描述信息sdp格式) -&gt; setup（定义实时流的传输模式） -&gt; record(初始化媒体数据记录范围，主要包括开始和结束时间)</p>
 
           
         
@@ -1060,6 +1389,150 @@
 <p><strong>不需要自己支持wrap_content和padding</strong></p>
 <h3 id="继承特定的ViewGroup（比如LinearLayout）"><a href="#继承特定的ViewGroup（比如LinearLayout）" class="headerlink" title="继承特定的ViewGroup（比如LinearLayout）"></a>继承特定的ViewGroup（比如LinearLayout）</h3><p>一般用于某种效果可以用几种View组合起来实现时</p>
 <p><strong>不需要自己处理ViewGroup的测量和布局过程</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/以太网帧详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/11/以太网帧详解/" itemprop="url">以太网帧详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T00:34:14+08:00">
+                2018-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="以太网帧结构"><a href="#以太网帧结构" class="headerlink" title="以太网帧结构"></a>以太网帧结构</h2><p><img src="http://img.blog.csdn.net/20140329140332687" alt="img"></p>
+<p>以太网帧数据域长度为46-1500字节</p>
+<p>以太网帧头长度为18字节</p>
 
           
         
@@ -1404,493 +1877,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/05/Android性能优化之内存泄漏优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/05/Android性能优化之内存泄漏优化/" itemprop="url">Android性能优化之内存泄漏优化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T00:34:14+08:00">
-                2018-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="静态变量导致的内存泄漏"><a href="#静态变量导致的内存泄漏" class="headerlink" title="静态变量导致的内存泄漏"></a>静态变量导致的内存泄漏</h2><p>一般是指静态变量持有需要释放内存的对象的引用。</p>
-<h2 id="单例模式导致的内存泄漏"><a href="#单例模式导致的内存泄漏" class="headerlink" title="单例模式导致的内存泄漏"></a>单例模式导致的内存泄漏</h2><p>单例对象中持有需要释放的对象的引用，泄漏场景：activity实现监听器接口并且向单例对象注册监听器之后，并没有解绑监听器。</p>
-<h2 id="属性动画导致的内存泄漏"><a href="#属性动画导致的内存泄漏" class="headerlink" title="属性动画导致的内存泄漏"></a>属性动画导致的内存泄漏</h2><p>Android 无限循环的属性动画如果不取消会一直播放下去，即使看不到动画效果了。因此动画持有了view的引用，而view又持有了activity的引用。</p>
-<h2 id="handler的不当使用导致的内存泄漏"><a href="#handler的不当使用导致的内存泄漏" class="headerlink" title="handler的不当使用导致的内存泄漏"></a>handler的不当使用导致的内存泄漏</h2><p>在java中非静态内部类和匿名内部类会隐式持有当前外部类的引用。</p>
-<p>造成内存泄漏的场景：</p>
-<p>被延迟的消息msg会在被处理之前存在于主线程消息队列中5分钟，而这个消息中又包含了Handler的引用(<strong>msg.targrt字段</strong>)，而我们创建的Handler又是一个匿名内部类的实例，其持有外部HandlerActivity的引用，这将导致了HandlerActivity无法回收，进行导致HandlerActivity持有的很多资源都无法回收。</p>
-<p>解决方案：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 创建静态内部类 </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyHandler</span> <span class="keyword">extends</span> <span class="title">Handler</span></span>&#123;  </span><br><span class="line">        <span class="comment">//持有弱引用HandlerActivity,GC回收时会被回收掉.  </span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> WeakReference&lt;HandlerActivity&gt; mActivty;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">MyHandler</span><span class="params">(HandlerActivity activity)</span></span>&#123;  </span><br><span class="line">            mActivty =<span class="keyword">new</span> WeakReference&lt;HandlerActivity&gt;(activity);  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="meta">@Override</span>  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;  </span><br><span class="line">            HandlerActivity activity=mActivty.get();  </span><br><span class="line">            <span class="keyword">super</span>.handleMessage(msg);  </span><br><span class="line">            <span class="keyword">if</span>(activity!=<span class="keyword">null</span>)&#123;  </span><br><span class="line">                <span class="comment">//执行业务逻辑  </span></span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/02/Java try-catch-finally语句执行的顺序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/02/Java try-catch-finally语句执行的顺序/" itemprop="url">Java try-catch-finally语句执行的顺序</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-02T00:34:14+08:00">
-                2018-01-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
-<li>try catch finally 都有返回：最终都会得到finally的返回结果。<strong>此时finally中的操作是有效的，影响返回结果。如果finally语句有返回值，则此返回值将会替换掉临时区域原有的值。</strong></li>
-<li>try catch 都有返回 finally没有返回：try出现异常，会得到catch的返回结果。<strong>finally中的操作，不影响返回结果。</strong></li>
-<li>try catch 都有返回 finally没有返回：try没有异常，会得到try的返回结果。 <strong>finally中的操作，不影响返回结果。</strong></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/29/访问网址的完整过程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/29/访问网址的完整过程/" itemprop="url">访问网址的整个过程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-29T00:34:14+08:00">
-                2017-12-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="DNS解析过程（递归查询）"><a href="#DNS解析过程（递归查询）" class="headerlink" title="DNS解析过程（递归查询）"></a>DNS解析过程（递归查询）</h2><ol>
-<li>若DNS缓存中没有相关数据，则IE浏览器先向DNS服务器发出DNS请求：</li>
-<li>这一过程的目的是获取<a href="http://www.sina.com这个域名所对应的IP地址；" target="_blank" rel="noopener">www.sina.com这个域名所对应的IP地址；</a></li>
-<li>IE浏览器向本机DNS模块发出DNS请求，DNS模块生成相关的DNS报文；</li>
-<li>DNS模块将生成的DNS报文传递给传输层的UDP协议单元；</li>
-<li>UDP协议单元将该数据封装成UDP数据报，传递给网络层的IP协议单元；</li>
-<li>IP协议单元将该数据封装成IP数据包，其中目的IP地址为DNS服务器的IP地址；</li>
-<li>封装好的IP数据包将传递给数据链路层的协议单元进行发送；</li>
-<li>发送时如果ARP缓存中没有相关数据，则发送ARP广播请求，等待ARP回应；</li>
-<li>得到ARP回应后，将IP地址与路由下一跳MAC地址对应的信息写入ARP缓存表；</li>
-<li>写入缓存后，以路由下一跳地址填充目的MAC地址，并以数据帧形式转发；</li>
-<li>这个转发过程可能会进行多次，这取决于DNS服务器在校园网中的位置；</li>
-<li>DNS请求被发送到DNS服务器的数据链路层协议单元；</li>
-<li>DNS服务器的数据链路层协议单元解析收到的数据帧，将其内部所含有的IP数据包传递给网络层IP协议单元；</li>
-<li>DNS服务器的IP协议单元解析收到的IP数据包，将其内部所含有的UDP数据报传递给传输层的UDP协议单元；</li>
-<li>DNS服务器的UDP协议单元解析收到的UDP数据包，将其内部所含有的DNS报文传递给该服务器上的DNS服务单元；</li>
-<li>DNS服务单元收到DNS请求，将域名解析为对应的IP地址，产生DNS回应报文；</li>
-<li>（所有应用层报文必须通过传输层、网络层和数据链路层，因此在下面的叙述中，我将简化这一过程的叙述，简化形式如下面的样子，其中单箭头为本机内部传递，双箭头为网络上的发送）<br>DNS回应报文→UDP→IP→MAC→→请求域名解析的主机；</li>
-<li>请求域名解析的主机收到数据帧，该数据帧→IP→UDP→DNS→IE浏览器；</li>
-<li>将域名解析的结果以域名和IP地址对应的形式写入DNS缓存表。</li>
-</ol>
-<h2 id="IE浏览器与www-sina-com-cn建立TCP连接：TCP建立连接的三次握手"><a href="#IE浏览器与www-sina-com-cn建立TCP连接：TCP建立连接的三次握手" class="headerlink" title="IE浏览器与www.sina.com.cn建立TCP连接：TCP建立连接的三次握手"></a>IE浏览器与<a href="http://www.sina.com.cn建立TCP连接：TCP建立连接的三次握手" target="_blank" rel="noopener">www.sina.com.cn建立TCP连接：TCP建立连接的三次握手</a></h2><ol>
-<li>IE浏览器向<a href="http://www.sina.com.cn发出TCP连接请求报文；" target="_blank" rel="noopener">www.sina.com.cn发出TCP连接请求报文；</a></li>
-<li>该请求TCP报文中的SYN标志位被设置为1，表示连接请求；</li>
-<li>该TCP请求报文→IP(DNS)→MAC(ARP)→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
-<li>该TCP请求报文经过IP层时，填入的目的IP地址就是上面DNS过程获得的IP地址；</li>
-<li>经过数据链路层时，若MAC地址不明，还要进行上面所叙述的ARP过程；</li>
-<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应请求应答报文；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应请求应答报文；</a></li>
-<li>该请求应答TCP报文中的SYN和ACK标志位均被设置为1，表示连接请求应答；</li>
-<li>该TCP请求应答报文→IP→MAC(ARP)→→校园网关→→请求主机；</li>
-<li>请求主机收到数据帧→IP→TCP，TCP协议单元会回应请求确认报文；</li>
-<li>该请求应答TCP报文中的ACK标志位被设置为1，表示连接请求确认；</li>
-<li>该TCP请求确认报文→IP→MAC(ARP)→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
-<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP，连接建立完成；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP，连接建立完成；</a></li>
-</ol>
-<h2 id="IE浏览器开始HTTP访问过程"><a href="#IE浏览器开始HTTP访问过程" class="headerlink" title="IE浏览器开始HTTP访问过程"></a>IE浏览器开始HTTP访问过程</h2><ol>
-<li>IE浏览器向<a href="http://www.sina.com.cn发出HTTP-GET方法报文；" target="_blank" rel="noopener">www.sina.com.cn发出HTTP-GET方法报文；</a></li>
-<li>该HTTP-GET方法报文→TCP→IP→MAC→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
-<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP→HTTP，HTTP协议单元会回应HTTP协议格式封装好的HTML超文本形式数据；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP→HTTP，HTTP协议单元会回应HTTP协议格式封装好的HTML超文本形式数据；</a></li>
-<li>HTTP-HTML数据→TCP→IP→MAC(ARP)→→校园网关→→请求主机；</li>
-<li>请求主机收到的数据帧→IP→TCP→HTTP→IE浏览器，浏览器会以网页形式显示HTML超文本，就是我们所看到的网页。</li>
-<li><strong>涉及到html的解析（通常使用有限状态自动机）和渲染</strong>。</li>
-</ol>
-<h2 id="断开TCP连接：TCP断开连接的四次挥手"><a href="#断开TCP连接：TCP断开连接的四次挥手" class="headerlink" title="断开TCP连接：TCP断开连接的四次挥手"></a>断开TCP连接：TCP断开连接的四次挥手</h2><ol>
-<li>IE浏览器向<a href="http://www.sina.com.cn发出TCP连接结束请求报文；" target="_blank" rel="noopener">www.sina.com.cn发出TCP连接结束请求报文；</a></li>
-<li>该请求TCP报文中的FIN标志位被设置为1，表示结束请求；</li>
-<li>该TCP结束请求报文→IP→MAC(ARP)→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
-<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应结束应答报文；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应结束应答报文；</a></li>
-<li>该结束应答TCP报文中的FIN和ACK标志位均被设置为1，表示结束应答；</li>
-<li>该TCP结束应答报文→IP→MAC(ARP)→→校园网关→→请求主机；</li>
-<li><strong>这个过程需要双向进行，因此<a href="http://www.sina.com.cn主机也会按上述流程再做一次" target="_blank" rel="noopener">www.sina.com.cn主机也会按上述流程再做一次</a></strong>；</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1941,7 +1927,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
