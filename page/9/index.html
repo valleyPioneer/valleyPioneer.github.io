@@ -249,6 +249,350 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/TCP和UDP协议详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/23/TCP和UDP协议详解/" itemprop="url">TCP和UDP协议详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h3 id="TCP报文结构"><a href="#TCP报文结构" class="headerlink" title="TCP报文结构"></a>TCP报文结构</h3><p><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/CFC6314E4B2FD039C450821D946E93E2.png" alt="img"></p>
+<p><a href="https://jerryc8080.gitbooks.io/understand-tcp-and-udp/chapter2.html" target="_blank" rel="noopener">TCP报文结构详解</a></p>
+<h3 id="三次握手和四次挥手"><a href="#三次握手和四次挥手" class="headerlink" title="三次握手和四次挥手"></a>三次握手和四次挥手</h3><p><strong>注意ack和seq的变化，syn同步报文段占用一个序号（相当于一个字节），而fin终止报文段由于没有数据，所以不占用序列号，而且最后的ack报文也不传输数据，所以不占用序列号。</strong><br><img src="https://www.polarxiong.com/usr/uploads/2017/04/3086068925.png" alt="img"></p>
+<p><strong>Q</strong>: 三次握手建立连接时，发送方再次发送确认的必要性？</p>
+<p>A: 主 要是为了防止已失效的连接请求报文段突然又传到了B,因而产生错误。假定出现一种异常情况，即A发出的第一个连接请求报文段并没有丢失，而是在某些网络结 点长时间滞留了，一直延迟到连接释放以后的某个时间才到达B，本来这是一个早已失效的报文段。但B收到此失效的连接请求报文段后，就误认为是A又发出一次 新的连接请求，于是就向A发出确认报文段，同意建立连接。假定不采用三次握手，那么只要B发出确认，新的连接就建立了，这样一直等待A发来数据，B的许多 资源就这样白白浪费了。</p>
+<p><strong>Q</strong>: 四次挥手释放连接时，等待2MSL的意义？</p>
+<p>A: </p>
+<ol>
+<li>为了保证A发送的最有一个ACK报文段能够到达B。这个ACK报文段有可能丢失，因而使处在LAST-ACK状态的B收不到对已发送的FIN和ACK 报文段的确认。B会超时重传这个FIN和ACK报文段，而A就能在2MSL时间内收到这个重传的ACK+FIN报文段。接着A重传一次确认。</li>
+<li>他还可以防止已失效的报文段。客户端在发送最后一个ACK之后，再经过经过2MSL，就可以使本链接持续时间内所产生的所有报文段都从网络中消失。<strong>从而保证如果马上建立下一次连接，上一次失效的报文不会干扰此次通信过程。</strong></li>
+</ol>
+<p><strong>Q</strong>: 为什么是2MSL？</p>
+<p>A: </p>
+<ol>
+<li>服务器fin报文超时重传时间一般为1个MSL，然后再考虑到fin报文传递到的客户端的时间最长为1个MSL</li>
+</ol>
+<h3 id="TCP中的三种关键技术"><a href="#TCP中的三种关键技术" class="headerlink" title="TCP中的三种关键技术"></a>TCP中的三种关键技术</h3><h4 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h4><p>RTO、RTT</p>
+<h4 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h4><ol>
+<li>慢启动和拥塞避免<br><img src="http://img.blog.csdn.net/20140509221015859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"></li>
+<li>快重传和快恢复<br><img src="http://img.blog.csdn.net/20140509221048265?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"><h4 id="流量控制（滑动窗口实现）"><a href="#流量控制（滑动窗口实现）" class="headerlink" title="流量控制（滑动窗口实现）"></a>流量控制（滑动窗口实现）</h4>发送窗口（四种状态）：<br><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/FCA43D210DF50C93E428DFD04FBBBF32.png" alt="img"><br>接收窗口（三种状态）：<br><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/F4B7AEDE41EE179676E79DEF2601D4A4.png" alt="img"><br><strong>大写ACK表示首部中的确认位ACK，小写ack表示确认字段的值ack。</strong><br><img src="http://img.blog.csdn.net/20140509220855687?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"></li>
+</ol>
+<h3 id="TCP-ack机制"><a href="#TCP-ack机制" class="headerlink" title="TCP ack机制"></a>TCP ack机制</h3><ol>
+<li>快速确认</li>
+<li>延迟确认（捎带在数据包中）</li>
+</ol>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p><strong>udp支持广播和组播，支持一对一、一对多、多对一、多对多的通信，而tcp不支持广播和组播</strong></p>
+<h3 id="UDP报文结构"><a href="#UDP报文结构" class="headerlink" title="UDP报文结构"></a>UDP报文结构</h3><p><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/6FCC9F4EDE80F784BD11ED9FA76FA375.png" alt="img"></p>
+<ol>
+<li>源端口：源端口号，在需要对方回信时选用，不需要时可全 0.</li>
+<li>目的端口：目的端口号，在终点交付报文时必须要使用到。</li>
+<li>长度：UDP 用户数据报的长度，在只有首部的情况，其最小值是 8 。</li>
+<li>检验和：检测 UDP 用户数据报在传输中是否有错，有错就丢弃。</li>
+</ol>
+<h3 id="UDP校验和的计算方法"><a href="#UDP校验和的计算方法" class="headerlink" title="UDP校验和的计算方法"></a>UDP校验和的计算方法</h3><p><strong>现在数据报之前加入12个字节的伪首部，先令2个字节的校验和全为0，然后利用二进制反码求和机制计算出最后的校验和。</strong></p>
+<p>伪首部并不是数据报真正的首部，是为了计算校验和而临时添加在数据报前面的，在真正传输的时候并不会把伪首部一并发送。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/20/Android 卡顿的分析思路/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/20/Android 卡顿的分析思路/" itemprop="url">Android 卡顿的分析思路</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-20T00:34:14+08:00">
+                2017-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="分析思路"><a href="#分析思路" class="headerlink" title="分析思路"></a>分析思路</h2><ol>
+<li>cpu</li>
+<li>gpu</li>
+<li>内存</li>
+</ol>
+<p>UI渲染的整个过程是由CPU和GPU两个部分协同完成的。</p>
+<p>其中, CPU负责UI布局元素的Measure, Layout, Draw等相关运算执行. GPU负责栅格化(rasterization), 将UI元素绘制到屏幕上.</p>
+<h2 id="过于复杂的布局-cpu"><a href="#过于复杂的布局-cpu" class="headerlink" title="过于复杂的布局(cpu)"></a>过于复杂的布局(cpu)</h2><ol>
+<li><strong>UI布局层次太深</strong>；</li>
+<li><strong>自定义控件的onDraw中有复杂运算。</strong></li>
+</ol>
+<p>以上两点原因会导致CPU的相关运算就可能大于16ms, 导致卡顿。</p>
+<p>可以借助<strong>Hierarchy Viewer</strong>这个工具来帮我们分析布局了. Hierarchy Viewer不仅可以以图形化树状结构的形式展示出UI层级, 还对每个节点给出了三个小圆点, 以指示该元素Measure, Layout, Draw的耗时及性能。</p>
+<h2 id="过度绘制-overDraw-gpu"><a href="#过度绘制-overDraw-gpu" class="headerlink" title="过度绘制(overDraw)(gpu)"></a>过度绘制(overDraw)(gpu)</h2><p>Overdraw: 用来描述一个像素在屏幕上多少次被重绘在一帧上。</p>
+<p>Android可视化界面分析：”系统设置”–&gt;”开发者选项”–&gt;”调试GPU过度绘制”</p>
+<p>造成overdraw的主要原因：</p>
+<ol>
+<li><strong>绘制了多重背景.</strong></li>
+<li><strong>绘制了不可见的UI元素.</strong></li>
+</ol>
+<h2 id="UI线程的复杂运算-cpu"><a href="#UI线程的复杂运算-cpu" class="headerlink" title="UI线程的复杂运算(cpu)"></a>UI线程的复杂运算(cpu)</h2><p>UI线程的复杂运算会造成UI无响应, 当然更多的是造成UI响应停滞, 卡顿.</p>
+<h2 id="频繁的GC-内存"><a href="#频繁的GC-内存" class="headerlink" title="频繁的GC(内存)"></a>频繁的GC(内存)</h2><p>执行GC操作的时候，任何线程的任何操作都会需要暂停，等待GC操作完成之后，其他操作才能够继续运行, 故而如果程序频繁GC, 自然会导致界面卡顿。</p>
+<p>造成频繁GC的主要原因：</p>
+<ul>
+<li>内存抖动：大量的对象被创建又在短时间内马上被释放。</li>
+</ul>
+<p>工程中的原因：<br><strong>我们在代码的循环中new对象, 或是在onDraw中创建对象等.</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/12/Android 检测内存泄漏场景的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1504,319 +1848,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/11/LinkedList相比于List接口新添的方法说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/11/LinkedList相比于List接口新添的方法说明/" itemprop="url">LinkedList相比于List接口新添的方法说明</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-11T00:34:14+08:00">
-                2017-09-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li><p>getFrist()/element()<br> 返回列表的头但是不进行移除，如果List为空，则抛出异常</p>
-</li>
-<li><p>peek()<br> 返回列表的头但是不进行移除，如果List为空，则返回null</p>
-</li>
-<li><p>removeFirst()/remove()<br>移除并且返回列表==移除之前==的头，如果List为空，则抛出异常</p>
-</li>
-<li><p>poll()<br> 移除并且返回列表移除之前的头，如果List为空，则返回null</p>
-</li>
-<li><p>addFirst()<br> 将某个元素插入列表的头部</p>
-</li>
-<li><p>add()/addLast()<br> 将某个元素插入列表的尾部</p>
-</li>
-<li><p>removeLast()<br> 移除并返回列表==移除之前==的最后一个元素 </p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/10/leetcode字典树总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/10/leetcode字典树总结/" itemprop="url">leetcode字典树总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-10T00:34:14+08:00">
-                2017-09-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。</li>
-</ol>
-<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ol>
-<li>根节点不包含字符，除根节点外每一个节点都只包含一个字符。</li>
-<li>从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串。</li>
-<li>每个节点的所有子节点包含的字符都不相同。</li>
-</ol>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被<strong>搜索引擎系统用于文本词频统计</strong>。它的优点是：最大限度地减少无谓的字符串比较，查询效率比哈希表高。<br>缺点：内存消耗很大，可以使用左孩子右兄弟法存储来改善。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> isLeaf;</span><br><span class="line">    Map&lt;Character,TrieNode&gt; content;</span><br><span class="line">    <span class="comment">// Initialize your data structure here.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TrieNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        content = <span class="keyword">new</span> HashMap&lt;Character,TrieNode&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Trie</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> TrieNode root;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Trie</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        root = <span class="keyword">new</span> TrieNode();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Inserts a word into the trie.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(word ** <span class="keyword">null</span> || word.length() ** <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        TrieNode node = root;</span><br><span class="line">        TrieNode tempNode = <span class="keyword">null</span>;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>, len=word.length(); i&lt;len; i++)&#123;</span><br><span class="line">            Character c = word.charAt(i);</span><br><span class="line">            tempNode = node.content.get(c);</span><br><span class="line">            <span class="keyword">if</span>(tempNode == <span class="keyword">null</span>)&#123;</span><br><span class="line">                tempNode = <span class="keyword">new</span> TrieNode();</span><br><span class="line">                node.content.put(c,tempNode);</span><br><span class="line">            &#125;</span><br><span class="line">            node = tempNode;</span><br><span class="line">        &#125;</span><br><span class="line">        node.isLeaf = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Returns if the word is in the trie.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">search</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(word ** <span class="keyword">null</span> || word.length() ** <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        TrieNode node = root;</span><br><span class="line">        TrieNode tempNode = <span class="keyword">null</span>;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>, len=word.length(); i&lt;len; i++)&#123;</span><br><span class="line">            Character c = word.charAt(i);</span><br><span class="line">            tempNode = node.content.get(c);</span><br><span class="line">            <span class="keyword">if</span>(tempNode == <span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            node = tempNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node.isLeaf;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Returns if there is any word in the trie</span></span><br><span class="line">    <span class="comment">// that starts with the given prefix.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">startsWith</span><span class="params">(String prefix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prefix ** <span class="keyword">null</span> || prefix.length() ** <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        TrieNode node = root;</span><br><span class="line">        TrieNode tempNode = <span class="keyword">null</span>;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>, len=prefix.length(); i&lt;len; i++)&#123;</span><br><span class="line">            Character c = prefix.charAt(i);</span><br><span class="line">            tempNode = node.content.get(c);</span><br><span class="line">            <span class="keyword">if</span>(tempNode == <span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            node = tempNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1862,7 +1898,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

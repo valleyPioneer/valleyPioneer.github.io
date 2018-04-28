@@ -249,6 +249,315 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/10/线程和进程的区别与联系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/10/线程和进程的区别与联系/" itemprop="url">线程和进程的区别与联系</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-10T00:34:14+08:00">
+                2018-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>进程是系统资源分配的基本单位，而线程是cpu调度的基本单位。</li>
+<li>进程有自己独立的地址空间，而线程没有。</li>
+<li>每个线程虽然有一个程序运行的入口、顺序执行序列和程序的出口。但是<strong>线程不能独立执行，必须依存在应用程序中</strong>，由应用程序提供多个线程执行控制。</li>
+<li><strong>一个程序至少有一个进程,一个进程至少有一个线程.</strong></li>
+</ol>
+<h2 id="多线程和多进程的区别"><a href="#多线程和多进程的区别" class="headerlink" title="多线程和多进程的区别"></a>多线程和多进程的区别</h2><p>进程有独立的地址空间，一个进程崩溃后，在保护模式下<strong>不会对其它进程产生影响==，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，==一个线程死掉就等于整个进程死掉</strong>，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/08/Android MVC、MVP、MVVM总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/08/Android MVC、MVP、MVVM总结/" itemprop="url">Android MVC、MVP、MVVM总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-08T00:34:14+08:00">
+                2018-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Android-MVC"><a href="#Android-MVC" class="headerlink" title="Android MVC"></a>Android MVC</h2><ol>
+<li>View：一般是xml文件</li>
+<li>Model：大多对应本地数据库或者网络数据实体，而且还包括一些简单的数据处理的逻辑。</li>
+<li><p>Controller：activity，主要负责复杂的业务逻辑。</p>
+<p>MVC耦合性相对较高，View可以直接访问model，导致3者之间构成回路</p>
+</li>
+</ol>
+<h2 id="Android-MVP"><a href="#Android-MVP" class="headerlink" title="Android MVP"></a>Android MVP</h2><ol>
+<li>View：一般是activity、fragment（粗粒度的View，View集合）或者是View控件，负责一些简单的业务逻辑。</li>
+<li>Presenter沟通View和Model层的桥梁，使得View和Model之间没有耦合，包含复杂的业务逻辑。</li>
+<li><p>Model：主要提供数据的存取功能，数据仓库，包含数据的存取操作。</p>
+<p>View不能直接访问Model，需要通过Presenter发出请求，View与Model不直接通信。</p>
+<h2 id="Android-MVVM"><a href="#Android-MVVM" class="headerlink" title="Android MVVM"></a>Android MVVM</h2><ol>
+<li>View：对应与activity和xml文件</li>
+<li>Model：实体模型</li>
+<li>ViewModel：负责复杂的业务逻辑</li>
+</ol>
+<p>和MVP很相似，唯一的区别在于View和Model进行双向绑定，两者的变化是同步的。View和Modeld没有直接联系，通过ViewModel进行交互。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/05/Android性能优化之内存泄漏优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1059,6 +1368,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/27/Socket编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/27/Socket编程/" itemprop="url">Socket编程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-27T00:34:14+08:00">
+                2017-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Socket通信模型"><a href="#Socket通信模型" class="headerlink" title="Socket通信模型"></a>Socket通信模型</h2><p><img src="http://img.blog.csdn.net/20150206102959685" alt="img"></p>
+<h2 id="基于TCP"><a href="#基于TCP" class="headerlink" title="基于TCP"></a>基于TCP</h2><ol>
+<li><strong>服务器端监听阻塞，accept一直阻塞到建立连接成功</strong></li>
+<li><strong>客服端创建Socket对象阻塞，一直阻塞到建立连接成功</strong></li>
+<li>客服端与服务器端通过Socket的输入流进行接收数据，输出流进行发送数据。</li>
+</ol>
+<p><img src="http://img.blog.csdn.net/20150206151354460" alt="img"></p>
+<h2 id="基于UDP"><a href="#基于UDP" class="headerlink" title="基于UDP"></a>基于UDP</h2><p>注意要点：<strong>UDP程序在receive()方法处阻塞，直到收到一个数据报文或等待超时</strong>。由于UDP协议是不可靠协议，如果数据报在传输过程中发生丢失，那么程序将会一直阻塞在receive()方法处，这样客户端将永远都接收不到服务器端发送回来的数据，但是又没有任何提示。为了避免这个问题，我们在客户端使用DatagramSocket类的setSoTimeout()方法来制定receive()方法的最长阻塞时间，并指定重发数据报的次数，如果每次阻塞都超时，并且重发次数达到了设置的上限，则关闭客户端。</p>
+<h3 id="客户端流程"><a href="#客户端流程" class="headerlink" title="客户端流程"></a>客户端流程</h3><ol>
+<li>创建一个DatagramSocket实例，可以有选择地对本地地址和端口号进行设置，如果设置了端口号，则客户端会在该端口号上监听从服务器端发送来的数据；</li>
+<li>使用DatagramSocket实例的send（）和receive（）方法来发送和接收DatagramPacket实例，进行通信；</li>
+<li>通信完成后，调用DatagramSocket实例的close（）方法来关闭该套接字。</li>
+</ol>
+<h3 id="服务器流程"><a href="#服务器流程" class="headerlink" title="服务器流程"></a>服务器流程</h3><ol>
+<li>创建一个DatagramSocket实例，指定本地端口号，并可以有选择地指定本地地址，此时，服务器已经准备好从任何客户端接收数据报文；</li>
+<li>使用DatagramSocket实例的receive（）方法接收一个DatagramPacket实例，当receive（）方法返回时，数据报文就包含了客户端的地址，这样就知道了回复信息应该发送到什么地方；</li>
+<li>使用DatagramSocket实例的send（）方法向客户端返回DatagramPacket实例。</li>
+</ol>
+<h2 id="TCP-UDP的区别"><a href="#TCP-UDP的区别" class="headerlink" title="TCP UDP的区别"></a>TCP UDP的区别</h2><ol>
+<li>由于UDP是无连接的，因此<strong>UDP服务端不需要等待客户端的请求以建立连接</strong>。</li>
+<li><strong>UDP服务器为所有通信使用同一套接字</strong>，这点与TCP服务器不同，TCP服务器则为每个成功返回的accept()方法创建一个新的套接字。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/27/操作系统的内存管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1321,169 +1793,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/27/Socket编程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/27/Socket编程/" itemprop="url">Socket编程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-27T00:34:14+08:00">
-                2017-12-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Socket通信模型"><a href="#Socket通信模型" class="headerlink" title="Socket通信模型"></a>Socket通信模型</h2><p><img src="http://img.blog.csdn.net/20150206102959685" alt="img"></p>
-<h2 id="基于TCP"><a href="#基于TCP" class="headerlink" title="基于TCP"></a>基于TCP</h2><ol>
-<li><strong>服务器端监听阻塞，accept一直阻塞到建立连接成功</strong></li>
-<li><strong>客服端创建Socket对象阻塞，一直阻塞到建立连接成功</strong></li>
-<li>客服端与服务器端通过Socket的输入流进行接收数据，输出流进行发送数据。</li>
-</ol>
-<p><img src="http://img.blog.csdn.net/20150206151354460" alt="img"></p>
-<h2 id="基于UDP"><a href="#基于UDP" class="headerlink" title="基于UDP"></a>基于UDP</h2><p>注意要点：<strong>UDP程序在receive()方法处阻塞，直到收到一个数据报文或等待超时</strong>。由于UDP协议是不可靠协议，如果数据报在传输过程中发生丢失，那么程序将会一直阻塞在receive()方法处，这样客户端将永远都接收不到服务器端发送回来的数据，但是又没有任何提示。为了避免这个问题，我们在客户端使用DatagramSocket类的setSoTimeout()方法来制定receive()方法的最长阻塞时间，并指定重发数据报的次数，如果每次阻塞都超时，并且重发次数达到了设置的上限，则关闭客户端。</p>
-<h3 id="客户端流程"><a href="#客户端流程" class="headerlink" title="客户端流程"></a>客户端流程</h3><ol>
-<li>创建一个DatagramSocket实例，可以有选择地对本地地址和端口号进行设置，如果设置了端口号，则客户端会在该端口号上监听从服务器端发送来的数据；</li>
-<li>使用DatagramSocket实例的send（）和receive（）方法来发送和接收DatagramPacket实例，进行通信；</li>
-<li>通信完成后，调用DatagramSocket实例的close（）方法来关闭该套接字。</li>
-</ol>
-<h3 id="服务器流程"><a href="#服务器流程" class="headerlink" title="服务器流程"></a>服务器流程</h3><ol>
-<li>创建一个DatagramSocket实例，指定本地端口号，并可以有选择地指定本地地址，此时，服务器已经准备好从任何客户端接收数据报文；</li>
-<li>使用DatagramSocket实例的receive（）方法接收一个DatagramPacket实例，当receive（）方法返回时，数据报文就包含了客户端的地址，这样就知道了回复信息应该发送到什么地方；</li>
-<li>使用DatagramSocket实例的send（）方法向客户端返回DatagramPacket实例。</li>
-</ol>
-<h2 id="TCP-UDP的区别"><a href="#TCP-UDP的区别" class="headerlink" title="TCP UDP的区别"></a>TCP UDP的区别</h2><ol>
-<li>由于UDP是无连接的，因此<strong>UDP服务端不需要等待客户端的请求以建立连接</strong>。</li>
-<li><strong>UDP服务器为所有通信使用同一套接字</strong>，这点与TCP服务器不同，TCP服务器则为每个成功返回的accept()方法创建一个新的套接字。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/20/Java nio详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1627,344 +1936,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/12/intentfilter 中 action category data匹配规则/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/12/intentfilter 中 action category data匹配规则/" itemprop="url">intentfilter 中 action category data匹配规则</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-12T00:34:14+08:00">
-                2017-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="action匹配规则"><a href="#action匹配规则" class="headerlink" title="action匹配规则"></a>action匹配规则</h2><p>要求intent中action必须存在且必须和过滤规则中的一个action相同。</p>
-<h2 id="category匹配规则"><a href="#category匹配规则" class="headerlink" title="category匹配规则"></a>category匹配规则</h2><p>要求intent中如果含有category，那么所有的category都必须和过滤规则中的其中一个category相同。</p>
-<p>为了使activity能够接收隐式调用，就必须在intent-filter中加入“android.intent.category.DEFAULT”。</p>
-<h2 id="data匹配规则"><a href="#data匹配规则" class="headerlink" title="data匹配规则"></a>data匹配规则</h2><p>和action类似，要求intent中必须含有data数据，并且data数据能能够完全匹配过滤规则中某一个data。（<strong>完全匹配指的是：过滤规则中data出现的部分也出现在了intent中的data中</strong>）</p>
-<h2 id="尽量使用显示调用来启动服务"><a href="#尽量使用显示调用来启动服务" class="headerlink" title="尽量使用显示调用来启动服务"></a>尽量使用显示调用来启动服务</h2><h2 id="两个方法判断是否存在intent可以启动的activity"><a href="#两个方法判断是否存在intent可以启动的activity" class="headerlink" title="两个方法判断是否存在intent可以启动的activity"></a>两个方法判断是否存在intent可以启动的activity</h2><ul>
-<li>packageManager<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> List&lt;ResolveInfo&gt; <span class="title">queryIntentActivities</span><span class="params">(Intent intent,<span class="keyword">int</span> flags)</span></span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> ResolveInfo <span class="title">resolveActivity</span><span class="params">(Intent intent,<span class="keyword">int</span> flags)</span></span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>intent<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ActivityInfo <span class="title">resolveActivityInfo</span><span class="params">(PackageManager pm,<span class="keyword">int</span> flags)</span></span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>传入的flags都是DEFAULT_ONLY，如果返回null表示不存在可以隐式启动的活动。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/10/HTTP长连接/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/10/HTTP长连接/" itemprop="url">HTTP长连接</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-10T00:34:14+08:00">
-                2017-12-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="HTTP协议和TCP协议"><a href="#HTTP协议和TCP协议" class="headerlink" title="HTTP协议和TCP协议"></a>HTTP协议和TCP协议</h2><p>HTTP的长连接和短连接本质上是TCP长连接和短连接。</p>
-<h2 id="HTTP协议的长连接和短连接"><a href="#HTTP协议的长连接和短连接" class="headerlink" title="HTTP协议的长连接和短连接"></a>HTTP协议的长连接和短连接</h2><ul>
-<li><p>在HTTP/1.0中，默认使用的是短连接。也就是说，浏览器和服务器每进行一次HTTP操作，就建立一次连接，但任务结束就中断连接。如果客户端浏览器访问的某个HTML或其他类型的 Web页中包含有其他的Web资源，如JavaScript文件、图像文件、CSS文件等；当浏览器每遇到这样一个Web资源，就会建立一个HTTP会话。</p>
-</li>
-<li><p>但从 HTTP/1.1起，默认使用长连接，用以保持连接特性。使用长连接的HTTP协议，会在响应头有加入这行代码：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connection:keep-alive</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>在使用长连接的情况下，当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的 TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接。<strong>Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同的服务器软件（如Apache）中设定这个时间。实现长连接要客户端和服务端都支持长连接。</strong></p>
-<h2 id="TCP长连接和短连接"><a href="#TCP长连接和短连接" class="headerlink" title="TCP长连接和短连接"></a>TCP长连接和短连接</h2><ul>
-<li><p>TCP短连接</p>
-<p>  client向server发起连接请求，server接到请求，然后双方建立连接。client向server 发送消息，server回应client，然后一次读写就完成了，这时候双方任何一个都可以发起close操作，不过一般都是client先发起 close操作。为什么呢，一般的server不会回复完client后立即关闭连接的，当然不排除有特殊的情况。从上面的描述看，短连接一般只会在 client/server间传递一次读写操作。</p>
-</li>
-<li><p>TCP长连接</p>
-<p>  client向server发起连接，server接受client连接，双方建立连接。Client与server完成一次读写之后，它们之间的连接并不会主动关闭，后续的读写操作会继续使用这个连接。</p>
-</li>
-<li><p>TCP保活功能</p>
-<p>  保活功能主要为服务器应用提供，服务器应用希望知道客户主机是否崩溃，从而可以代表客户使用资源。如果客户已经消失，使得服务器上保留一个半开放的连接，而服务器又在等待来自客户端的数据，则服务器将应远等待客户端的数据，保活功能就是试图在服务 器端检测到这种半开放的连接。</p>
-</li>
-</ul>
-<h2 id="长连接和短连接的生命周期"><a href="#长连接和短连接的生命周期" class="headerlink" title="长连接和短连接的生命周期"></a>长连接和短连接的生命周期</h2><ul>
-<li><p>短连接</p>
-<p>  短连接在建立连接后，完成一次读写就会自动关闭了。</p>
-</li>
-<li><p>长连接</p>
-<p>  正常情况下，一条TCP长连接建立后，只要双不提出关闭请求并且不出现异常情况，这条连接是一直存在的，操作系统不会自动去关闭它，甚至经过物理网络拓扑的改变之后仍然可以使用。所以一条连接保持几天、几个月、几年或者更长时间都有可能，只要不出现异常情况或由用户（应用层）主动关闭。</p>
-</li>
-</ul>
-<h2 id="如何维持长连接"><a href="#如何维持长连接" class="headerlink" title="如何维持长连接"></a>如何维持长连接</h2><ol>
-<li><p>在应用层使用心跳包机制来主动检测</p>
-<p> 对于实时性要求较高的网络通信程序，往往需要更加及时的获取已经中断的连接，从而进行及时的处理。但如果对方的连接异常中断，往往是不能及时的得到对方连接已经中断的信息，操作系统检测连接是否中断的时间间隔默认是比较长的，即便它能够检测到，但却不符合我们的实时性需求，所以需要我们进行手工去不断探测。</p>
-</li>
-<li><p>改变socket的keepalive的相关选项，<strong>以使socket检测连接是否中断的时间间隔更小</strong>，以满足我们的及时性需求。</p>
-</li>
-<li><p>修改操作系统内核关于网络方面的配置参数，也可以降低检测中断的时间间隔。</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2010,7 +1986,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
