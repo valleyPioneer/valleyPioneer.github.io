@@ -249,6 +249,458 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/JNI创建线程的方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/02/JNI创建线程的方式/" itemprop="url">JNI创建线程的方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T00:34:14+08:00">
+                2018-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="调用C语言函数"><a href="#调用C语言函数" class="headerlink" title="调用C语言函数"></a>调用C语言函数</h2><ol>
+<li>pthread_create(&amp;mThread, NULL, AlertThreadStub, NULL)</li>
+<li>attachCurrentThread()、detachCurrentThread()<br><br> 很多时候，你的native代码建立自己的线程（比如建立线程监听），并在合适的时候回调 Java 代码，我们没有办法像上面那样直接获得 JNIEnv，<strong>获取它的实例需要把你的线程 Attach到JavaVM上去</strong>，调用的方法是 JavaVM::AttachCurrentThread</li>
+</ol>
+<p>具体实例：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">thread_fun</span><span class="params">(<span class="keyword">void</span>* arg)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">     JNIEnv *env;</span><br><span class="line">     jclass cls;</span><br><span class="line">     jmethodID mid;</span><br><span class="line"> </span><br><span class="line">     <span class="comment">//Attach主线程</span></span><br><span class="line">     <span class="keyword">if</span>((*g_jvm)-&gt;AttachCurrentThread(g_jvm, &amp;env, <span class="literal">NULL</span>) != JNI_OK)</span><br><span class="line">     &#123;</span><br><span class="line">         LOGE(<span class="string">"%s: AttachCurrentThread() failed"</span>, __FUNCTION__);</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//找到对应的类</span></span><br><span class="line">     cls = (*env)-&gt;GetObjectClass(env,g_obj);</span><br><span class="line">     <span class="keyword">if</span>(cls == <span class="literal">NULL</span>)</span><br><span class="line">     &#123;</span><br><span class="line">         LOGE(<span class="string">"FindClass() Error....."</span>);</span><br><span class="line">         <span class="keyword">goto</span> error; </span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//再获得类中的方法</span></span><br><span class="line">     mid = (*env)-&gt;GetStaticMethodID(env, cls, <span class="string">"fromJNI"</span>, <span class="string">"(I)V"</span>);</span><br><span class="line">     <span class="keyword">if</span> (mid == <span class="literal">NULL</span>) </span><br><span class="line">     &#123;</span><br><span class="line">         LOGE(<span class="string">"GetMethodID() Error....."</span>);</span><br><span class="line">         <span class="keyword">goto</span> error;  </span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//最后调用java中的静态方法</span></span><br><span class="line">         (*env)-&gt;CallStaticVoidMethod(env, cls, mid ,(<span class="keyword">int</span>)arg);</span><br><span class="line">     </span><br><span class="line"> </span><br><span class="line"> error:    </span><br><span class="line">     <span class="comment">//Detach主线程</span></span><br><span class="line">     <span class="keyword">if</span>((*g_jvm)-&gt;DetachCurrentThread(g_jvm) != JNI_OK)</span><br><span class="line">     &#123;</span><br><span class="line">         LOGE(<span class="string">"%s: DetachCurrentThread() failed"</span>, __FUNCTION__);     &#125;</span><br><span class="line">     </span><br><span class="line"> </span><br><span class="line">     pthread_exit(<span class="number">0</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由java调用以创建子线程</span></span><br><span class="line"> <span class="function">JNIEXPORT <span class="keyword">void</span> <span class="title">Java_com_nan_thread_MyThreadActivity_mainThread</span><span class="params">( JNIEnv* env, jobject obj)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> i;</span><br><span class="line">     <span class="keyword">pthread_t</span> pt[NUMTHREADS];</span><br><span class="line">     </span><br><span class="line">     <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; NUMTHREADS; i++)</span><br><span class="line">         <span class="comment">//创建子线程</span></span><br><span class="line">         pthread_create(&amp;pt[i], <span class="literal">NULL</span>, &amp;thread_fun, (<span class="keyword">void</span> *)i);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/01/java类加载时机/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/01/java类加载时机/" itemprop="url">java类加载时机</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T00:34:14+08:00">
+                2018-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>遇到了new、getstatic、putstatic和invokestatic这4条字节码指令时</li>
+<li>利用反射方法对类进行反射调用时，如果类还没有进行过初始化</li>
+<li>当初始化一个类时，发现其父类还没有进行过初始化</li>
+<li>当虚拟机启动时，用户需要指定一个<strong>要执行的主类（包含main方法）</strong>，虚拟机会先初始化这个主类</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/28/Volley 取消请求和错误重传机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/28/Volley 取消请求和错误重传机制/" itemprop="url">Volley取消请求和错误重传机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T00:34:14+08:00">
+                2018-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Volley取消请求"><a href="#Volley取消请求" class="headerlink" title="Volley取消请求"></a>Volley取消请求</h2><p>在Request中有一个boolean类型变量mCanceled用来标识这个Request请求是否被取消. cancel()方法和 isCanceled()方法分别用来取消和获取是否取消<br>所以当我们如果某个网络请求时,只需要request.cancel()即可。</p>
+<p>判断请求是否取消的地方，cacheDispatcher/networkDispatcher/ExecutorDelivery中的run()方法均有判断</p>
+<p><strong>网络请求,缓存请求,结果返回</strong></p>
+<h2 id="Volley错误重传机制"><a href="#Volley错误重传机制" class="headerlink" title="Volley错误重传机制"></a>Volley错误重传机制</h2><p><strong>不用重新插入队列中</strong></p>
+<p>相关的类DefaultRetryPolicy.java和BasicNetwork.java</p>
+<ol>
+<li>DefaultRetryPolicy类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">retry</span><span class="params">(VolleyError error)</span> <span class="keyword">throws</span> VolleyError </span>&#123;</span><br><span class="line">        mCurrentRetryCount++;</span><br><span class="line">        mCurrentTimeoutMs += (mCurrentTimeoutMs * mBackoffMultiplier);</span><br><span class="line">        <span class="keyword">if</span> (!hasAttemptRemaining()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> error;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">hasAttemptRemaining</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mCurrentRetryCount &lt;= mMaxNumRetries;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>用来定义重试机制的策略,例如定义最大尝试次数,最大超时时间,超时时间的乘积因子等.<br>每次重试,变量mCurrentRetryCount就自增1,达到最大的尝试次数,将抛出异常,结束请求</p>
+<ol start="2">
+<li>BasicNetwork类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> NetworkResponse <span class="title">performRequest</span><span class="params">(Request&lt;?&gt; request)</span> <span class="keyword">throws</span> VolleyError </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> requestStart = SystemClock.elapsedRealtime();</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">              ... ...</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> NetworkResponse(statusCode, responseContents, responseHeaders, <span class="keyword">false</span>,</span><br><span class="line">                        SystemClock.elapsedRealtime() - requestStart);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SocketTimeoutException e) &#123;</span><br><span class="line">                attemptRetryOnException(<span class="string">"socket"</span>, request, <span class="keyword">new</span> TimeoutError());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ConnectTimeoutException e) &#123;</span><br><span class="line">                attemptRetryOnException(<span class="string">"connection"</span>, request, <span class="keyword">new</span> TimeoutError());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Bad URL "</span> + request.getUrl(), e);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                <span class="keyword">int</span> statusCode = <span class="number">0</span>;</span><br><span class="line">                NetworkResponse networkResponse = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">if</span> (httpResponse != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    statusCode = httpResponse.getStatusLine().getStatusCode();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> NoConnectionError(e);</span><br><span class="line">                &#125;</span><br><span class="line">                VolleyLog.e(<span class="string">"Unexpected response code %d for %s"</span>, statusCode, request.getUrl());</span><br><span class="line">                <span class="keyword">if</span> (responseContents != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    networkResponse = <span class="keyword">new</span> NetworkResponse(statusCode, responseContents,</span><br><span class="line">                            responseHeaders, <span class="keyword">false</span>, SystemClock.elapsedRealtime() - requestStart);</span><br><span class="line">                    <span class="keyword">if</span> (statusCode == HttpStatus.SC_UNAUTHORIZED ||</span><br><span class="line">                            statusCode == HttpStatus.SC_FORBIDDEN) &#123;</span><br><span class="line">                        attemptRetryOnException(<span class="string">"auth"</span>,</span><br><span class="line">                                request, <span class="keyword">new</span> AuthFailureError(networkResponse));</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="comment">// <span class="doctag">TODO:</span> Only throw ServerError for 5xx status codes.</span></span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> ServerError(networkResponse);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> NetworkError(networkResponse);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>当网络出现异常时候,将会调用attemptRetryOnException()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">attemptRetryOnException</span><span class="params">(String logPrefix, Request&lt;?&gt; request,</span></span></span><br><span class="line"><span class="function"><span class="params">            VolleyError exception)</span> <span class="keyword">throws</span> VolleyError </span>&#123;</span><br><span class="line">        RetryPolicy retryPolicy = request.getRetryPolicy();</span><br><span class="line">        <span class="keyword">int</span> oldTimeout = request.getTimeoutMs();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            retryPolicy.retry(exception);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (VolleyError e) &#123;</span><br><span class="line">            request.addMarker(</span><br><span class="line">                    String.format(<span class="string">"%s-timeout-giveup [timeout=%s]"</span>, logPrefix, oldTimeout));</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">        request.addMarker(String.format(<span class="string">"%s-retry [timeout=%s]"</span>, logPrefix, oldTimeout));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>attemptRetryOnException()方法会会根据DefaultRetryPolicy对象来判断是否还需要重试,如果不需要,则直接throw error来退出死循环. <strong>如果需要,那么不再抛出异常, 这样由于while(true)死循环就再次执行这个request请求.</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/25/Android 自定义轮播图的要点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1044,375 +1496,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/Java的5种线程状态/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/13/Java的5种线程状态/" itemprop="url">Java的5种线程状态</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
-                2018-01-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>新建状态new</li>
-<li>就绪状态runnable</li>
-<li>运行状态running</li>
-<li>阻塞状态blocked</li>
-<li>终止状态dead</li>
-</ol>
-<h2 id="阻塞的三种情况"><a href="#阻塞的三种情况" class="headerlink" title="阻塞的三种情况"></a>阻塞的三种情况</h2><ul>
-<li><p>等待阻塞</p>
-<p>  运行的线程执行wait()方法，该线程会释放占用的所有资源，JVM会把该线程放入“等待池”中。进入这个状态后，是不能自动唤醒的，必须依靠其他线程调用notify()或notifyAll()方法才能被唤醒，</p>
-</li>
-<li><p>同步阻塞</p>
-<p>  运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入“锁池”中。</p>
-</li>
-<li><p>其他阻塞</p>
-<p>  运行的线程执行sleep()或join()方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</p>
-</li>
-</ul>
-<p><img src="http://img.blog.csdn.net/20140828202610671" alt="img"></p>
-<h2 id="java死锁的原因"><a href="#java死锁的原因" class="headerlink" title="java死锁的原因"></a>java死锁的原因</h2><p>suspend()挂起以及不指定超时期限的wait()方法的调用</p>
-<h2 id="wait和suspend、sleep区别"><a href="#wait和suspend、sleep区别" class="headerlink" title="wait和suspend、sleep区别"></a>wait和suspend、sleep区别</h2><p>wait会释放线程占用的锁、而suspend以及sleep不会</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTSP协议详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/13/RTSP协议详解/" itemprop="url">RTSP协议详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
-                2018-01-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="RTSP协议简介"><a href="#RTSP协议简介" class="headerlink" title="RTSP协议简介"></a>RTSP协议简介</h2><p>RTSP是研究如何有效地在IP网络上传输流媒体数据的应用层协议。RTSP对流媒体提供了诸如暂停，快进等控制，而它本身并不传输数据，RTSP的作用相当于流媒体服务器的远程控制。服务器端可以自行选择使用TCP或UDP来传送串流内容。</p>
-<p><strong>RTSP的对带宽的要求更低，RTMP实时性更好</strong></p>
-<p>特点：</p>
-<ul>
-<li>允许同时多个串流需求控制（Multicast），支持多方视频会议</li>
-<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求，可以实现流量的重新导向。</li>
-</ul>
-<h2 id="RTSP和HTTP区别"><a href="#RTSP和HTTP区别" class="headerlink" title="RTSP和HTTP区别"></a>RTSP和HTTP区别</h2><ol>
-<li>相同点</li>
-</ol>
-<ul>
-<li>两者都用纯文本来发送消息，且rtsp协议的语法也和HTTP类似。</li>
-</ul>
-<ol start="2">
-<li>不同点</li>
-</ol>
-<ul>
-<li>RTSP有状态，HTTP无状态，rtsp的命令总是按照顺序来发送。</li>
-</ul>
-<h2 id="RTSP和SIP区别"><a href="#RTSP和SIP区别" class="headerlink" title="RTSP和SIP区别"></a>RTSP和SIP区别</h2><p>SIP是基于IP的一个应用层控制协议。</p>
-<ol>
-<li>相同点</li>
-</ol>
-<ul>
-<li>sip和rtsp都是应用层的控制协议，负责一次通信过程的建立和控制和结束，不负责中间的传输部分。</li>
-<li>他们都是基于纯文本的信令协议，支持tcp、udp，支持多方通信。</li>
-<li><strong>sip和rtsp 都使用sdp协议来传送媒体参数，使用rtp（rtcp）协议来传输媒体流。</strong></li>
-</ul>
-<ol start="2">
-<li>不同点</li>
-</ol>
-<ul>
-<li>rtsp是专门为流媒体制定的协议，在多个媒体流的时间同步方面比sip强大。</li>
-<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求。</li>
-<li>sip一般用来创建一次音频、视频通话（双向），而rtsp一般用来做视频点播、视频监控等（单向）。从原理上讲，rtsp也可以做双向的视频通话。</li>
-</ul>
-<h2 id="RTSP和RTP（rtcp）的关系"><a href="#RTSP和RTP（rtcp）的关系" class="headerlink" title="RTSP和RTP（rtcp）的关系"></a>RTSP和RTP（rtcp）的关系</h2><p><img src="http://images.cnblogs.com/cnblogs_com/whyandinside/RTPRTSP.jpg" alt="img"></p>
-<p>rtsp负责建立和控制会话，rtp负责多媒体的传输，rtcp配合rtp做控制和流量统计，他们是合作的关系。</p>
-<h2 id="RTSP消息"><a href="#RTSP消息" class="headerlink" title="RTSP消息"></a>RTSP消息</h2><h3 id="请求格式"><a href="#请求格式" class="headerlink" title="请求格式"></a>请求格式</h3><p><strong>请求消息</strong>格式：<br><br>       方法 URI RTSP版本 CR LF<br><br>       消息头 CR LF CR LF<br>       消息体 CR LF</p>
-<h3 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h3><p><strong>回应消息</strong>格式：<br><br>       RTSP版本 状态码 解释 CR LF<br><br>       消息头 CR LF CR LF<br><br>       消息体 CR LF</p>
-<h2 id="RTSP请求方法介绍"><a href="#RTSP请求方法介绍" class="headerlink" title="RTSP请求方法介绍"></a>RTSP请求方法介绍</h2><ol>
-<li>OPTION</li>
-</ol>
-<p>目的是得到服务器提供的可用方法</p>
-<ol start="2">
-<li>DESCRIBE</li>
-</ol>
-<p>C向S发起DESCRIBE请求,为了得到会话描述信息(SDP)</p>
-<ol start="3">
-<li>SETUP</li>
-</ol>
-<p>客户端提醒服务器建立会话,并确定传输模式</p>
-<ol start="4">
-<li>PLAY</li>
-</ol>
-<p>客户端发送播放请求</p>
-<ol start="5">
-<li>TEARDOWN</li>
-</ol>
-<p>客户端发起关闭请求</p>
-<p><img src="http://img.blog.csdn.net/20130924000903765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVpeGlhb2h1YTEwMjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<ul>
-<li>第一步，只要服务器客户端约定好，有哪些方法可用，则<strong>option请求可以不要</strong>。</li>
-<li>第二步，如果我们有其他途径得到媒体初始化描述信息（比如http请求等等），则我们也<strong>不需要通过rtsp中的describe请求来完成</strong>。</li>
-</ul>
-<h2 id="RTSP推流过程"><a href="#RTSP推流过程" class="headerlink" title="RTSP推流过程"></a>RTSP推流过程</h2><p>options -&gt; announce(发送一些媒体对象描述信息sdp格式) -&gt; setup（定义实时流的传输模式） -&gt; record(初始化媒体数据记录范围，主要包括开始和结束时间)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTMP详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1604,7 +1687,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/View的工作原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/Java的5种线程状态/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -1623,7 +1706,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/11/View的工作原理/" itemprop="url">View的工作原理</a></h1>
+                <a class="post-title-link" href="/2018/01/13/Java的5种线程状态/" itemprop="url">Java的5种线程状态</a></h1>
         
 
         <div class="post-meta">
@@ -1635,8 +1718,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T00:34:14+08:00">
-                2018-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
+                2018-01-13
               </time>
             
 
@@ -1658,8 +1741,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1697,164 +1780,27 @@
       
         
           
-            <p>View的绘制流程从ViewRoot（对应与ViewRootImpl类）的performTraversals方法开始，经过measure、layout、draw三个过程才能最终将一个View绘制出来。</p>
-<h2 id="调用链"><a href="#调用链" class="headerlink" title="调用链"></a>调用链</h2><p>performMeasure -&gt; measure -&gt; onMeasure -&gt; <strong>measure(View) -&gt; …</strong></p>
-<p>performLayout -&gt; layout -&gt; onLayout -&gt; <strong>layout(View) -&gt; …</strong></p>
-<p>performDraw -&gt; draw -&gt; onDraw -&gt; <strong>draw(View) -&gt; …</strong></p>
-<p>唯一的<strong>小区别</strong>是draw过程中onDraw()方法只是绘制当前View，绘制子View的传递是在draw方法中通过dispatchDraw实现的。</p>
-<h2 id="支持wrap-content"><a href="#支持wrap-content" class="headerlink" title="支持wrap_content"></a>支持wrap_content</h2><p>需要在onMeasure方法中设置specMode == AT_Most时的setMeasuredDimesion()</p>
-<h2 id="处理padding"><a href="#处理padding" class="headerlink" title="处理padding"></a>处理padding</h2><p>在onDraw方法中通过getPadding()方法得到设置的padding值，进而针对性绘制</p>
-<h2 id="自定义View的分类（4种）"><a href="#自定义View的分类（4种）" class="headerlink" title="自定义View的分类（4种）"></a>自定义View的分类（4种）</h2><h3 id="继承View重写onDraw方法"><a href="#继承View重写onDraw方法" class="headerlink" title="继承View重写onDraw方法"></a>继承View重写onDraw方法</h3><p>主要用于实现一些不规则的效果。</p>
-<p><strong>需要自己支持wrap_content以及处理padding</strong></p>
-<h3 id="继承ViewGroup实现新的Layout布局"><a href="#继承ViewGroup实现新的Layout布局" class="headerlink" title="继承ViewGroup实现新的Layout布局"></a>继承ViewGroup实现新的Layout布局</h3><p>比较复杂，<strong>需要处理ViewGroup的测量和布局两个过程，并且同时处理子元素的测量和布局过程。</strong></p>
-<h3 id="继承特定的View（比如TextView）"><a href="#继承特定的View（比如TextView）" class="headerlink" title="继承特定的View（比如TextView）"></a>继承特定的View（比如TextView）</h3><p>主要用于扩展某种已有的View功能</p>
-<p><strong>不需要自己支持wrap_content和padding</strong></p>
-<h3 id="继承特定的ViewGroup（比如LinearLayout）"><a href="#继承特定的ViewGroup（比如LinearLayout）" class="headerlink" title="继承特定的ViewGroup（比如LinearLayout）"></a>继承特定的ViewGroup（比如LinearLayout）</h3><p>一般用于某种效果可以用几种View组合起来实现时</p>
-<p><strong>不需要自己处理ViewGroup的测量和布局过程</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/以太网帧详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/11/以太网帧详解/" itemprop="url">以太网帧详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T00:34:14+08:00">
-                2018-01-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="以太网帧结构"><a href="#以太网帧结构" class="headerlink" title="以太网帧结构"></a>以太网帧结构</h2><p><img src="http://img.blog.csdn.net/20140329140332687" alt="img"></p>
-<p>以太网帧数据域长度为46-1500字节</p>
-<p>以太网帧头长度为18字节</p>
+            <ol>
+<li>新建状态new</li>
+<li>就绪状态runnable</li>
+<li>运行状态running</li>
+<li>阻塞状态blocked</li>
+<li>终止状态dead</li>
+</ol>
+<h2 id="阻塞的三种情况"><a href="#阻塞的三种情况" class="headerlink" title="阻塞的三种情况"></a>阻塞的三种情况</h2><ul>
+<li><p>等待阻塞</p>
+<p>  运行的线程执行wait()方法，该线程会释放占用的所有资源，JVM会把该线程放入“等待池”中。进入这个状态后，是不能自动唤醒的，必须依靠其他线程调用notify()或notifyAll()方法才能被唤醒，</p>
+</li>
+<li><p>同步阻塞</p>
+<p>  运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入“锁池”中。</p>
+</li>
+<li><p>其他阻塞</p>
+<p>  运行的线程执行sleep()或join()方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</p>
+</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20140828202610671" alt="img"></p>
+<h2 id="java死锁的原因"><a href="#java死锁的原因" class="headerlink" title="java死锁的原因"></a>java死锁的原因</h2><p>suspend()挂起以及不指定超时期限的wait()方法的调用</p>
+<h2 id="wait和suspend、sleep区别"><a href="#wait和suspend、sleep区别" class="headerlink" title="wait和suspend、sleep区别"></a>wait和suspend、sleep区别</h2><p>wait会释放线程占用的锁、而suspend以及sleep不会</p>
 
           
         
@@ -1940,7 +1886,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
