@@ -249,6 +249,453 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/22/初级-数组-旋转数组/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/22/初级-数组-旋转数组/" itemprop="url">初级-数组-旋转数组</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T21:18:38+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>将包含 n 个元素的数组向右旋转 k 步。</p>
+<p>例如，如果  n = 7 ,  k = 3，给定数组  [1,2,3,4,5,6,7]  ，向右旋转后的结果为 [5,6,7,1,2,3,4]。</p>
+<p>要求空间复杂度为 O(1)</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>容易发现规律：i -&gt; (i + k) % nums.length</p>
+<p>但是题目要求不能使用额外的空间，所以不能直接采用存储赋值法来解题。</p>
+<p>可以考虑分三部分进行逆序操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(k % nums.length == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        reverse(nums,<span class="number">0</span>,nums.length - <span class="number">1</span>);</span><br><span class="line">        reverse(nums,<span class="number">0</span>,(k - <span class="number">1</span>) % nums.length);</span><br><span class="line">        reverse(nums,k % nums.length,nums.length - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span>[] nums,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(start &lt; end)&#123;</span><br><span class="line">            nums[start] ^= nums[end];</span><br><span class="line">            nums[end] ^= nums[start];</span><br><span class="line">            nums[start] ^= nums[end];</span><br><span class="line">            ++start;</span><br><span class="line">            --end;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/22/初级-数组-买卖股票的最佳时机 II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/22/初级-数组-买卖股票的最佳时机 II/" itemprop="url">初级-数组-买卖股票的最佳时机 II</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T21:18:30+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。</p>
+<p>设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。</p>
+<p>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
+<p>示例 1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [7,1,5,3,6,4]</span><br><span class="line">输出: 7</span><br><span class="line">解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。</span><br><span class="line">     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。</span><br></pre></td></tr></table></figure></p>
+<p>示例 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3,4,5]</span><br><span class="line">输出: 4</span><br><span class="line">解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。</span><br><span class="line">     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。</span><br><span class="line">     因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。</span><br></pre></td></tr></table></figure></p>
+<p>示例 3:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [7,6,4,3,1]</span><br><span class="line">输出: 0</span><br><span class="line">解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。</span><br></pre></td></tr></table></figure></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>找到规律即可，在单调递增最低点时买入最高点时卖出即可达到最高利润。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices == <span class="keyword">null</span> || prices.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; prices.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prices[i] &gt; prices[i - <span class="number">1</span>])&#123;</span><br><span class="line">                res += prices[i] - prices[i - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/22/初级-数组-从排序数组中删除重复项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/22/初级-数组-从排序数组中删除重复项/" itemprop="url">初级-数组-从排序数组中删除重复项</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T21:18:12+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定数组 nums = [1,1,2], </span><br><span class="line"></span><br><span class="line">函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。 </span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
+<p>示例 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [0,0,1,1,1,2,2,3,3,4],</span><br><span class="line"></span><br><span class="line">函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure></p>
+<p>说明:</p>
+<p>为什么返回数值是整数，但输出的答案是数组呢?</p>
+<p>请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。</p>
+<p>你可以想象内部操作如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝</span><br><span class="line">int len = removeDuplicates(nums);</span><br><span class="line"></span><br><span class="line">// 在函数里修改输入数组对于调用者是可见的。</span><br><span class="line">// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。</span><br><span class="line">for (int i = 0; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>记录有效的数字index即可<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> id = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= nums.length - <span class="number">1</span>;i++)</span><br><span class="line">            <span class="keyword">if</span>(nums[i] != nums[i - <span class="number">1</span>])  </span><br><span class="line">                nums[id++] = nums[i];</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/21/Android高清加载巨图的方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1470,531 +1917,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/20/Retrofit2.0中文件上传的两种方式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/20/Retrofit2.0中文件上传的两种方式/" itemprop="url">Retrofit2.0中文件上传的两种方式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-20T00:34:14+08:00">
-                2018-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="上传字符串"><a href="#上传字符串" class="headerlink" title="上传字符串"></a>上传字符串</h2><ol>
-<li><p>网络请求接口定义</p>
-<p>使用@Body注解</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@POST</span>()</span><br><span class="line"><span class="function">Call&lt;ResponseBody&gt; <span class="title">upLoad</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    @Url()</span> String url,</span></span><br><span class="line"><span class="function">    @Body RequestBody Body)</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<pre><code>使用@Multipart注解
-![img](http://www.10tiao.com/img.do?url=http%3A//mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt47kBJ3ZviaYIS3BXCYCcOzPxctEDuhnjyvs2U262Qf1axG29TBYJNTKtOo6xhPZMZYMvPFOVDLFvA/0%3Fwx_fmt%3Dpng)
-</code></pre><ol start="2">
-<li>同时上传文字内容和文件内容(<strong>使用@Body注解</strong>)</li>
-</ol>
-<p><img src="http://www.10tiao.com/img.do?url=http%3A//mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt47kBJ3ZviaYIS3BXCYCcOzP19RgtyovjibwmvM07LcukgHwtST0R5seM1kuJwQiadHt2EH07ehHL7Qw/0%3Fwx_fmt%3Dpng" alt="img"></p>
-<ol start="3">
-<li><p>同时上传文件内容和文件内容(<strong>使用@Multipart注解</strong>)</p>
-<p> 此时相当于表单提交</p>
-<p> <img src="http://www.10tiao.com/img.do?url=http%3A//mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt47kBJ3ZviaYIS3BXCYCcOzPygldne87KuZnGducvmiaqtKmvcGk6YriabFE1icYFFpibQTV1IG2pabJQQ/0%3Fwx_fmt%3Dpng" alt="img"></p>
-</li>
-<li><p>上传json</p>
-</li>
-</ol>
-<p><img src="http://www.10tiao.com/img.do?url=http%3A//mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt47kBJ3ZviaYIS3BXCYCcOzPMf2KSsFOjGa8K406Xs4eyo3l5kZoGKL0k58AhWxoJxOxjVZiaFcHMyA/0%3Fwx_fmt%3Dpng" alt="img"></p>
-<p>加上Content-Type为”application/json;charset=utf-8”</p>
-<ol start="5">
-<li><p>MediaType常用类型总结  </p>
-<ol>
-<li><p>常见的媒体格式类型如下：<br>text/html ： HTML格式<br>text/plain ：纯文本格式<br>text/xml ：  XML格式<br>image/gif ：gif图片格式<br>image/jpeg ：jpg图片格式<br>image/png：png图片格式</p>
-</li>
-<li><p>以application开头的媒体格式类型：<br>application/xhtml+xml ：XHTML格式<br>application/xml     ： XML数据格式<br>application/atom+xml  ：Atom XML聚合格式<br>application/json    ： JSON数据格式<br>application/pdf       ：pdf格式<br>application/msword  ： Word文档格式<br>application/octet-stream ： 二进制流数据（如常见的文件下载）<br>application/x-www-form-urlencoded ： <form enctype="””">中默认的encType，form表单数据被编码为key/value格式发送到服务器（表单默认的提交数据的格式）</form></p>
-</li>
-<li><p>multipart/form-data ： 需要在表单中进行文件上传时，就需要使用该格式</p>
-</li>
-</ol>
-</li>
-<li><p><strong>使用retrofit上传文件时，无论何种方式，mediatype的类型均写成multipart/form-data无任何影响，如果写成具体类型应该保证正确匹配</strong></p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/16/Android 广播详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/16/Android 广播详解/" itemprop="url">Android 广播详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-16T00:32:14+08:00">
-                2018-03-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Android广播底层实现原理"><a href="#Android广播底层实现原理" class="headerlink" title="Android广播底层实现原理"></a>Android广播底层实现原理</h2><p>Android中的广播使用了观察者模式，基于消息的发布/订阅事件模型。因此，从实现的角度来看，Android中的广播将广播的发送者和接受者极大程度上解耦，使得系统能够方便集成，更易扩展。</p>
-<ol>
-<li>广播接收者BroadcastReceiver通过Binder机制向AMS(Activity Manager Service)进行注册；</li>
-<li>广播发送者通过binder机制向AMS发送广播；</li>
-<li>AMS查找符合相应条件（IntentFilter/Permission等）的BroadcastReceiver，最后会将广播发送到<strong>主线程</strong>相应的消息循环队列中；</li>
-<li>消息循环执行拿到此广播，回调BroadcastReceiver中的onReceive()方法。</li>
-</ol>
-<h2 id="普通广播"><a href="#普通广播" class="headerlink" title="普通广播"></a>普通广播</h2><p>普通的广播是不在意顺序的，最简单的理解是同时可以收到这个广播。</p>
-<h2 id="有序广播"><a href="#有序广播" class="headerlink" title="有序广播"></a>有序广播</h2><p>按照广播接收器的优先级来收取广播消息。</p>
-<h2 id="粘性广播"><a href="#粘性广播" class="headerlink" title="粘性广播"></a>粘性广播</h2><p><strong>Android 5.0及以上就废弃了这种广播</strong></p>
-<p>android的粘性广播，是指广播接收器一注册马上就能接收到广播的一种机制，当然首先系统要存在广播。</p>
-<p><strong>粘性广播对应的intent会存储在系统中。</strong></p>
-<h2 id="App内广播"><a href="#App内广播" class="headerlink" title="App内广播"></a>App内广播</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注册应用内广播接收器</span></span><br><span class="line"><span class="comment">//步骤1：实例化BroadcastReceiver子类 &amp; IntentFilter mBroadcastReceiver </span></span><br><span class="line">mBroadcastReceiver = <span class="keyword">new</span> mBroadcastReceiver(); </span><br><span class="line">IntentFilter intentFilter = <span class="keyword">new</span> IntentFilter(); </span><br><span class="line"></span><br><span class="line"><span class="comment">//步骤2：实例化LocalBroadcastManager的实例</span></span><br><span class="line">localBroadcastManager = LocalBroadcastManager.getInstance(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//步骤3：设置接收广播的类型 </span></span><br><span class="line">intentFilter.addAction(android.net.conn.CONNECTIVITY_CHANGE);</span><br><span class="line"></span><br><span class="line"><span class="comment">//步骤4：调用LocalBroadcastManager单一实例的registerReceiver（）方法进行动态注册 </span></span><br><span class="line">localBroadcastManager.registerReceiver(mBroadcastReceiver, intentFilter);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取消注册应用内广播接收器</span></span><br><span class="line">localBroadcastManager.unregisterReceiver(mBroadcastReceiver);</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送应用内广播</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">intent.setAction(BROADCAST_ACTION);</span><br><span class="line">localBroadcastManager.sendBroadcast(intent);</span><br></pre></td></tr></table></figure>
-<h2 id="系统广播"><a href="#系统广播" class="headerlink" title="系统广播"></a>系统广播</h2><ul>
-<li>Android中内置了多个系统广播：只要涉及到手机的基本操作（如开机、网络状态变化、拍照等等），都会发出相应的广播。</li>
-<li>每个广播都有特定的Intent - Filter（包括具体的action）</li>
-</ul>
-<h2 id="如何将全局广播设置为局部广播"><a href="#如何将全局广播设置为局部广播" class="headerlink" title="如何将全局广播设置为局部广播"></a>如何将全局广播设置为局部广播</h2><ol>
-<li>注册广播时将exported属性设置为false，使得非本App内部发出的此广播不被接收。</li>
-<li>在广播发送和接收时，增设相应权限permission，用于权限验证。</li>
-<li>发送广播时指定该广播接收器所在的包名，此广播将只会发送到此包中的App内与之相匹配的有效广播接收器中。 </li>
-</ol>
-<h2 id="粘性广播和普通广播的区别"><a href="#粘性广播和普通广播的区别" class="headerlink" title="粘性广播和普通广播的区别"></a>粘性广播和普通广播的区别</h2><p>粘性广播调用registerReceiver能马上接受广播，而普通广播不行。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/Gson解析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/15/Gson解析/" itemprop="url">Gson解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T00:34:14+08:00">
-                2018-03-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><ul>
-<li>把对象转换为字节序列的过程称为对象的序列化。<br>  <strong>对应gson的toJson方法</strong></li>
-<li>把字节序列恢复为对象的过程称为对象的反序列化。<br>  <strong>对应gson的fromJson方法</strong></li>
-</ul>
-<h2 id="Gson处理对象的几个重要点"><a href="#Gson处理对象的几个重要点" class="headerlink" title="Gson处理对象的几个重要点"></a><a href="http://www.jianshu.com/p/fc5c9cdf3aab" target="_blank" rel="noopener">Gson处理对象的几个重要点</a></h2><ol>
-<li><p>推荐把成员变量都声明称private的</p>
-</li>
-<li><p><strong>没有必要用注解（@Expose 注解）指明某个字段是否会被序列化或者反序列化，所有包含在当前类（包括父类）中的字段都应该默认被序列化或者反序列化</strong></p>
-</li>
-<li><p>如果某个字段被 transient 这个Java关键词修饰，就不会被序列化或者反序列化</p>
-</li>
-<li><p>下面的实现方式能够正确的处理null</p>
-<ul>
-<li>当序列化的时候，如果对象的某个字段为null，是不会输出到Json字符串中的。</li>
-<li>当反序列化的时候，某个字段在Json字符串中找不到对应的值，就会被赋值为null。</li>
-</ul>
-</li>
-</ol>
-<ol start="5">
-<li><p>如果一个字段是 synthetic<br>的,他会被忽视，也即是不应该被序列化或者反序列化</p>
-</li>
-<li><p>内部类（或者anonymous class（匿名类），或者local class(局部类，可以理解为在方法内部声明的类)）的某个字段和外部类的某个字段一样的话，就会被忽视，不会被序列化或者反序列化</p>
-</li>
-<li><p><strong>Gson的model类在定义时不需要定义getter/setter方法，对构造函数也没有特殊要求，无需保证默认构造函数一定存在</strong></p>
-</li>
-</ol>
-<h2 id="Gson中常用注解"><a href="#Gson中常用注解" class="headerlink" title="Gson中常用注解"></a>Gson中常用注解</h2><ol>
-<li><p>@SerializedName注解</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SerializedName</span>(value = <span class="string">"emailAddress"</span>, alternate = &#123;<span class="string">"email"</span>, <span class="string">"email_address"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> String emailAddress;</span><br></pre></td></tr></table></figure>
-<p> 当上面的三个属性(email_address、email、emailAddress)都中出现任意一个时均可以得到正确的结果。<br> 注：当多种情况同时出时，以最后一个出现的值为准。</p>
-</li>
-</ol>
-<h2 id="Gson泛型的使用方法"><a href="#Gson泛型的使用方法" class="headerlink" title="Gson泛型的使用方法"></a>Gson泛型的使用方法</h2><ul>
-<li><p>json格式的数据如下：</p>
-  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;  </span><br><span class="line"><span class="attr">"status"</span>: <span class="number">0</span>,  </span><br><span class="line"><span class="attr">"data"</span>: &#123;  </span><br><span class="line">    <span class="attr">"price"</span>: <span class="number">4</span>,  </span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"脉动"</span>,  </span><br><span class="line">    <span class="attr">"type"</span>: <span class="string">"饮料"</span>,  </span><br><span class="line">    <span class="attr">"amount"</span>: <span class="number">50</span>,  </span><br><span class="line">    <span class="attr">"summary"</span>: <span class="string">"随时随地，脉动回来"</span>,  </span><br><span class="line">    <span class="attr">"picture"</span>: <span class="string">"http://www.jpjy365.com/images/201402/source_img/29726_G_1393285888119.jpg"</span>,  </span><br><span class="line">    <span class="attr">"hot"</span>: <span class="literal">true</span>,  </span><br><span class="line">    <span class="attr">"sales"</span>: <span class="number">100</span>  </span><br><span class="line">&#125;,  </span><br><span class="line"><span class="attr">"err"</span>: <span class="literal">null</span>  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>gson泛型解析类：</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UniApiResult</span>&lt;<span class="title">T</span>&gt; </span>&#123;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"status"</span>)  </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> mStatus;      </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"err"</span>)  </span><br><span class="line"><span class="keyword">private</span> String mErr;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"data"</span>)  </span><br><span class="line"><span class="keyword">private</span> T mData;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStatus</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mStatus;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStatus</span><span class="params">(<span class="keyword">int</span> status)</span> </span>&#123;  </span><br><span class="line">    mStatus = status;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getErr</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mErr;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setErr</span><span class="params">(String err)</span> </span>&#123;  </span><br><span class="line">    mErr = err;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getData</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mData;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(T data)</span> </span>&#123;  </span><br><span class="line">    mData = data;  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>json字符串解析</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> UniApiResult&lt;GoodsInfoModel&gt; <span class="title">parseJson</span><span class="params">(String jsonStr)</span> </span>&#123;  </span><br><span class="line">    Gson gson = <span class="keyword">new</span> Gson();  </span><br><span class="line">    Type jsonType = <span class="keyword">new</span> TypeToken&lt;UniApiResult&lt;GoodsInfoModel&gt;&gt;() &#123;  </span><br><span class="line">    &#125;.getType();  </span><br><span class="line">    <span class="keyword">return</span> gson.fromJson(jsonStr, jsonType);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行"><a href="#Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行" class="headerlink" title="Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行"></a><strong>Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行</strong></h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2045,7 +1967,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">104</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
