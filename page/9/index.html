@@ -249,6 +249,491 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/C++和C中const的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/02/C++和C中const的区别/" itemprop="url">C++和C中const的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">
+                2017-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-C/" itemprop="url" rel="index">
+                    <span itemprop="name">C/C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><ul>
+<li>C++中可以使用const完全取代#define</li>
+<li><strong>const属于常量</strong></li>
+</ul>
+<h2 id="C-1"><a href="#C-1" class="headerlink" title="C"></a>C</h2><ul>
+<li>C中const作用不大，多用#define</li>
+<li><strong>const属于不能改变的普通变量</strong></li>
+</ul>
+<h2 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h2><ol>
+<li><p>c中是变量，总是占用内存，而且属于全局变量，而c++中是常量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> size = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">char</span> strs[size]; <span class="comment">// c中报错，c++中可以，主要是c编译器在编译期无法知道该值</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>c中默认const是外部连接，c++默认是内部连接</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> size;<span class="comment">//c中可以，c++中报错</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> size;<span class="comment">//c++写法</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="内部连接和外部连接"><a href="#内部连接和外部连接" class="headerlink" title="内部连接和外部连接"></a>内部连接和外部连接</h2><ul>
+<li><p>内部连接</p>
+<p>  假如一个名称对于他的编译单元来说是局部的，并且在连接时不会和其他编译单元中的同样的名称相冲突，那么这个名称有内部连接。</p>
+</li>
+<li><p>外部连接</p>
+<p>  在一个多文件程序中,如果一个名称在连接时可以和其他编译单元交互,那么这个名称就具有外部连接。具有外部连接对应的名称在程序中必须是唯一的。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/Android中的Token机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/02/Android中的Token机制/" itemprop="url">Android中的Token机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">
+                2017-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Token的含义"><a href="#Token的含义" class="headerlink" title="Token的含义"></a>Token的含义</h2><p>Token是服务端生成的一串字符串，以作客户端进行请求的一个令牌，当第一次登录后，服务器生成一个Token便将此Token返回给客户端，以后客户端只需带上这个Token前来请求数据即可，无需再次带上用户名和密码。</p>
+<h2 id="使用Token的目的"><a href="#使用Token的目的" class="headerlink" title="使用Token的目的"></a>使用Token的目的</h2><p>Token的目的是为了减轻服务器的压力，减少频繁的查询数据库，使服务器更加健壮。</p>
+<h2 id="Android中常用的Token方式"><a href="#Android中常用的Token方式" class="headerlink" title="Android中常用的Token方式"></a>Android中常用的Token方式</h2><ol>
+<li><p>用设备号/设备mac地址作为Token（推荐）</p>
+<p> 客户端：客户端在登录的时候获取设备的设备号/mac地址，并将其作为参数传递到服务端。</p>
+<p> 服务端：服务端接收到该参数后，便用一个变量来接收同时将其作为Token保存在数据库，<strong>并将该Token设置到session中</strong>，客户端每次请求的时候都要统一拦截，并将客户端传递的token和服务器端session中的token进行对比，如果相同则放行，不同则拒绝。 </p>
+<p> <strong>此种情况下，超时问题由服务器来解决。如果Token超时，服务器只需要将客户端传递过来的Token在数据库中进行查询，然后同时赋值給变量Token，如此，Token又可以重新计时。</strong></p>
+</li>
+<li><p>用SessionID作为Token</p>
+<p> 客户端：第一次登录时携带用户名和密码，以后每次都只需带上SeesionID即可</p>
+<p> 服务器：服务器接收到用户名和密码后并判断，如果正确了就将本地获取sessionID作为Token返回给客户端，客户端以后只需带上请求数据即可。</p>
+<p> 这种方式使用的好处是方便，不用存储数据，但是缺点就是<strong>当session过期后，客户端必须重新登录才能进行访问数据</strong>。</p>
+</li>
+</ol>
+<h2 id="Android-中全局处理-token"><a href="#Android-中全局处理-token" class="headerlink" title="Android 中全局处理 token"></a>Android 中全局处理 token</h2><ul>
+<li><p>实现方案：okhttp + retrofit，通过拦截器拦截请求，再往请求头里面添加 token</p>
+</li>
+<li><p>static方法获取RetrofitService对象</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RetrofitServiceInstance</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> RetrofitService instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> RetrofitService <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Authenticator authenticator = <span class="keyword">new</span> Authenticator() &#123;<span class="comment">//当服务器返回的状态码为401时，会自动执行里面的代码，也就实现了自动刷新token</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Request <span class="title">authenticate</span><span class="params">(Route route, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                L.d(<span class="string">"**======**&gt;   重新刷新了token"</span>);<span class="comment">//这里可以进行刷新 token 的操作</span></span><br><span class="line"><span class="comment">//                instance.getUploadToken()</span></span><br><span class="line">                <span class="keyword">return</span> response.request().newBuilder()</span><br><span class="line">                        .addHeader(<span class="string">"token"</span>, <span class="string">""</span>)</span><br><span class="line">                        .build();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Interceptor tokenInterceptor = <span class="keyword">new</span> Interceptor() &#123;<span class="comment">//全局拦截器，往请求头部添加 token 字段，实现了全局添加 token</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                Request originalRequest = chain.request();<span class="comment">//获取请求</span></span><br><span class="line">                Request tokenRequest = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">if</span> (TextUtils.isEmpty(MyApplication.getToken())) &#123;<span class="comment">//对 token 进行判空，如果为空，则不进行修改</span></span><br><span class="line">                    <span class="keyword">return</span> chain.proceed(originalRequest);</span><br><span class="line">                &#125;</span><br><span class="line">                tokenRequest = originalRequest.newBuilder()<span class="comment">//往请求头中添加 token 字段</span></span><br><span class="line">                        .header(<span class="string">"token"</span>, MyApplication.getToken())</span><br><span class="line">                        .build();</span><br><span class="line">                <span class="keyword">return</span> chain.proceed(tokenRequest);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        HttpLoggingInterceptor loggingInterceptor = <span class="keyword">new</span> HttpLoggingInterceptor(<span class="keyword">new</span> HttpLoggingInterceptor.Logger() &#123;<span class="comment">//log拦截器，打印所有的log</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">                L.d(message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        OkHttpClient client = <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">                .connectTimeout(<span class="number">15</span>, TimeUnit.SECONDS)</span><br><span class="line">                .retryOnConnectionFailure(<span class="keyword">true</span>)</span><br><span class="line">                .addNetworkInterceptor(tokenInterceptor)</span><br><span class="line">                .addInterceptor(loggingInterceptor)<span class="comment">//使用上面的拦截器</span></span><br><span class="line">                .authenticator(authenticator)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (RetrofitService.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()                              <span class="comment">//生成实例</span></span><br><span class="line">                            .baseUrl(CommenPara.serverURL)                                  <span class="comment">//基础url，会拼接NetService中的参数</span></span><br><span class="line">                            .client(client)                                                 <span class="comment">//使用 okhttp</span></span><br><span class="line">                            .addConverterFactory(GsonConverterFactory.create())            <span class="comment">//使用Gson解析</span></span><br><span class="line">                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())      <span class="comment">//加入RxJava的适配器</span></span><br><span class="line">                            .build();</span><br><span class="line"></span><br><span class="line">                    instance = retrofit.create(RetrofitService.class);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Session-Cookie机制和Session-Token机制异同点"><a href="#Session-Cookie机制和Session-Token机制异同点" class="headerlink" title="Session/Cookie机制和Session/Token机制异同点"></a>Session/Cookie机制和Session/Token机制异同点</h2><ul>
+<li><p>相同点：</p>
+<ol>
+<li>前者使用SessionID作为客户端会话的唯一标识,后者也可以使用SessionID作为会话的唯一标识。</li>
+<li>两者都使用SessionID作为标识时，当Session过期时，用户都需要重新登录。</li>
+</ol>
+</li>
+<li><p>不同点：</p>
+<p>  前者将SessionID保存在Cookie中（发送请求时直接携带此Cookie即可）；<strong>而后者发送请求时有两种方式携带Token，一种是直接在get/post请求参数中加上token，另一种是在请求头header中加上token</strong>。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/Android View的层级架构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/02/Android View的层级架构/" itemprop="url">Android View的层级架构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">
+                2017-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><p><img src="http://img.blog.csdn.net/20170108144228706?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlueGlubGl1MQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ol>
+<li>DectorView为window中最顶级的View</li>
+<li>DectorView继承自Framelayout，其中包含标题栏和内容栏</li>
+<li>内容栏mContentParent为id为 content的FrameLayout内容布局</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/30/Android finish方法与异常生命周期/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -547,158 +1032,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/" itemprop="url">onSaveInstanceState调用时机</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T00:34:14+08:00">
-                2017-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>当某个activity容易被系统销毁时（具有可能性，但是还没有被销毁）。</p>
-<ol>
-<li>按下home键</li>
-<li>长按home键，选择运行其他程序</li>
-<li>按下电源键（关闭屏幕显示）</li>
-<li>从当前活动启动一个新的活动</li>
-<li>屏幕方向切换时，从竖屏切换至横屏</li>
-<li>电话打入等情况</li>
-</ol>
-<h2 id="onRestoreInstanceState调用时机"><a href="#onRestoreInstanceState调用时机" class="headerlink" title="onRestoreInstanceState调用时机"></a>onRestoreInstanceState调用时机</h2><p>onSaveInstanceState方法和onRestoreInstanceState方法“不一定”是成对的被调用的，onRestoreInstanceState被调用的前提是，activity A“确实”被系统销毁了，而如果仅仅是停留在有这种可能性的情况下，则该方法不会被调用，例如，当正在显示activity A的时候，用户按下HOME键回到主界面，然后用户紧接着又返回到activity A，这种情况下activity A一般不会因为内存的原因被系统销毁，故activity A的onRestoreInstanceState方法不会被执行。</p>
-<p>onRestoreInstanceState方法中bundle参数和onCreate方法中bundle参数相同，都是onSaveInstanceState方法中返回的，<strong>因此也可以选择在onCreate中做数据还原。</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android Crash如何捕捉/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -840,7 +1173,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android Intent可以携带的数据/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -859,7 +1192,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/23/Android Intent可以携带的数据/" itemprop="url">Android Intent可以携带的数据</a></h1>
+                <a class="post-title-link" href="/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/" itemprop="url">onSaveInstanceState调用时机</a></h1>
         
 
         <div class="post-meta">
@@ -871,8 +1204,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">
-                2017-10-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T00:34:14+08:00">
+                2017-10-25
               </time>
             
 
@@ -933,12 +1266,17 @@
       
         
           
-            <ol>
-<li>8种基本数据类型及其数组 </li>
-<li>String（String实现了 Serializable ）/CharSequence实例类型的数据及其数组 </li>
-<li>实现了Parcelable的对象及其数组 </li>
-<li>实现了 Serializable 的对象及其数组 </li>
+            <p>当某个activity容易被系统销毁时（具有可能性，但是还没有被销毁）。</p>
+<ol>
+<li>按下home键</li>
+<li>长按home键，选择运行其他程序</li>
+<li>按下电源键（关闭屏幕显示）</li>
+<li>从当前活动启动一个新的活动</li>
+<li>屏幕方向切换时，从竖屏切换至横屏</li>
+<li>电话打入等情况</li>
 </ol>
+<h2 id="onRestoreInstanceState调用时机"><a href="#onRestoreInstanceState调用时机" class="headerlink" title="onRestoreInstanceState调用时机"></a>onRestoreInstanceState调用时机</h2><p>onSaveInstanceState方法和onRestoreInstanceState方法“不一定”是成对的被调用的，onRestoreInstanceState被调用的前提是，activity A“确实”被系统销毁了，而如果仅仅是停留在有这种可能性的情况下，则该方法不会被调用，例如，当正在显示activity A的时候，用户按下HOME键回到主界面，然后用户紧接着又返回到activity A，这种情况下activity A一般不会因为内存的原因被系统销毁，故activity A的onRestoreInstanceState方法不会被执行。</p>
+<p>onRestoreInstanceState方法中bundle参数和onCreate方法中bundle参数相同，都是onSaveInstanceState方法中返回的，<strong>因此也可以选择在onCreate中做数据还原。</strong></p>
 
           
         
@@ -1163,6 +1501,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android Intent可以携带的数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/23/Android Intent可以携带的数据/" itemprop="url">Android Intent可以携带的数据</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>8种基本数据类型及其数组 </li>
+<li>String（String实现了 Serializable ）/CharSequence实例类型的数据及其数组 </li>
+<li>实现了Parcelable的对象及其数组 </li>
+<li>实现了 Serializable 的对象及其数组 </li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android apk 反编译总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1314,501 +1799,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/20/Android 卡顿的分析思路/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/20/Android 卡顿的分析思路/" itemprop="url">Android 卡顿的分析思路</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-20T00:34:14+08:00">
-                2017-10-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="分析思路"><a href="#分析思路" class="headerlink" title="分析思路"></a>分析思路</h2><ol>
-<li>cpu</li>
-<li>gpu</li>
-<li>内存</li>
-</ol>
-<p>UI渲染的整个过程是由CPU和GPU两个部分协同完成的。</p>
-<p>其中, CPU负责UI布局元素的Measure, Layout, Draw等相关运算执行. GPU负责栅格化(rasterization), 将UI元素绘制到屏幕上.</p>
-<h2 id="过于复杂的布局-cpu"><a href="#过于复杂的布局-cpu" class="headerlink" title="过于复杂的布局(cpu)"></a>过于复杂的布局(cpu)</h2><ol>
-<li><strong>UI布局层次太深</strong>；</li>
-<li><strong>自定义控件的onDraw中有复杂运算。</strong></li>
-</ol>
-<p>以上两点原因会导致CPU的相关运算就可能大于16ms, 导致卡顿。</p>
-<p>可以借助<strong>Hierarchy Viewer</strong>这个工具来帮我们分析布局了. Hierarchy Viewer不仅可以以图形化树状结构的形式展示出UI层级, 还对每个节点给出了三个小圆点, 以指示该元素Measure, Layout, Draw的耗时及性能。</p>
-<h2 id="过度绘制-overDraw-gpu"><a href="#过度绘制-overDraw-gpu" class="headerlink" title="过度绘制(overDraw)(gpu)"></a>过度绘制(overDraw)(gpu)</h2><p>Overdraw: 用来描述一个像素在屏幕上多少次被重绘在一帧上。</p>
-<p>Android可视化界面分析：”系统设置”–&gt;”开发者选项”–&gt;”调试GPU过度绘制”</p>
-<p>造成overdraw的主要原因：</p>
-<ol>
-<li><strong>绘制了多重背景.</strong></li>
-<li><strong>绘制了不可见的UI元素.</strong></li>
-</ol>
-<h2 id="UI线程的复杂运算-cpu"><a href="#UI线程的复杂运算-cpu" class="headerlink" title="UI线程的复杂运算(cpu)"></a>UI线程的复杂运算(cpu)</h2><p>UI线程的复杂运算会造成UI无响应, 当然更多的是造成UI响应停滞, 卡顿.</p>
-<h2 id="频繁的GC-内存"><a href="#频繁的GC-内存" class="headerlink" title="频繁的GC(内存)"></a>频繁的GC(内存)</h2><p>执行GC操作的时候，任何线程的任何操作都会需要暂停，等待GC操作完成之后，其他操作才能够继续运行, 故而如果程序频繁GC, 自然会导致界面卡顿。</p>
-<p>造成频繁GC的主要原因：</p>
-<ul>
-<li>内存抖动：大量的对象被创建又在短时间内马上被释放。</li>
-</ul>
-<p>工程中的原因：<br><strong>我们在代码的循环中new对象, 或是在onDraw中创建对象等.</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/12/Android 检测内存泄漏场景的方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/12/Android 检测内存泄漏场景的方法/" itemprop="url">Android 检测内存泄漏场景的方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T00:34:14+08:00">
-                2017-10-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>dump文件是指进程的内存镜像</p>
-<h2 id="Lint静态代码分析工具"><a href="#Lint静态代码分析工具" class="headerlink" title="Lint静态代码分析工具"></a>Lint静态代码分析工具</h2><h2 id="StrictMode开发调试阶段使用"><a href="#StrictMode开发调试阶段使用" class="headerlink" title="StrictMode开发调试阶段使用"></a>StrictMode开发调试阶段使用</h2><h2 id="Android-Memory-Monitor"><a href="#Android-Memory-Monitor" class="headerlink" title="Android Memory Monitor"></a>Android Memory Monitor</h2><p>Android Studio自带，生成非标准的.hprof文件，然后进行分析。</p>
-<h2 id="MAT（Memory-Analyzer-Tools）"><a href="#MAT（Memory-Analyzer-Tools）" class="headerlink" title="MAT（Memory Analyzer Tools）"></a>MAT（Memory Analyzer Tools）</h2><p>MAT是Eclipse中的插件，可以独立下载使用。可以现将as中生成的.hprof文件转换成标准的.hprof文件，然后再进行分析。</p>
-<p>用的最多的就是 Histogram 功能</p>
-<h2 id="Memory-Usage"><a href="#Memory-Usage" class="headerlink" title="Memory Usage"></a>Memory Usage</h2><p>Memory Usage是as中自带的功能</p>
-<p><strong>也可以使用adb shell命令来获取指定package name的内存镜像</strong></p>
-<p><strong>adb shell dumpsys meminfo [package name]</strong></p>
-<h2 id="LeakCanary"><a href="#LeakCanary" class="headerlink" title="LeakCanary"></a>LeakCanary</h2><p>LeakCanary 在<strong>检测内存泄漏的时候会阻塞主界面</strong>,但是这时候阻塞肯定是必要的，因为此时必须要挂起线程来获取当前堆的状态。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/11/OSI七层模型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/11/OSI七层模型/" itemprop="url">OSI七层模型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T00:34:14+08:00">
-                2017-10-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="OSI模型图解"><a href="#OSI模型图解" class="headerlink" title="OSI模型图解"></a>OSI模型图解</h2><p><img src="http://hi.csdn.net/attachment/201201/5/0_1325744597WM32.gif" alt="img"></p>
-<h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><p>利用传输介质为数据链路层提供物理连接，实现比特流的透明传输。</p>
-<h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><p>通过各种控制协议，将有差错的物理信道变为无差错的、能可靠传输数据帧的数据链路。</p>
-<p>该层通常又被分为介质访问控制（MAC）和逻辑链路控制（LLC）两个子层。</p>
-<p>MAC：解决共享型网络中多用户对信道竞争的问题，完成网络介质的访问控制<br>LLC：建立和维护网络连接，执行差错校验、流量控制和链路控制。</p>
-<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><ol>
-<li>寻址：数据链路层中使用的物理地址（如MAC地址）仅解决网络内部的寻址问题。在不同子网之间通信时，为了识别和找到网络中的设备，每一子网中的设备都会被分配一个唯一的地址。由于各子网使用的物理技术可能不同，因此这个地址应当是逻辑地址（如IP地址）。</li>
-<li>交换：电路交换和分组交换（数据报方式和虚电路方式）</li>
-<li>路由算法：当源节点和目的节点之间存在多条路径时，本层可以根据路由算法，通过网络为数据分组选择最佳路径，并将信息从最合适的路径由发送端传送到接收端。</li>
-<li>连接服务：与数据链路层流量控制不同的是，前者控制的是网络相邻节点间的流量，后者控制的是从源节点到目的节点间的流量。其目的在于防止阻塞，并进行差错检测。</li>
-</ol>
-<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><ol>
-<li>传输连接管理：提供建立、维护和拆除传输连接的功能。传输层在网络层的基础上为高层提供“面向连接”和“面向无接连”的两种服务。</li>
-<li>处理传输差错：提供可靠的“面向连接”和不太可靠的“面向无连接”的数据传输服务、差错控制和流量控制。在提供“面向连接”服务时，通过这一层传输的数据将由目标设备确认，如果在指定的时间内未收到确认信息，数据将被重发。</li>
-<li>监控服务质量。</li>
-</ol>
-<h2 id="会话层"><a href="#会话层" class="headerlink" title="会话层"></a>会话层</h2><ol>
-<li>会话管理：允许用户在两个实体设备之间建立、维持和终止会话，并支持它们之间的数据交换。</li>
-<li>会话流量控制：提供会话流量控制和交叉会话功能。</li>
-<li>寻址：使用远程地址建立会话连接。</li>
-<li>差错控制：此层检查的错误不是通信介质的错误，而是磁盘空间、打印机缺纸等类型的高级错误。</li>
-</ol>
-<h2 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h2><ol>
-<li>数据格式处理：协商和建立数据交换的格式，解决各应用程序之间在数据格式表示上的差异。</li>
-<li>数据的编码：处理字符集和数字的转换。例如由于用户程序中的数据类型（整型或实型、有符号或无符号等）、用户标识等都可以有不同的表示方式，因此，在设备之间需要具有在不同字符集或格式之间转换的功能。</li>
-<li>压缩和解压缩：为了减少数据的传输量，这一层还负责数据的压缩与恢复。</li>
-<li>数据的加密和解密：可以提高网络的安全性。</li>
-</ol>
-<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><ol>
-<li>用户接口：应用层是用户与网络，以及应用程序与网络间的直接接口，使得用户能够与网络进行交互式联系。</li>
-<li>实现各种服务：该层具有的各种应用程序可以完成和实现用户请求的各种服务。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1854,7 +1849,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
