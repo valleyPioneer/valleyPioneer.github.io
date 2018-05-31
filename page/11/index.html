@@ -249,6 +249,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/20/Android 卡顿的分析思路/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/20/Android 卡顿的分析思路/" itemprop="url">Android 卡顿的分析思路</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-20T00:34:14+08:00">
+                2017-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="分析思路"><a href="#分析思路" class="headerlink" title="分析思路"></a>分析思路</h2><ol>
+<li>cpu</li>
+<li>gpu</li>
+<li>内存</li>
+</ol>
+<p>UI渲染的整个过程是由CPU和GPU两个部分协同完成的。</p>
+<p>其中, CPU负责UI布局元素的Measure, Layout, Draw等相关运算执行. GPU负责栅格化(rasterization), 将UI元素绘制到屏幕上.</p>
+<h2 id="过于复杂的布局-cpu"><a href="#过于复杂的布局-cpu" class="headerlink" title="过于复杂的布局(cpu)"></a>过于复杂的布局(cpu)</h2><ol>
+<li><strong>UI布局层次太深</strong>；</li>
+<li><strong>自定义控件的onDraw中有复杂运算。</strong></li>
+</ol>
+<p>以上两点原因会导致CPU的相关运算就可能大于16ms, 导致卡顿。</p>
+<p>可以借助<strong>Hierarchy Viewer</strong>这个工具来帮我们分析布局了. Hierarchy Viewer不仅可以以图形化树状结构的形式展示出UI层级, 还对每个节点给出了三个小圆点, 以指示该元素Measure, Layout, Draw的耗时及性能。</p>
+<h2 id="过度绘制-overDraw-gpu"><a href="#过度绘制-overDraw-gpu" class="headerlink" title="过度绘制(overDraw)(gpu)"></a>过度绘制(overDraw)(gpu)</h2><p>Overdraw: 用来描述一个像素在屏幕上多少次被重绘在一帧上。</p>
+<p>Android可视化界面分析：”系统设置”–&gt;”开发者选项”–&gt;”调试GPU过度绘制”</p>
+<p>造成overdraw的主要原因：</p>
+<ol>
+<li><strong>绘制了多重背景.</strong></li>
+<li><strong>绘制了不可见的UI元素.</strong></li>
+</ol>
+<h2 id="UI线程的复杂运算-cpu"><a href="#UI线程的复杂运算-cpu" class="headerlink" title="UI线程的复杂运算(cpu)"></a>UI线程的复杂运算(cpu)</h2><p>UI线程的复杂运算会造成UI无响应, 当然更多的是造成UI响应停滞, 卡顿.</p>
+<h2 id="频繁的GC-内存"><a href="#频繁的GC-内存" class="headerlink" title="频繁的GC(内存)"></a>频繁的GC(内存)</h2><p>执行GC操作的时候，任何线程的任何操作都会需要暂停，等待GC操作完成之后，其他操作才能够继续运行, 故而如果程序频繁GC, 自然会导致界面卡顿。</p>
+<p>造成频繁GC的主要原因：</p>
+<ul>
+<li>内存抖动：大量的对象被创建又在短时间内马上被释放。</li>
+</ul>
+<p>工程中的原因：<br><strong>我们在代码的循环中new对象, 或是在onDraw中创建对象等.</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/12/Android 检测内存泄漏场景的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1661,162 +1829,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/10/leetcode字典树总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/10/leetcode字典树总结/" itemprop="url">leetcode字典树总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-10T00:34:14+08:00">
-                2017-09-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。</li>
-</ol>
-<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ol>
-<li>根节点不包含字符，除根节点外每一个节点都只包含一个字符。</li>
-<li>从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串。</li>
-<li>每个节点的所有子节点包含的字符都不相同。</li>
-</ol>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被<strong>搜索引擎系统用于文本词频统计</strong>。它的优点是：最大限度地减少无谓的字符串比较，查询效率比哈希表高。<br>缺点：内存消耗很大，可以使用左孩子右兄弟法存储来改善。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> isLeaf;</span><br><span class="line">    Map&lt;Character,TrieNode&gt; content;</span><br><span class="line">    <span class="comment">// Initialize your data structure here.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TrieNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        content = <span class="keyword">new</span> HashMap&lt;Character,TrieNode&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Trie</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> TrieNode root;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Trie</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        root = <span class="keyword">new</span> TrieNode();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Inserts a word into the trie.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(word ** <span class="keyword">null</span> || word.length() ** <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        TrieNode node = root;</span><br><span class="line">        TrieNode tempNode = <span class="keyword">null</span>;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>, len=word.length(); i&lt;len; i++)&#123;</span><br><span class="line">            Character c = word.charAt(i);</span><br><span class="line">            tempNode = node.content.get(c);</span><br><span class="line">            <span class="keyword">if</span>(tempNode == <span class="keyword">null</span>)&#123;</span><br><span class="line">                tempNode = <span class="keyword">new</span> TrieNode();</span><br><span class="line">                node.content.put(c,tempNode);</span><br><span class="line">            &#125;</span><br><span class="line">            node = tempNode;</span><br><span class="line">        &#125;</span><br><span class="line">        node.isLeaf = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Returns if the word is in the trie.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">search</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(word ** <span class="keyword">null</span> || word.length() ** <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        TrieNode node = root;</span><br><span class="line">        TrieNode tempNode = <span class="keyword">null</span>;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>, len=word.length(); i&lt;len; i++)&#123;</span><br><span class="line">            Character c = word.charAt(i);</span><br><span class="line">            tempNode = node.content.get(c);</span><br><span class="line">            <span class="keyword">if</span>(tempNode == <span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            node = tempNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node.isLeaf;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Returns if there is any word in the trie</span></span><br><span class="line">    <span class="comment">// that starts with the given prefix.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">startsWith</span><span class="params">(String prefix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prefix ** <span class="keyword">null</span> || prefix.length() ** <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        TrieNode node = root;</span><br><span class="line">        TrieNode tempNode = <span class="keyword">null</span>;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>, len=prefix.length(); i&lt;len; i++)&#123;</span><br><span class="line">            Character c = prefix.charAt(i);</span><br><span class="line">            tempNode = node.content.get(c);</span><br><span class="line">            <span class="keyword">if</span>(tempNode == <span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            node = tempNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1862,7 +1879,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">110</span>
+                  <span class="site-state-item-count">111</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

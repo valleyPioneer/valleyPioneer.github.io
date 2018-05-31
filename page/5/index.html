@@ -249,6 +249,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/Android 广播的生命周期/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/14/Android 广播的生命周期/" itemprop="url">Android 广播的生命周期</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T00:34:14+08:00">
+                2018-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><strong>一个BroadcastReceiver对象只在调用onReceive(Context, Intent)期间有效</strong>。一旦从该函数返回，系统会认为该对象已经完成，不再活跃。</li>
+<li>有一个活跃的广播接收者的进程是受保护的，不会被杀死。但是系统可以在任何时候杀死仅有不活跃组件的进程，当占用的内存别的进程需要时。</li>
+<li><strong>如果onReceive()衍生线程然后返回，整个进程，包括新的线程，被判定为不活跃的</strong>（除非进程中的其它应用程序组件是活跃的），将使它处于被杀的危机。</li>
+<li><strong>不能在BroadcastReceiver显示一个对话框或者bind到一个service。</strong></li>
+<li>要<strong>实现对话框功能</strong>，你应该使用NotificationManager API。</li>
+<li><strong>如果在onReceive中存在许多耗时操作</strong>，你可以使用Context.startService()去发送一个命令给service。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/10/Map与Collection的关联/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1733,158 +1882,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/10/ListView和RecyclerView的卡顿优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/10/ListView和RecyclerView的卡顿优化/" itemprop="url">ListView和RecyclerView的卡顿优化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-10T00:34:14+08:00">
-                2018-02-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>由于ListView和RecyclerView的缓存机制，<strong>滚动时会额外通过getView或者onCreateViewHolder  里面继续inflate布局造成的。</strong></p>
-<p><strong>因为它们的缓存机制导致，初始化只加载可视范围内的item</strong></p>
-<h2 id="ListView优化方式"><a href="#ListView优化方式" class="headerlink" title="ListView优化方式"></a>ListView优化方式</h2><p><strong>利用反射机制，调用addViewBelow方法，让ListView 预先加载item , 也就是让它多加载几个item , 使之滚动的时候， 不去创建layout ， 而是使用缓存好的item 。</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Method method = ShareReflectUtil.findMethod(<span class="keyword">this</span>,<span class="string">"addViewBelow"</span>,View.class, <span class="keyword">int</span>.class);</span><br><span class="line"></span><br><span class="line">intposition = getLastVisiblePosition();</span><br><span class="line"></span><br><span class="line">View view = getChildAt(position);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(inti =<span class="number">0</span>;i &lt; size;i++) &#123;</span><br><span class="line"></span><br><span class="line">    method.invoke(<span class="keyword">this</span>,view,i + position);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="RecyclerView优化方式"><a href="#RecyclerView优化方式" class="headerlink" title="RecyclerView优化方式"></a>RecyclerView优化方式</h2><p><strong>RecyclerView也是利用RecycledViewPool内部类在缓存池中预先加载好几个ViewHolder。</strong></p>
-<p><strong>一定要在setAdapter之后调用， 否者无效， 因为setAdapter时会清除你的pool缓存。</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RecyclerView.RecycledViewPool pool = recyclerView.getRecycledViewPool();</span><br><span class="line"></span><br><span class="line">pool.setMaxRecycledViews(viewType,count);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(intindex =<span class="number">0</span>;index &lt; count;index++) &#123;</span><br><span class="line"></span><br><span class="line">    pool.putRecycledView(recyclerView.getAdapter().createViewHolder(recyclerView,<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1930,7 +1932,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">110</span>
+                  <span class="site-state-item-count">111</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
