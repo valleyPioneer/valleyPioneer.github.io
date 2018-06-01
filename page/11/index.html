@@ -249,6 +249,147 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android Crash如何捕捉/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/25/Android Crash如何捕捉/" itemprop="url">Android Crash如何捕捉</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T00:34:14+08:00">
+                2017-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="重写UncaughtExceptionhandler接口"><a href="#重写UncaughtExceptionhandler接口" class="headerlink" title="重写UncaughtExceptionhandler接口"></a>重写UncaughtExceptionhandler接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WholeCrashHandler</span> <span class="keyword">implements</span> <span class="title">UncaughtExceptionHandler</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"TAG"</span>;  </span><br><span class="line">    <span class="comment">/***************************** 单例模式 ***************************************/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> WholeCrashHandler crashHandler = <span class="keyword">new</span> WholeCrashHandler();  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">WholeCrashHandler</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> WholeCrashHandler <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> crashHandler;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/***************************************************************************/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> ISOPEN = <span class="keyword">true</span>; <span class="comment">// 是否打开日志写入和发送  </span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> Thread.UncaughtExceptionHandler mDefaultHandler;  </span><br><span class="line">    <span class="keyword">private</span> Context context;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;  </span><br><span class="line">        LogUtils.i(TAG, <span class="string">"zhuce**=**"</span>);  </span><br><span class="line">        <span class="keyword">this</span>.context = context;  </span><br><span class="line">        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();  </span><br><span class="line">        Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">this</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uncaughtException</span><span class="params">(Thread thread, Throwable ex)</span> </span>&#123;  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">if</span> (!handleException(ex) &amp;&amp; mDefaultHandler != <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="comment">// 如果用户没有处理则让系统默认的异常处理器来处理  </span></span><br><span class="line">            mDefaultHandler.uncaughtException(thread, ex);  </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            Activity currentActivity = ActivityUtils.Instance().getCurrentActivity();  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"current===&gt;&gt;&gt;&gt;."</span>+currentActivity);  </span><br><span class="line">            ActivityUtils.Instance().finishAll();  </span><br><span class="line">            Intent intent = <span class="keyword">new</span> Intent();  </span><br><span class="line">            intent.setClass(context, CrashHintActivity1.class);  </span><br><span class="line">            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"zhuce**111=**"</span>);  </span><br><span class="line">            context.startActivity(intent);  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"zhuce**2222=**"</span>);  </span><br><span class="line">            android.os.Process.killProcess(android.os.Process.myPid());  </span><br><span class="line">  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 异常处理 </span></span><br><span class="line"><span class="comment">     *  </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ex </span></span><br><span class="line"><span class="comment">     *            异常信息 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean true 已处理，false 未处理 </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">handleException</span><span class="params">(Throwable ex)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span> (ex == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (!ISOPEN) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//收集设备信息  </span></span><br><span class="line">          </span><br><span class="line">        <span class="comment">// 写入本地文件  </span></span><br><span class="line">        LogUtils.write(ex);  </span><br><span class="line">          </span><br><span class="line">        <span class="comment">//可以在这直接操作发送log日志  </span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android Intent可以携带的数据/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -347,6 +488,170 @@
 <li>String（String实现了 Serializable ）/CharSequence实例类型的数据及其数组 </li>
 <li>实现了Parcelable的对象及其数组 </li>
 <li>实现了 Serializable 的对象及其数组 </li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android apk 反编译总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/23/Android apk 反编译总结/" itemprop="url">Android apk 反编译总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><ul>
+<li><p>apktool<br>  作用：主要查看res文件下的xml文件、AndroidManifest文件和图片。（直接解压apk得到的xml文件大多是乱码）</p>
+</li>
+<li><p>dex2jar<br>  作用：将classes.dex文件转换成jar文件</p>
+</li>
+<li><p>jd-gui<br>  作用：查看jar文件，将jar文件转换成java文件</p>
+</li>
+<li><p>smali2JavaUI<br>  作用：直接打开apk，结合以上两步直接得到java源文件或者将smali文件转换成java文件。缺点在于，无法解析出资源文件。</p>
+</li>
+</ul>
+<h2 id="反编译以及重新打包过程中使用到的命令"><a href="#反编译以及重新打包过程中使用到的命令" class="headerlink" title="反编译以及重新打包过程中使用到的命令"></a>反编译以及重新打包过程中使用到的命令</h2><ol>
+<li><p>反编译apk<br> apktool d app.apk  </p>
+</li>
+<li><p>修改资源文件或者修改smali源代码 </p>
+</li>
+<li><p>打包<br> apktool b app -o app_new.apk</p>
+</li>
+<li><p>签名<br> mykeystore.jks<a href="自己填写好路径\(千万记得填写完整的钥匙库的文件后缀\)">^1</a>:使用Android Studio生成</p>
+<p> 签名命令：jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore mykeystore.jks -storepass android -signedjar app_new_signed.apk app_new.apk mykeystore.jks</p>
+</li>
+<li><p>对齐<br> zipalign 4 app_new_signed.apk app_new_signed_aligned.apk</p>
+</li>
 </ol>
 
           
@@ -524,170 +829,6 @@
 </ol>
 <h3 id="UDP校验和的计算方法"><a href="#UDP校验和的计算方法" class="headerlink" title="UDP校验和的计算方法"></a>UDP校验和的计算方法</h3><p><strong>现在数据报之前加入12个字节的伪首部，先令2个字节的校验和全为0，然后利用二进制反码求和机制计算出最后的校验和。</strong></p>
 <p>伪首部并不是数据报真正的首部，是为了计算校验和而临时添加在数据报前面的，在真正传输的时候并不会把伪首部一并发送。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android apk 反编译总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/23/Android apk 反编译总结/" itemprop="url">Android apk 反编译总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">
-                2017-10-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><ul>
-<li><p>apktool<br>  作用：主要查看res文件下的xml文件、AndroidManifest文件和图片。（直接解压apk得到的xml文件大多是乱码）</p>
-</li>
-<li><p>dex2jar<br>  作用：将classes.dex文件转换成jar文件</p>
-</li>
-<li><p>jd-gui<br>  作用：查看jar文件，将jar文件转换成java文件</p>
-</li>
-<li><p>smali2JavaUI<br>  作用：直接打开apk，结合以上两步直接得到java源文件或者将smali文件转换成java文件。缺点在于，无法解析出资源文件。</p>
-</li>
-</ul>
-<h2 id="反编译以及重新打包过程中使用到的命令"><a href="#反编译以及重新打包过程中使用到的命令" class="headerlink" title="反编译以及重新打包过程中使用到的命令"></a>反编译以及重新打包过程中使用到的命令</h2><ol>
-<li><p>反编译apk<br> apktool d app.apk  </p>
-</li>
-<li><p>修改资源文件或者修改smali源代码 </p>
-</li>
-<li><p>打包<br> apktool b app -o app_new.apk</p>
-</li>
-<li><p>签名<br> mykeystore.jks<a href="自己填写好路径\(千万记得填写完整的钥匙库的文件后缀\)">^1</a>:使用Android Studio生成</p>
-<p> 签名命令：jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore mykeystore.jks -storepass android -signedjar app_new_signed.apk app_new.apk mykeystore.jks</p>
-</li>
-<li><p>对齐<br> zipalign 4 app_new_signed.apk app_new_signed_aligned.apk</p>
-</li>
-</ol>
 
           
         
@@ -1652,167 +1793,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/28/路由协议简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/28/路由协议简介/" itemprop="url">路由协议简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-28T00:34:14+08:00">
-                2017-09-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="内部网关协议IGP"><a href="#内部网关协议IGP" class="headerlink" title="内部网关协议IGP"></a>内部网关协议IGP</h2><h3 id="RIP协议"><a href="#RIP协议" class="headerlink" title="RIP协议"></a>RIP协议</h3><ul>
-<li><strong>基于UDP封装</strong></li>
-<li>基于距离矢量</li>
-<li>最大跳数为15跳，超过15跳的网络则认为目标网络不可达</li>
-<li>收敛速度较慢</li>
-<li>此协议通常用在网络架构较为简单的小型网络环境</li>
-<li>主要传递路由信息，通过每隔30秒广播一次路由表，<strong>维护相邻路由器的位置关系</strong>，同时根据收到的路由表信息计算自己的路由表信息</li>
-</ul>
-<h3 id="OSPF协议"><a href="#OSPF协议" class="headerlink" title="OSPF协议"></a>OSPF协议</h3><ul>
-<li><strong>基于IP封装</strong></li>
-<li>基于链路状态</li>
-<li>每个区域中所有路由器维护着一个相同的链路状态数据库（LSDB）</li>
-<li>OSPF利用<strong>所维护的链路状态数据库，通过最短路径优先算法（SPF算法）计算得到路由表</strong>。</li>
-<li>OSPF的收敛速度较快</li>
-<li>由于其特有的开放性以及良好的扩展性，目前OSPF协议在各种网络中广泛部署</li>
-</ul>
-<h2 id="边界网关协议BGP"><a href="#边界网关协议BGP" class="headerlink" title="边界网关协议BGP"></a>边界网关协议BGP</h2><ul>
-<li><strong>基于TCP封装</strong></li>
-<li>用于不同自治系统中路由器选路协议</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1863,7 +1843,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-count">115</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
