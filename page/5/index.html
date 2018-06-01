@@ -249,6 +249,531 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/20/Retrofit2.0中文件上传的两种方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/20/Retrofit2.0中文件上传的两种方式/" itemprop="url">Retrofit2.0中文件上传的两种方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-20T00:34:14+08:00">
+                2018-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="上传字符串"><a href="#上传字符串" class="headerlink" title="上传字符串"></a>上传字符串</h2><ol>
+<li><p>网络请求接口定义</p>
+<p>使用@Body注解</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@POST</span>()</span><br><span class="line"><span class="function">Call&lt;ResponseBody&gt; <span class="title">upLoad</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    @Url()</span> String url,</span></span><br><span class="line"><span class="function">    @Body RequestBody Body)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>使用@Multipart注解
+![img](http://www.10tiao.com/img.do?url=http%3A//mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt47kBJ3ZviaYIS3BXCYCcOzPxctEDuhnjyvs2U262Qf1axG29TBYJNTKtOo6xhPZMZYMvPFOVDLFvA/0%3Fwx_fmt%3Dpng)
+</code></pre><ol start="2">
+<li>同时上传文字内容和文件内容(<strong>使用@Body注解</strong>)</li>
+</ol>
+<p><img src="http://www.10tiao.com/img.do?url=http%3A//mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt47kBJ3ZviaYIS3BXCYCcOzP19RgtyovjibwmvM07LcukgHwtST0R5seM1kuJwQiadHt2EH07ehHL7Qw/0%3Fwx_fmt%3Dpng" alt="img"></p>
+<ol start="3">
+<li><p>同时上传文件内容和文件内容(<strong>使用@Multipart注解</strong>)</p>
+<p> 此时相当于表单提交</p>
+<p> <img src="http://www.10tiao.com/img.do?url=http%3A//mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt47kBJ3ZviaYIS3BXCYCcOzPygldne87KuZnGducvmiaqtKmvcGk6YriabFE1icYFFpibQTV1IG2pabJQQ/0%3Fwx_fmt%3Dpng" alt="img"></p>
+</li>
+<li><p>上传json</p>
+</li>
+</ol>
+<p><img src="http://www.10tiao.com/img.do?url=http%3A//mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt47kBJ3ZviaYIS3BXCYCcOzPMf2KSsFOjGa8K406Xs4eyo3l5kZoGKL0k58AhWxoJxOxjVZiaFcHMyA/0%3Fwx_fmt%3Dpng" alt="img"></p>
+<p>加上Content-Type为”application/json;charset=utf-8”</p>
+<ol start="5">
+<li><p>MediaType常用类型总结  </p>
+<ol>
+<li><p>常见的媒体格式类型如下：<br>text/html ： HTML格式<br>text/plain ：纯文本格式<br>text/xml ：  XML格式<br>image/gif ：gif图片格式<br>image/jpeg ：jpg图片格式<br>image/png：png图片格式</p>
+</li>
+<li><p>以application开头的媒体格式类型：<br>application/xhtml+xml ：XHTML格式<br>application/xml     ： XML数据格式<br>application/atom+xml  ：Atom XML聚合格式<br>application/json    ： JSON数据格式<br>application/pdf       ：pdf格式<br>application/msword  ： Word文档格式<br>application/octet-stream ： 二进制流数据（如常见的文件下载）<br>application/x-www-form-urlencoded ： <form enctype="””">中默认的encType，form表单数据被编码为key/value格式发送到服务器（表单默认的提交数据的格式）</form></p>
+</li>
+<li><p>multipart/form-data ： 需要在表单中进行文件上传时，就需要使用该格式</p>
+</li>
+</ol>
+</li>
+<li><p><strong>使用retrofit上传文件时，无论何种方式，mediatype的类型均写成multipart/form-data无任何影响，如果写成具体类型应该保证正确匹配</strong></p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/16/Android 广播详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/16/Android 广播详解/" itemprop="url">Android 广播详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-16T00:32:14+08:00">
+                2018-03-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Android广播底层实现原理"><a href="#Android广播底层实现原理" class="headerlink" title="Android广播底层实现原理"></a>Android广播底层实现原理</h2><p>Android中的广播使用了观察者模式，基于消息的发布/订阅事件模型。因此，从实现的角度来看，Android中的广播将广播的发送者和接受者极大程度上解耦，使得系统能够方便集成，更易扩展。</p>
+<ol>
+<li>广播接收者BroadcastReceiver通过Binder机制向AMS(Activity Manager Service)进行注册；</li>
+<li>广播发送者通过binder机制向AMS发送广播；</li>
+<li>AMS查找符合相应条件（IntentFilter/Permission等）的BroadcastReceiver，最后会将广播发送到<strong>主线程</strong>相应的消息循环队列中；</li>
+<li>消息循环执行拿到此广播，回调BroadcastReceiver中的onReceive()方法。</li>
+</ol>
+<h2 id="普通广播"><a href="#普通广播" class="headerlink" title="普通广播"></a>普通广播</h2><p>普通的广播是不在意顺序的，最简单的理解是同时可以收到这个广播。</p>
+<h2 id="有序广播"><a href="#有序广播" class="headerlink" title="有序广播"></a>有序广播</h2><p>按照广播接收器的优先级来收取广播消息。</p>
+<h2 id="粘性广播"><a href="#粘性广播" class="headerlink" title="粘性广播"></a>粘性广播</h2><p><strong>Android 5.0及以上就废弃了这种广播</strong></p>
+<p>android的粘性广播，是指广播接收器一注册马上就能接收到广播的一种机制，当然首先系统要存在广播。</p>
+<p><strong>粘性广播对应的intent会存储在系统中。</strong></p>
+<h2 id="App内广播"><a href="#App内广播" class="headerlink" title="App内广播"></a>App内广播</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注册应用内广播接收器</span></span><br><span class="line"><span class="comment">//步骤1：实例化BroadcastReceiver子类 &amp; IntentFilter mBroadcastReceiver </span></span><br><span class="line">mBroadcastReceiver = <span class="keyword">new</span> mBroadcastReceiver(); </span><br><span class="line">IntentFilter intentFilter = <span class="keyword">new</span> IntentFilter(); </span><br><span class="line"></span><br><span class="line"><span class="comment">//步骤2：实例化LocalBroadcastManager的实例</span></span><br><span class="line">localBroadcastManager = LocalBroadcastManager.getInstance(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//步骤3：设置接收广播的类型 </span></span><br><span class="line">intentFilter.addAction(android.net.conn.CONNECTIVITY_CHANGE);</span><br><span class="line"></span><br><span class="line"><span class="comment">//步骤4：调用LocalBroadcastManager单一实例的registerReceiver（）方法进行动态注册 </span></span><br><span class="line">localBroadcastManager.registerReceiver(mBroadcastReceiver, intentFilter);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取消注册应用内广播接收器</span></span><br><span class="line">localBroadcastManager.unregisterReceiver(mBroadcastReceiver);</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送应用内广播</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">intent.setAction(BROADCAST_ACTION);</span><br><span class="line">localBroadcastManager.sendBroadcast(intent);</span><br></pre></td></tr></table></figure>
+<h2 id="系统广播"><a href="#系统广播" class="headerlink" title="系统广播"></a>系统广播</h2><ul>
+<li>Android中内置了多个系统广播：只要涉及到手机的基本操作（如开机、网络状态变化、拍照等等），都会发出相应的广播。</li>
+<li>每个广播都有特定的Intent - Filter（包括具体的action）</li>
+</ul>
+<h2 id="如何将全局广播设置为局部广播"><a href="#如何将全局广播设置为局部广播" class="headerlink" title="如何将全局广播设置为局部广播"></a>如何将全局广播设置为局部广播</h2><ol>
+<li>注册广播时将exported属性设置为false，使得非本App内部发出的此广播不被接收。</li>
+<li>在广播发送和接收时，增设相应权限permission，用于权限验证。</li>
+<li>发送广播时指定该广播接收器所在的包名，此广播将只会发送到此包中的App内与之相匹配的有效广播接收器中。 </li>
+</ol>
+<h2 id="粘性广播和普通广播的区别"><a href="#粘性广播和普通广播的区别" class="headerlink" title="粘性广播和普通广播的区别"></a>粘性广播和普通广播的区别</h2><p>粘性广播调用registerReceiver能马上接受广播，而普通广播不行。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/Gson解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/15/Gson解析/" itemprop="url">Gson解析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T00:34:14+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><ul>
+<li>把对象转换为字节序列的过程称为对象的序列化。<br>  <strong>对应gson的toJson方法</strong></li>
+<li>把字节序列恢复为对象的过程称为对象的反序列化。<br>  <strong>对应gson的fromJson方法</strong></li>
+</ul>
+<h2 id="Gson处理对象的几个重要点"><a href="#Gson处理对象的几个重要点" class="headerlink" title="Gson处理对象的几个重要点"></a><a href="http://www.jianshu.com/p/fc5c9cdf3aab" target="_blank" rel="noopener">Gson处理对象的几个重要点</a></h2><ol>
+<li><p>推荐把成员变量都声明称private的</p>
+</li>
+<li><p><strong>没有必要用注解（@Expose 注解）指明某个字段是否会被序列化或者反序列化，所有包含在当前类（包括父类）中的字段都应该默认被序列化或者反序列化</strong></p>
+</li>
+<li><p>如果某个字段被 transient 这个Java关键词修饰，就不会被序列化或者反序列化</p>
+</li>
+<li><p>下面的实现方式能够正确的处理null</p>
+<ul>
+<li>当序列化的时候，如果对象的某个字段为null，是不会输出到Json字符串中的。</li>
+<li>当反序列化的时候，某个字段在Json字符串中找不到对应的值，就会被赋值为null。</li>
+</ul>
+</li>
+</ol>
+<ol start="5">
+<li><p>如果一个字段是 synthetic<br>的,他会被忽视，也即是不应该被序列化或者反序列化</p>
+</li>
+<li><p>内部类（或者anonymous class（匿名类），或者local class(局部类，可以理解为在方法内部声明的类)）的某个字段和外部类的某个字段一样的话，就会被忽视，不会被序列化或者反序列化</p>
+</li>
+<li><p><strong>Gson的model类在定义时不需要定义getter/setter方法，对构造函数也没有特殊要求，无需保证默认构造函数一定存在</strong></p>
+</li>
+</ol>
+<h2 id="Gson中常用注解"><a href="#Gson中常用注解" class="headerlink" title="Gson中常用注解"></a>Gson中常用注解</h2><ol>
+<li><p>@SerializedName注解</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SerializedName</span>(value = <span class="string">"emailAddress"</span>, alternate = &#123;<span class="string">"email"</span>, <span class="string">"email_address"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> String emailAddress;</span><br></pre></td></tr></table></figure>
+<p> 当上面的三个属性(email_address、email、emailAddress)都中出现任意一个时均可以得到正确的结果。<br> 注：当多种情况同时出时，以最后一个出现的值为准。</p>
+</li>
+</ol>
+<h2 id="Gson泛型的使用方法"><a href="#Gson泛型的使用方法" class="headerlink" title="Gson泛型的使用方法"></a>Gson泛型的使用方法</h2><ul>
+<li><p>json格式的数据如下：</p>
+  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;  </span><br><span class="line"><span class="attr">"status"</span>: <span class="number">0</span>,  </span><br><span class="line"><span class="attr">"data"</span>: &#123;  </span><br><span class="line">    <span class="attr">"price"</span>: <span class="number">4</span>,  </span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"脉动"</span>,  </span><br><span class="line">    <span class="attr">"type"</span>: <span class="string">"饮料"</span>,  </span><br><span class="line">    <span class="attr">"amount"</span>: <span class="number">50</span>,  </span><br><span class="line">    <span class="attr">"summary"</span>: <span class="string">"随时随地，脉动回来"</span>,  </span><br><span class="line">    <span class="attr">"picture"</span>: <span class="string">"http://www.jpjy365.com/images/201402/source_img/29726_G_1393285888119.jpg"</span>,  </span><br><span class="line">    <span class="attr">"hot"</span>: <span class="literal">true</span>,  </span><br><span class="line">    <span class="attr">"sales"</span>: <span class="number">100</span>  </span><br><span class="line">&#125;,  </span><br><span class="line"><span class="attr">"err"</span>: <span class="literal">null</span>  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>gson泛型解析类：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UniApiResult</span>&lt;<span class="title">T</span>&gt; </span>&#123;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"status"</span>)  </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> mStatus;      </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"err"</span>)  </span><br><span class="line"><span class="keyword">private</span> String mErr;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"data"</span>)  </span><br><span class="line"><span class="keyword">private</span> T mData;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStatus</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mStatus;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStatus</span><span class="params">(<span class="keyword">int</span> status)</span> </span>&#123;  </span><br><span class="line">    mStatus = status;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getErr</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mErr;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setErr</span><span class="params">(String err)</span> </span>&#123;  </span><br><span class="line">    mErr = err;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getData</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mData;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(T data)</span> </span>&#123;  </span><br><span class="line">    mData = data;  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>json字符串解析</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> UniApiResult&lt;GoodsInfoModel&gt; <span class="title">parseJson</span><span class="params">(String jsonStr)</span> </span>&#123;  </span><br><span class="line">    Gson gson = <span class="keyword">new</span> Gson();  </span><br><span class="line">    Type jsonType = <span class="keyword">new</span> TypeToken&lt;UniApiResult&lt;GoodsInfoModel&gt;&gt;() &#123;  </span><br><span class="line">    &#125;.getType();  </span><br><span class="line">    <span class="keyword">return</span> gson.fromJson(jsonStr, jsonType);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行"><a href="#Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行" class="headerlink" title="Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行"></a><strong>Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行</strong></h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/Android 广播的生命周期/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1345,543 +1870,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/17/JVM类加载双亲(父亲)委托模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/17/JVM类加载双亲(父亲)委托模式/" itemprop="url">JVM类加载双亲(父亲)委托模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-17T00:34:14+08:00">
-                2018-02-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>除了java虚拟机自带的根类加载器之外，其余的类加载器都有且只有一个父加载器。</p>
-<h2 id="根类加载器-BootStrap"><a href="#根类加载器-BootStrap" class="headerlink" title="根类加载器(BootStrap)"></a>根类加载器(BootStrap)</h2><p>该加载器没有父加载器。它负责加载虚拟机的核心类库，如java.lang.*等。例如java.lang.Object就是由根类加载器加载的。根类加载器从系统属性sun.boot.class.path所指定的目录中加载类库。根类加载器的实现依赖于底层操作系统，属于虚拟机的实现的一部分，它并没有继承java.lang.ClassLoader类。</p>
-<h2 id="扩展类加载器-Extension"><a href="#扩展类加载器-Extension" class="headerlink" title="扩展类加载器(Extension)"></a>扩展类加载器(Extension)</h2><p>它的父加载器为根类加载器。它从java.ext.dirs系统属性所指定的目录中加载类库，或者从JDK的安装目录的jre/lib/ext子目录（扩展目录）下加载类库，如果把用户创建的JAR文件放在这个目录下，也会自动由扩展类加载器加载。扩展类加载器是纯Java类，是java.lang.ClassLoader类的子类。</p>
-<h2 id="系统类加载器-System-App"><a href="#系统类加载器-System-App" class="headerlink" title="系统类加载器(System/App)"></a>系统类加载器(System/App)</h2><p>也称为应用类加载器，它的父加载器为扩展类加载器。它从环境变量classpath或者系统属性java.class.path所指定的目录中加载类，它是用户自定义的类加载器的默认父加载器。系统类加载器是纯Java类，是java.lang.ClassLoader类的子类。</p>
-<p><strong>父子加载器并非继承关系，也就是说子加载器不一定是继承了父加载器。</strong></p>
-<h2 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h2><p>除了以上虚拟机自带的加载器以外，用户还可以定制自己的类加载器（User-defined Class Loader）。Java提供了抽象类java.lang.ClassLoader，所有用户自定义的类加载器应该继承ClassLoader类。</p>
-<p><img src="http://www.itzhai.com/wp-content/uploads/2011/11/20111105-JVM001.png" alt="img"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class sampleClass = loader2.loadClass(<span class="string">"Sample"</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="加载过程"><a href="#加载过程" class="headerlink" title="加载过程"></a>加载过程</h3><p>loader2首先从自己的命名空间中查找Sample类是否已经被加载，如果已经加载，就直接返回代表Sample类的Class对象的引用。</p>
-<p>如果Sample类还没有被加载，loader2首先请求loader1代为加载，loader1再请求系统类加载器代为加载，系统类加载器再请求扩展类加载器代为架子啊，扩展类加载器在请求根类加载器代为加载。若根加载器和扩展加载器都不能加载，则系统类加载器尝试加载，若能加载成功，则将Sample类所对应的Class对象的引用返回给loader1，loader1再将引用返回给loader2，从而成功将Sample类加载进虚拟机。若系统类加载器不能加载Sample类，则loader1尝试加载Sample类，若laoder1也不能成功加载，则loader2尝试加载。若所有的父加载器及laoder2本身都不能加载，则抛出ClassNotFoundException异常。</p>
-<h2 id="加载器之间的关系"><a href="#加载器之间的关系" class="headerlink" title="加载器之间的关系"></a>加载器之间的关系</h2><p>加载器之间的父子关系实际上指的是加载器对象之间的<strong>包装关系==，而不是类之间的继承关系。一对父子加载器==可能是同一个加载器类的两个实例</strong>，也可能不是。在子加载器对象中包装了一个父加载器对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ClassLoader loader1 = <span class="keyword">new</span> MyClassLoader();  </span><br><span class="line"><span class="comment">//参数loader1将作为loader2的父加载器  </span></span><br><span class="line">ClassLoader loader2 = <span class="keyword">new</span> MyClassLoader(loader1);</span><br></pre></td></tr></table></figure>
-<h2 id="双亲委托模式的优点"><a href="#双亲委托模式的优点" class="headerlink" title="双亲委托模式的优点"></a>双亲委托模式的优点</h2><p>父委托机制的优点是能够提高软件系统的安全性。因为在此机制下，<strong>用户自定义的类加载器不可能加载应该由父加载器加载的可靠类</strong>，从而防止不可靠甚至恶意的代码代替由父加载器加载的可靠代码。</p>
-<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>每个类加载器都有自己的命名空间，<strong>命名空间由该加载器及所有父加载器所加载的类组成</strong>。在同一个命名空间中，不会出现类的完整名字（包括类的包名）相同的两个类；在不同的命名空间中，有可能会出现类的完整名字（包括类的包名）相同的两个类。</p>
-<h2 id="运行时包"><a href="#运行时包" class="headerlink" title="运行时包"></a>运行时包</h2><p><strong>由同一类加载器加载的属于相同包的类</strong>组成了运行时包。决定两个类是不是属于同一个运行时包，不仅要看它们的包名是否相同，还要看定义类加载器是否相同。只有属于同一运行时包的类才能相互访问包可见（即默认访问级别）的类和成员。这样的限制能避免用户自定义的类冒充核心类库的类，去访问核心类库的包可见成员。假设用户自己定义了一个java.lang.Spy，并用用户自定义的类加载器加载，由于java.lang.Spy和核心类库java.lang.*由不同的加载器加载，它们属于不同的运行时包，所以java.lang.Spy不能访问核心类库java.lang包中的包可见成员。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/13/RTMP、RTSP、HLS、HTTP FLV、SIP区别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/13/RTMP、RTSP、HLS、HTTP FLV、SIP区别/" itemprop="url">RTMP、RTSP、HLS、HTTP FLV、SIP区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-13T00:34:14+08:00">
-                2018-02-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="RTMP"><a href="#RTMP" class="headerlink" title="RTMP"></a>RTMP</h2><p>用RTMP方式： 通过NetConnection连接到FMS(Flash Media Server)或Red5服务器，并实时播放服务器的FLV文件，这种方式可以任意选择视频播放点，并不象HTTP方式需要缓存完整个FLV文件到本地才可以任意选择播放点，其优点就是在本地缓存里是找不到这个FLV文件的。其优点就是FLV不会缓存在客户端，FLV的保密性好，其缺点就是消耗服务器资源，连接始终是实时的。</p>
-<p>由以上分析可知，Http方式是本地播放，而RTMP方式是服务器实时播放.</p>
-<h2 id="RTSP"><a href="#RTSP" class="headerlink" title="RTSP"></a>RTSP</h2><p>RTSP: RTSP 1.0标准的制订者没有充分预测到互联网带宽的快速增长，以及由于IPv4地址短缺导致的NAT技术的广泛使用，还有代理服务器的大量存在，它在传输可靠性和易用性上都存在一定的缺陷。虽然各家厂商都做了一定程度的修补，比如支持RTSP over HTTP，支持NAT穿透等，但仍然于事无补。在2005之后网络视频大爆炸的几年中，RTSP 1.0并没有得到youtube, hulu, 土豆，优酷等视频服务提供商的青睐，相反，Adobe公司开发的私有流媒体技术RTMP以其优秀的易用性和富媒体的一体化集成，得到了多数视频服务提供商的追捧，成为了事实上的标准.</p>
-<h2 id="HLS"><a href="#HLS" class="headerlink" title="HLS"></a>HLS</h2><p>HLS(Http Living Streaming): 从2010年起，苹果开始在iOS设备上支持一种叫做”Live HTTP”的流媒体技术，并宣布在iOS上不会支持RTSP和Flash技术。HLS本质上就是基于HTTP的文件分段下载。在带宽充裕的前提下，live HTTP能够实现跟RTSP和RTMP同样的流媒体播放效果，同时得到了更好的易用性，更简单的控制。<br>在最新一代的超文本标识语言HTML5中，视频文件的点播，同样也采用了HTTP作为其承载协议</p>
-<p>基于.m3u8配置文件和.ts视频文件</p>
-<p>ios、安卓平台原生支持</p>
-<h2 id="HTTP-FLV"><a href="#HTTP-FLV" class="headerlink" title="HTTP FLV"></a>HTTP FLV</h2><p>先通过服务器将FLV下载到本地缓存，然后再通过NetConnection的本地连接来播放这个FLV，这种方法是播放本地的视频，并不是播放服务器的视频。因此在本地缓存里可以找到这个FLV。其优点就是服务器下载完这个FLV，服务器就没有消耗了，节省服务器消耗。其缺点就是FLV会缓存在客户端，对FLV的保密性不好。</p>
-<h2 id="SIP"><a href="#SIP" class="headerlink" title="SIP"></a>SIP</h2><p>SIP是基于文本的一种应用层控制协议，用于创建、修改和释放一个或多个参与者的会话。</p>
-<p>SIP是建立VOIP连接的IETF标准</p>
-<p>在SIP网络内每个<strong>网络元素==被标识SIP URI(统一资源标识符)，这些都是==SIP实体</strong></p>
-<ul>
-<li>SIP中的网络元素</li>
-</ul>
-<ol>
-<li>用户代理</li>
-<li>代理服务器</li>
-<li>注册服务器</li>
-<li>重定向服务器</li>
-<li>位置服务器</li>
-</ol>
-<ul>
-<li>SIP层次结构<br>SIP协议为分层协议，这可以相对独立的处理每层的行为，保证了层次之间的松耦合。</li>
-</ul>
-<p>SIP的最下层是它的语法和编码。它的编码是用扩充Backus-Naur 范式语法（BNF）指定。</p>
-<p>第二层是传输层。它定义了一个客户端发送请求和接收响应以及一个服务器如何接收请求和发送响应。所有的SIP网络元素都包含传输层。</p>
-<p>第三层是事务层。事务是由客户端（使用传输层）发送到服务器的请求，还包含所有响应服务器给客户端发送的响应。用户代理客户端（UAC）包含一系列事物的处理。无状态代理不包含事务层。</p>
-<p>事务层以上的层称为事务用户。每个SIP实体，除了无状态代理，都是一个事务用户。</p>
-<p><strong>SIP事务：包含请求和响应。</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/12/java线程池简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/12/java线程池简介/" itemprop="url">java并发编程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-12T00:34:14+08:00">
-                2018-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="ExecutorService简介"><a href="#ExecutorService简介" class="headerlink" title="ExecutorService简介"></a>ExecutorService简介</h2><p>ExecutorService 的生命周期包括三种状态：运行、关闭、终止。创建后便进入运行状态，当调用了 shutdown（）方法时，便进入关闭状态，此时意味着 ExecutorService 不再接受新的任务，但它还在执行已经提交了的任务，当素有已经提交了的任务执行完后，便到达终止状态。如果不调用 shutdown（）方法，ExecutorService 会一直处在运行状态，不断接收新的任务，执行新的任务，服务器端一般不需要关闭它，保持一直运行即可。</p>
-<h2 id="Executors类提供的4种工厂方法"><a href="#Executors类提供的4种工厂方法" class="headerlink" title="Executors类提供的4种工厂方法"></a>Executors类提供的4种工厂方法</h2><ol>
-<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span></span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>创建固定数目线程的线程池。</p>
-<p>2.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
-<p>创建一个可缓存的线程池，调用execute将重用以前构造的线程（如果线程可用）。如果现有线程没有可用的，则创建一个新线 程并添加到池中。终止并从缓存中移除那些已有 60 秒钟未被使用的线程。</p>
-<ol start="3">
-<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>创建一个单线程化的Executor。</p>
-<ol start="4">
-<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ScheduledExecutorService <span class="title">newScheduledThreadPool</span><span class="params">(<span class="keyword">int</span> corePoolSize)</span></span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>创建一个支持定时及周期性的任务执行的线程池，多数情况下可用来替代Timer类。</p>
-<h2 id="四种创建ExecutorService方式的区别"><a href="#四种创建ExecutorService方式的区别" class="headerlink" title="四种创建ExecutorService方式的区别"></a>四种创建ExecutorService方式的区别</h2><ol>
-<li><strong>newCachedThreadPool()</strong></li>
-</ol>
-<p>缓存型池子，先查看池中有没有以前建立的线程，如果有，就 reuse<br>如果没有，就建一个新的线程加入池中</p>
-<p>缓存型池子通常用于执行一些生存期很短的异步型任务 因此在一些面向连接的 daemon 型 SERVER 中用得不多。但对于生存期短的异步任务，它是 Executor 的首选。</p>
-<p>能 reuse 的线程，必须是 timeout IDLE 内的池中线程，缺省 timeout 是 60s,超过这个 IDLE 时长，线程实例将被终止及移出池。</p>
-<p>注意，放入 CachedThreadPool 的线程不必担心其结束，超过 TIMEOUT 不活动，其会自动被终止。</p>
-<ol start="2">
-<li><strong>newFixedThreadPool(int)</strong></li>
-</ol>
-<p>newFixedThreadPool 与 cacheThreadPool 差不多，也是能 reuse 就用，但不能随时建新的线程。</p>
-<p>其独特之处:任意时间点，最多只能有固定数目的活动线程存在，此时如果有新的线程要建立，只能放在另外的队列中等待，直到当前的线程中某个线程终止直接被移出池子。</p>
-<p>和 cacheThreadPool 不同，FixedThreadPool 没有 IDLE 机制（可能也有，但既然文档没提，肯定非常长，类似依赖上层的 TCP 或 UDP IDLE 机制之类的），所以 FixedThreadPool 多数针对一些很稳定很固定的正规并发线程，多用于服务器。</p>
-<p>从方法的源代码看，cache池和fixed 池调用的是同一个底层 池，只不过参数不同:<br>fixed 池线程数固定，并且是0秒IDLE（无IDLE）。<br>cache 池线程数支持 0-Integer.MAX_VALUE(显然完全没考虑主机的资源承受能力），60 秒 IDLE 。</p>
-<ol start="3">
-<li><strong>newScheduledThreadPool(int)</strong></li>
-</ol>
-<p>调度型线程池</p>
-<p>这个池子里的线程可以按 schedule 依次 delay 执行，或周期执行</p>
-<ol start="4">
-<li><strong>SingleThreadExecutor()</strong></li>
-</ol>
-<p>单例线程，任意时间池中只能有一个线程</p>
-<p>用的是和 cache 池和 fixed 池相同的底层池，但线程数目是 1-1,0 秒 IDLE（无 IDLE）</p>
-<p><strong>一般来说，CachedTheadPool 在程序执行过程中通常会创建与所需数量相同的线程，然后在它回收旧线程时停止创建新线程，因此它是合理的 Executor 的首选，只有当这种方式会引发问题时（比如需要大量长时间面向连接的线程时），才需要考虑用 FixedThreadPool。（该段话摘自《Thinking in Java》第四版）</strong></p>
-<h2 id="Executor执行Runnable任务"><a href="#Executor执行Runnable任务" class="headerlink" title="Executor执行Runnable任务"></a>Executor执行Runnable任务</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;   </span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;   </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCachedThreadPool</span></span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;   </span><br><span class="line">        ExecutorService executorService = Executors.newCachedThreadPool();   </span><br><span class="line"><span class="comment">//      ExecutorService executorService = Executors.newFixedThreadPool(5);  </span></span><br><span class="line"><span class="comment">//      ExecutorService executorService = Executors.newSingleThreadExecutor();  </span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;   </span><br><span class="line">            executorService.execute(<span class="keyword">new</span> TestRunnable());   </span><br><span class="line">            System.out.println(<span class="string">"************* a"</span> + i + <span class="string">" *************"</span>);   </span><br><span class="line">        &#125;   </span><br><span class="line">        executorService.shutdown();   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;   </span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">"线程被调用了。"</span>);   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="ExecutorZ执行Callable任务"><a href="#ExecutorZ执行Callable任务" class="headerlink" title="ExecutorZ执行Callable任务"></a>ExecutorZ执行Callable任务</h2><p>Callable 接口类似于 Runnable，两者都是为那些其实例可能被另一个线程执行的类设计的。但是 Runnable 不会返回结果，并且无法抛出经过检查的异常而 Callable 又返回结果，而且当获取返回结果时可能会抛出异常。Callable 中的 call()方法类似 Runnable 的 run()方法，区别同样是有返回值，后者没有。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;   </span><br><span class="line"><span class="keyword">import</span> java.util.List;   </span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.*;   </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CallableDemo</span></span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;   </span><br><span class="line">        ExecutorService executorService = Executors.newCachedThreadPool();   </span><br><span class="line">        List&lt;Future&lt;String&gt;&gt; resultList = <span class="keyword">new</span> ArrayList&lt;Future&lt;String&gt;&gt;();   </span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建10个任务并执行   </span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;   </span><br><span class="line">            <span class="comment">//使用ExecutorService执行Callable类型的任务，并将结果保存在future变量中   </span></span><br><span class="line">            Future&lt;String&gt; future = executorService.submit(<span class="keyword">new</span> TaskWithResult(i));   </span><br><span class="line">            <span class="comment">//将任务执行结果存储到List中   </span></span><br><span class="line">            resultList.add(future);   </span><br><span class="line">        &#125;   </span><br><span class="line"></span><br><span class="line">        <span class="comment">//遍历任务的结果   </span></span><br><span class="line">        <span class="keyword">for</span> (Future&lt;String&gt; fs : resultList)&#123;   </span><br><span class="line">                <span class="keyword">try</span>&#123;   </span><br><span class="line">                    <span class="keyword">while</span>(!fs.isDone);<span class="comment">//Future返回如果没有完成，则一直循环等待，直到Future返回完成  </span></span><br><span class="line">                    System.out.println(fs.get());     <span class="comment">//打印各个线程（任务）执行的结果   </span></span><br><span class="line">                &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;   </span><br><span class="line">                    e.printStackTrace();   </span><br><span class="line">                &#125;<span class="keyword">catch</span>(ExecutionException e)&#123;   </span><br><span class="line">                    e.printStackTrace();   </span><br><span class="line">                &#125;<span class="keyword">finally</span>&#123;   </span><br><span class="line">                    <span class="comment">//启动一次顺序关闭，执行以前提交的任务，但不接受新任务  </span></span><br><span class="line">                    executorService.shutdown();   </span><br><span class="line">                &#125;   </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaskWithResult</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">String</span>&gt;</span>&#123;   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;   </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TaskWithResult</span><span class="params">(<span class="keyword">int</span> id)</span></span>&#123;   </span><br><span class="line">        <span class="keyword">this</span>.id = id;   </span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">    <span class="comment">/**  </span></span><br><span class="line"><span class="comment">     * 任务的具体过程，一旦任务传给ExecutorService的submit方法， </span></span><br><span class="line"><span class="comment">     * 则该方法自动在一个线程上执行 </span></span><br><span class="line"><span class="comment">     */</span>   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"call()方法被自动调用！！！    "</span> + Thread.currentThread().getName());   </span><br><span class="line">        <span class="comment">//该返回结果将被Future的get方法得到  </span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"call()方法被自动调用，任务返回的结果是："</span> + id + <span class="string">"    "</span> + Thread.currentThread().getName();   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="自定义线程池"><a href="#自定义线程池" class="headerlink" title="自定义线程池"></a>自定义线程池</h2><p>一般使用ThreadPoolExecutor类来创建自定义的线程池</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.ArrayBlockingQueue;   </span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.BlockingQueue;   </span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ThreadPoolExecutor;   </span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;   </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolTest</span></span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;   </span><br><span class="line">        <span class="comment">//创建等待队列   </span></span><br><span class="line">        BlockingQueue&lt;Runnable&gt; bqueue = <span class="keyword">new</span> ArrayBlockingQueue&lt;Runnable&gt;(<span class="number">20</span>);   </span><br><span class="line">        <span class="comment">//创建线程池，池中保存的线程数为3，允许的最大线程数为5  </span></span><br><span class="line">        ThreadPoolExecutor pool = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">3</span>,<span class="number">5</span>,<span class="number">50</span>,TimeUnit.MILLISECONDS,bqueue);   </span><br><span class="line">        <span class="comment">//创建七个任务   </span></span><br><span class="line">        Runnable t1 = <span class="keyword">new</span> MyThread();   </span><br><span class="line">        Runnable t2 = <span class="keyword">new</span> MyThread();   </span><br><span class="line">        Runnable t3 = <span class="keyword">new</span> MyThread();   </span><br><span class="line">        Runnable t4 = <span class="keyword">new</span> MyThread();   </span><br><span class="line">        Runnable t5 = <span class="keyword">new</span> MyThread();   </span><br><span class="line">        Runnable t6 = <span class="keyword">new</span> MyThread();   </span><br><span class="line">        Runnable t7 = <span class="keyword">new</span> MyThread();   </span><br><span class="line">        <span class="comment">//每个任务会在一个线程上执行  </span></span><br><span class="line">        pool.execute(t1);   </span><br><span class="line">        pool.execute(t2);   </span><br><span class="line">        pool.execute(t3);   </span><br><span class="line">        pool.execute(t4);   </span><br><span class="line">        pool.execute(t5);   </span><br><span class="line">        pool.execute(t6);   </span><br><span class="line">        pool.execute(t7);   </span><br><span class="line">        <span class="comment">//关闭线程池   </span></span><br><span class="line">        pool.shutdown();   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;   </span><br><span class="line">    <span class="meta">@Override</span>   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;   </span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">"正在执行。。。"</span>);   </span><br><span class="line">        <span class="keyword">try</span>&#123;   </span><br><span class="line">            Thread.sleep(<span class="number">100</span>);   </span><br><span class="line">        &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;   </span><br><span class="line">            e.printStackTrace();   </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>简要说明下用到的 ThreadPoolExecuror 类的构造方法中各个参数的含义</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span> <span class="params">(<span class="keyword">int</span> corePoolSize, <span class="keyword">int</span> maximumPoolSize, <span class="keyword">long</span>         keepAliveTime, TimeUnit unit,BlockingQueue&lt;Runnable&gt; workQueue)</span></span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>corePoolSize：线程池中所保存的核心线程数，包括空闲线程。</p>
-</li>
-<li><p>maximumPoolSize：池中允许的最大线程数。</p>
-</li>
-<li><p>keepAliveTime：线程池中的空闲线程所能持续的最长时间。</p>
-</li>
-<li><p>unit：持续时间的单位。</p>
-</li>
-<li><p>workQueue：任务执行前保存任务的队列，仅保存由 execute 方法提交的 Runnable 任务。</p>
-</li>
-</ul>
-<h2 id="使用ThreadPoolExecutor类自定义线程池任务添加时处理的顺序"><a href="#使用ThreadPoolExecutor类自定义线程池任务添加时处理的顺序" class="headerlink" title="使用ThreadPoolExecutor类自定义线程池任务添加时处理的顺序"></a>使用ThreadPoolExecutor类自定义线程池任务添加时处理的顺序</h2><ol>
-<li>如果线程池中的线程数量少于 corePoolSize，即使线程池中有空闲线程，也会创建一个新的线程来执行新添加的任务</li>
-<li>如果线程池中的线程数量大于等于 corePoolSize，但缓冲队列 workQueue 未满，则将新添加的任务放到 workQueue 中，按照 FIFO 的原则依次等待执行（线程池中有线程空闲出来后依次将缓冲队列中的任务交付给空闲的线程执行）</li>
-<li>如果线程池中的线程数量大于等于 corePoolSize，且缓冲队列 workQueue 已满，但线程池中的线程数量小于 maximumPoolSize，则会创建新的线程来处理被添加的任务</li>
-<li>如果线程池中的线程数量等于了 maximumPoolSize，有 4 种才处理方式（该构造方法调用了含有 5 个参数的构造方法，并将最后一个构造方法为 RejectedExecutionHandler 类型，它在处理线程溢出时有 4 种方式，这里不再细说，要了解的，自己可以阅读下源码）</li>
-</ol>
-<p><strong>总结起来，也即是说，当有新的任务要处理时，先看线程池中的线程数量是否大于 corePoolSize，再看缓冲队列 workQueue 是否满，最后看线程池中的线程数量是否大于 maximumPoolSize。</strong></p>
-<p>当线程池中的线程数量<strong>大于</strong> corePoolSize 时，如果里面有线程的空闲时间超过了 keepAliveTime，就将其移除线程池，这样，可以动态地调整线程池中线程的数量</p>
-<h2 id="this逃逸的解决办法"><a href="#this逃逸的解决办法" class="headerlink" title="this逃逸的解决办法"></a>this逃逸的解决办法</h2><p>可以在构造函数中创建线程，但别启动它。在构造函数外面再启动。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1932,7 +1920,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-count">114</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
