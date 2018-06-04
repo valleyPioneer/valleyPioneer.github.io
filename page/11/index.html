@@ -249,6 +249,304 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/30/Android finish方法与异常生命周期/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/30/Android finish方法与异常生命周期/" itemprop="url">Android finish方法与异常生命周期</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-30T00:34:14+08:00">
+                2017-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>调用finish方法后，activity会从栈中移除，此时实例和资源并没有被销毁。如果按back键，由于已经不再活动栈中，因此无法返回到该活动中。</li>
+<li><p>异常的生命周期是指Activity被系统回收或者当前设备的Configuration发生变化（一般指横竖屏切换）从而导致Activity被销毁重建。异常的生命周期主要分以下两种情况：</p>
+<ol>
+<li>相关的系统配置发生改变导致Activity被杀死并重新创建（一般指横竖屏切换）</li>
+<li>内存不足导致低优先级的Activity被杀死</li>
+<li><strong>两者对应的生命周期均为当我们正常启动Activity时，onCreate，onStart，onResume方法都会依次被回调，而如果我们此时把竖屏的Activity人为的调整为横屏，我们可以发现onPause，onSaveInstanceState，onStop，onDestroy，onCreate，onStart，onRestoreInstanceState，onResume依次被调用，单从调用的方法我们就可以知道，Activity先被销毁后再重新创建</strong></li>
+</ol>
+</li>
+<li><p>在一些突发情况下，系统回收内存会导致onStop、onDestroy方法不被调用，因此onPause方法是保证可以被调用的最后一个生命周期中的方法。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/27/Android UID PID的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/27/Android UID PID的区别/" itemprop="url">Android UID PID的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-27T00:34:14+08:00">
+                2017-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h2><p>PID：为Process Identifier，　PID就是各进程的身份标识,程序一运行系统就会自动分配给进程一个独一无二的PID。进程中止后PID被系统回收，可能会被继续分配给新运行的程序，但是在android系统中一般不会把已经kill掉的进程ID重新分配给新的进程，新产生进程的进程号，一般比产生之前所有的进程号都要大。</p>
+<h2 id="UID"><a href="#UID" class="headerlink" title="UID"></a>UID</h2><p>UID：一般理解为User Identifier,UID在linux中就是用户的ID，表明时哪个用户运行了这个程序，主要用于权限的管理。而在android 中又有所不同，因为android为单用户系统，这时UID 便被赋予了新的使命，数据共享，为了实现数据共享，android为每个应用几乎都分配了不同的UID，不像传统的linux，每个用户相同就为之分配相同的UID。（当然这也就表明了一个问题，android只能时单用户系统，在设计之初就被他们的工程师给阉割了多用户），使之成了数据共享的工具。</p>
+<h2 id="相同UID和签名可以实现数据共享"><a href="#相同UID和签名可以实现数据共享" class="headerlink" title="相同UID和签名可以实现数据共享"></a>相同UID和签名可以实现数据共享</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;manifest xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">          <span class="keyword">package</span>=<span class="string">"com.perseus.a"</span></span><br><span class="line">　　　　　 android:versionCode=<span class="string">"1"</span></span><br><span class="line">　　　　　 android:versionName=<span class="string">"1.0"</span></span><br><span class="line">          android:sharedUserId=<span class="string">"com.share"</span></span><br><span class="line">&gt;</span><br><span class="line">&lt;manifest xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">          <span class="keyword">package</span>=<span class="string">"com.perseus.b"</span></span><br><span class="line">　　　　　 android:versionCode=<span class="string">"1"</span></span><br><span class="line">　　　　　 android:versionName=<span class="string">"1.0"</span></span><br><span class="line">          android:sharedUserId=<span class="string">"com.share"</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>可以访问对方的私有数据，比如data目录、组件信息；如果跑在同一个进程中，还可以共享内存数据，看起来就像一个应用的两个部分。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android Crash如何捕捉/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -390,7 +688,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android Intent可以携带的数据/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -409,7 +707,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/23/Android Intent可以携带的数据/" itemprop="url">Android Intent可以携带的数据</a></h1>
+                <a class="post-title-link" href="/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/" itemprop="url">onSaveInstanceState调用时机</a></h1>
         
 
         <div class="post-meta">
@@ -421,8 +719,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">
-                2017-10-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T00:34:14+08:00">
+                2017-10-25
               </time>
             
 
@@ -483,12 +781,193 @@
       
         
           
-            <ol>
-<li>8种基本数据类型及其数组 </li>
-<li>String（String实现了 Serializable ）/CharSequence实例类型的数据及其数组 </li>
-<li>实现了Parcelable的对象及其数组 </li>
-<li>实现了 Serializable 的对象及其数组 </li>
+            <p>当某个activity容易被系统销毁时（具有可能性，但是还没有被销毁）。</p>
+<ol>
+<li>按下home键</li>
+<li>长按home键，选择运行其他程序</li>
+<li>按下电源键（关闭屏幕显示）</li>
+<li>从当前活动启动一个新的活动</li>
+<li>屏幕方向切换时，从竖屏切换至横屏</li>
+<li>电话打入等情况</li>
 </ol>
+<h2 id="onRestoreInstanceState调用时机"><a href="#onRestoreInstanceState调用时机" class="headerlink" title="onRestoreInstanceState调用时机"></a>onRestoreInstanceState调用时机</h2><p>onSaveInstanceState方法和onRestoreInstanceState方法“不一定”是成对的被调用的，onRestoreInstanceState被调用的前提是，activity A“确实”被系统销毁了，而如果仅仅是停留在有这种可能性的情况下，则该方法不会被调用，例如，当正在显示activity A的时候，用户按下HOME键回到主界面，然后用户紧接着又返回到activity A，这种情况下activity A一般不会因为内存的原因被系统销毁，故activity A的onRestoreInstanceState方法不会被执行。</p>
+<p>onRestoreInstanceState方法中bundle参数和onCreate方法中bundle参数相同，都是onSaveInstanceState方法中返回的，<strong>因此也可以选择在onCreate中做数据还原。</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/TCP和UDP协议详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/23/TCP和UDP协议详解/" itemprop="url">TCP和UDP协议详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h3 id="TCP报文结构"><a href="#TCP报文结构" class="headerlink" title="TCP报文结构"></a>TCP报文结构</h3><p><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/CFC6314E4B2FD039C450821D946E93E2.png" alt="img"></p>
+<p><a href="https://jerryc8080.gitbooks.io/understand-tcp-and-udp/chapter2.html" target="_blank" rel="noopener">TCP报文结构详解</a></p>
+<h3 id="三次握手和四次挥手"><a href="#三次握手和四次挥手" class="headerlink" title="三次握手和四次挥手"></a>三次握手和四次挥手</h3><p><strong>注意ack和seq的变化，syn同步报文段占用一个序号（相当于一个字节），而fin终止报文段由于没有数据，所以不占用序列号，而且最后的ack报文也不传输数据，所以不占用序列号。</strong><br><img src="https://www.polarxiong.com/usr/uploads/2017/04/3086068925.png" alt="img"></p>
+<p><strong>Q</strong>: 三次握手建立连接时，发送方再次发送确认的必要性？</p>
+<p>A: 主 要是为了防止已失效的连接请求报文段突然又传到了B,因而产生错误。假定出现一种异常情况，即A发出的第一个连接请求报文段并没有丢失，而是在某些网络结 点长时间滞留了，一直延迟到连接释放以后的某个时间才到达B，本来这是一个早已失效的报文段。但B收到此失效的连接请求报文段后，就误认为是A又发出一次 新的连接请求，于是就向A发出确认报文段，同意建立连接。假定不采用三次握手，那么只要B发出确认，新的连接就建立了，这样一直等待A发来数据，B的许多 资源就这样白白浪费了。</p>
+<p><strong>Q</strong>: 四次挥手释放连接时，等待2MSL的意义？</p>
+<p>A: </p>
+<ol>
+<li>为了保证A发送的最有一个ACK报文段能够到达B。这个ACK报文段有可能丢失，因而使处在LAST-ACK状态的B收不到对已发送的FIN和ACK 报文段的确认。B会超时重传这个FIN和ACK报文段，而A就能在2MSL时间内收到这个重传的ACK+FIN报文段。接着A重传一次确认。</li>
+<li>他还可以防止已失效的报文段。客户端在发送最后一个ACK之后，再经过经过2MSL，就可以使本链接持续时间内所产生的所有报文段都从网络中消失。<strong>从而保证如果马上建立下一次连接，上一次失效的报文不会干扰此次通信过程。</strong></li>
+</ol>
+<p><strong>Q</strong>: 为什么是2MSL？</p>
+<p>A: </p>
+<ol>
+<li>服务器fin报文超时重传时间一般为1个MSL，然后再考虑到fin报文传递到的客户端的时间最长为1个MSL</li>
+</ol>
+<h3 id="TCP中的三种关键技术"><a href="#TCP中的三种关键技术" class="headerlink" title="TCP中的三种关键技术"></a>TCP中的三种关键技术</h3><h4 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h4><p>RTO、RTT</p>
+<h4 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h4><ol>
+<li>慢启动和拥塞避免<br><img src="http://img.blog.csdn.net/20140509221015859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"></li>
+<li>快重传和快恢复<br><img src="http://img.blog.csdn.net/20140509221048265?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"><h4 id="流量控制（滑动窗口实现）"><a href="#流量控制（滑动窗口实现）" class="headerlink" title="流量控制（滑动窗口实现）"></a>流量控制（滑动窗口实现）</h4>发送窗口（四种状态）：<br><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/FCA43D210DF50C93E428DFD04FBBBF32.png" alt="img"><br>接收窗口（三种状态）：<br><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/F4B7AEDE41EE179676E79DEF2601D4A4.png" alt="img"><br><strong>大写ACK表示首部中的确认位ACK，小写ack表示确认字段的值ack。</strong><br><img src="http://img.blog.csdn.net/20140509220855687?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"></li>
+</ol>
+<h3 id="TCP-ack机制"><a href="#TCP-ack机制" class="headerlink" title="TCP ack机制"></a>TCP ack机制</h3><ol>
+<li>快速确认</li>
+<li>延迟确认（捎带在数据包中）</li>
+</ol>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p><strong>udp支持广播和组播，支持一对一、一对多、多对一、多对多的通信，而tcp不支持广播和组播</strong></p>
+<h3 id="UDP报文结构"><a href="#UDP报文结构" class="headerlink" title="UDP报文结构"></a>UDP报文结构</h3><p><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/6FCC9F4EDE80F784BD11ED9FA76FA375.png" alt="img"></p>
+<ol>
+<li>源端口：源端口号，在需要对方回信时选用，不需要时可全 0.</li>
+<li>目的端口：目的端口号，在终点交付报文时必须要使用到。</li>
+<li>长度：UDP 用户数据报的长度，在只有首部的情况，其最小值是 8 。</li>
+<li>检验和：检测 UDP 用户数据报在传输中是否有错，有错就丢弃。</li>
+</ol>
+<h3 id="UDP校验和的计算方法"><a href="#UDP校验和的计算方法" class="headerlink" title="UDP校验和的计算方法"></a>UDP校验和的计算方法</h3><p><strong>现在数据报之前加入12个字节的伪首部，先令2个字节的校验和全为0，然后利用二进制反码求和机制计算出最后的校验和。</strong></p>
+<p>伪首部并不是数据报真正的首部，是为了计算校验和而临时添加在数据报前面的，在真正传输的时候并不会把伪首部一并发送。</p>
 
           
         
@@ -701,7 +1180,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/TCP和UDP协议详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android Intent可以携带的数据/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -720,7 +1199,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/23/TCP和UDP协议详解/" itemprop="url">TCP和UDP协议详解</a></h1>
+                <a class="post-title-link" href="/2017/10/23/Android Intent可以携带的数据/" itemprop="url">Android Intent可以携带的数据</a></h1>
         
 
         <div class="post-meta">
@@ -755,8 +1234,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -794,41 +1273,12 @@
       
         
           
-            <h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h3 id="TCP报文结构"><a href="#TCP报文结构" class="headerlink" title="TCP报文结构"></a>TCP报文结构</h3><p><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/CFC6314E4B2FD039C450821D946E93E2.png" alt="img"></p>
-<p><a href="https://jerryc8080.gitbooks.io/understand-tcp-and-udp/chapter2.html" target="_blank" rel="noopener">TCP报文结构详解</a></p>
-<h3 id="三次握手和四次挥手"><a href="#三次握手和四次挥手" class="headerlink" title="三次握手和四次挥手"></a>三次握手和四次挥手</h3><p><strong>注意ack和seq的变化，syn同步报文段占用一个序号（相当于一个字节），而fin终止报文段由于没有数据，所以不占用序列号，而且最后的ack报文也不传输数据，所以不占用序列号。</strong><br><img src="https://www.polarxiong.com/usr/uploads/2017/04/3086068925.png" alt="img"></p>
-<p><strong>Q</strong>: 三次握手建立连接时，发送方再次发送确认的必要性？</p>
-<p>A: 主 要是为了防止已失效的连接请求报文段突然又传到了B,因而产生错误。假定出现一种异常情况，即A发出的第一个连接请求报文段并没有丢失，而是在某些网络结 点长时间滞留了，一直延迟到连接释放以后的某个时间才到达B，本来这是一个早已失效的报文段。但B收到此失效的连接请求报文段后，就误认为是A又发出一次 新的连接请求，于是就向A发出确认报文段，同意建立连接。假定不采用三次握手，那么只要B发出确认，新的连接就建立了，这样一直等待A发来数据，B的许多 资源就这样白白浪费了。</p>
-<p><strong>Q</strong>: 四次挥手释放连接时，等待2MSL的意义？</p>
-<p>A: </p>
-<ol>
-<li>为了保证A发送的最有一个ACK报文段能够到达B。这个ACK报文段有可能丢失，因而使处在LAST-ACK状态的B收不到对已发送的FIN和ACK 报文段的确认。B会超时重传这个FIN和ACK报文段，而A就能在2MSL时间内收到这个重传的ACK+FIN报文段。接着A重传一次确认。</li>
-<li>他还可以防止已失效的报文段。客户端在发送最后一个ACK之后，再经过经过2MSL，就可以使本链接持续时间内所产生的所有报文段都从网络中消失。<strong>从而保证如果马上建立下一次连接，上一次失效的报文不会干扰此次通信过程。</strong></li>
+            <ol>
+<li>8种基本数据类型及其数组 </li>
+<li>String（String实现了 Serializable ）/CharSequence实例类型的数据及其数组 </li>
+<li>实现了Parcelable的对象及其数组 </li>
+<li>实现了 Serializable 的对象及其数组 </li>
 </ol>
-<p><strong>Q</strong>: 为什么是2MSL？</p>
-<p>A: </p>
-<ol>
-<li>服务器fin报文超时重传时间一般为1个MSL，然后再考虑到fin报文传递到的客户端的时间最长为1个MSL</li>
-</ol>
-<h3 id="TCP中的三种关键技术"><a href="#TCP中的三种关键技术" class="headerlink" title="TCP中的三种关键技术"></a>TCP中的三种关键技术</h3><h4 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h4><p>RTO、RTT</p>
-<h4 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h4><ol>
-<li>慢启动和拥塞避免<br><img src="http://img.blog.csdn.net/20140509221015859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"></li>
-<li>快重传和快恢复<br><img src="http://img.blog.csdn.net/20140509221048265?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"><h4 id="流量控制（滑动窗口实现）"><a href="#流量控制（滑动窗口实现）" class="headerlink" title="流量控制（滑动窗口实现）"></a>流量控制（滑动窗口实现）</h4>发送窗口（四种状态）：<br><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/FCA43D210DF50C93E428DFD04FBBBF32.png" alt="img"><br>接收窗口（三种状态）：<br><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/F4B7AEDE41EE179676E79DEF2601D4A4.png" alt="img"><br><strong>大写ACK表示首部中的确认位ACK，小写ack表示确认字段的值ack。</strong><br><img src="http://img.blog.csdn.net/20140509220855687?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"></li>
-</ol>
-<h3 id="TCP-ack机制"><a href="#TCP-ack机制" class="headerlink" title="TCP ack机制"></a>TCP ack机制</h3><ol>
-<li>快速确认</li>
-<li>延迟确认（捎带在数据包中）</li>
-</ol>
-<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p><strong>udp支持广播和组播，支持一对一、一对多、多对一、多对多的通信，而tcp不支持广播和组播</strong></p>
-<h3 id="UDP报文结构"><a href="#UDP报文结构" class="headerlink" title="UDP报文结构"></a>UDP报文结构</h3><p><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/6FCC9F4EDE80F784BD11ED9FA76FA375.png" alt="img"></p>
-<ol>
-<li>源端口：源端口号，在需要对方回信时选用，不需要时可全 0.</li>
-<li>目的端口：目的端口号，在终点交付报文时必须要使用到。</li>
-<li>长度：UDP 用户数据报的长度，在只有首部的情况，其最小值是 8 。</li>
-<li>检验和：检测 UDP 用户数据报在传输中是否有错，有错就丢弃。</li>
-</ol>
-<h3 id="UDP校验和的计算方法"><a href="#UDP校验和的计算方法" class="headerlink" title="UDP校验和的计算方法"></a>UDP校验和的计算方法</h3><p><strong>现在数据报之前加入12个字节的伪首部，先令2个字节的校验和全为0，然后利用二进制反码求和机制计算出最后的校验和。</strong></p>
-<p>伪首部并不是数据报真正的首部，是为了计算校验和而临时添加在数据报前面的，在真正传输的时候并不会把伪首部一并发送。</p>
 
           
         
@@ -1354,445 +1804,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/06/AIDL的大致使用过程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/06/AIDL的大致使用过程/" itemprop="url">AIDL的大致使用过程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-06T00:34:14+08:00">
-                2017-10-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>服务端首先创建一个Service用来监听客户端的连接请求，然后创建一个AIDL文件，将暴露给客户端的接口在AIDL文件中声明，最后在Service中实现这个AIDL接口即可。</p>
-<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>绑定服务端Service，绑定成功之后，将服务端返回的Binder对象转成AIDL接口所属的类型，接着就可以调用AIDL中的方法了。</p>
-<h2 id="Service关键代码"><a href="#Service关键代码" class="headerlink" title="Service关键代码"></a>Service关键代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Binder mBinder = <span class="keyword">new</span> IBookManager.Stub()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Book&gt; <span class="title">getBookList</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException</span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mBinder;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Client关键代码"><a href="#Client关键代码" class="headerlink" title="Client关键代码"></a>Client关键代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> ServiceConnection mConnection = <span class="keyword">new</span> ServiceConnection()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName className,IBinder service)</span></span>&#123;</span><br><span class="line">        IBookManager bookManager = IBookManager.Stub.asInterface(service);</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//调用service中实现的方法</span></span><br><span class="line">        &#125;<span class="keyword">catch</span>(RemoteException e)&#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/02/使用Okhttp处理Volley底层Http请求（方便Cookie的处理）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/02/使用Okhttp处理Volley底层Http请求（方便Cookie的处理）/" itemprop="url">Volley配合Okhttp实现Cookie/session机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T00:34:14+08:00">
-                2017-10-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android网络库/" itemprop="url" rel="index">
-                    <span itemprop="name">Android网络库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li><p>目前Volley中有基于 HttpURLConnection 的 HurlStack 和 基于 Apache HttpClient 的HttpClientStack。</p>
-</li>
-<li><p>使用OKHttp处理Volley的底层HTTP请求</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OkHttpStack</span> <span class="keyword">extends</span> <span class="title">HurlStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> OkHttpClient okHttpClient;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OkHttpStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="keyword">new</span> OkHttpClient());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OkHttpStack</span><span class="params">(OkHttpClient okHttpClient)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.okHttpClient = okHttpClient;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> HttpURLConnection <span class="title">createConnection</span><span class="params">(URL url)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        OkUrlFactory okUrlFactory = <span class="keyword">new</span> OkUrlFactory(okHttpClient);</span><br><span class="line">        <span class="keyword">return</span> okUrlFactory.open(url);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这样处理之后可以使用OKHttp的方式来处理Cookie，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//本地管理cookie，保持网络请求cookie持久化</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> OkHttpClient <span class="title">getOkHttpClientInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(mOkHttpClient == <span class="keyword">null</span>) &#123;</span><br><span class="line">            OkHttpClient.Builder builder = <span class="keyword">new</span> OkHttpClient.Builder().cookieJar(<span class="keyword">new</span> CookieJar() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveFromResponse</span><span class="params">(HttpUrl url, List&lt;Cookie&gt; cookies)</span> </span>&#123;</span><br><span class="line">                    <span class="comment">//如果cookie第一次添加，那么直接赋值</span></span><br><span class="line">                    <span class="keyword">if</span> (cookie == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        cookie = cookies.get(<span class="number">0</span>);</span><br><span class="line">                        cookieStore.add(cookie);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//如果cookie的JSESSIONID的value变化，替换cookie</span></span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (cookies.get(<span class="number">0</span>).name().equals(<span class="string">"JSESSIONID"</span>) &amp;&amp; !cookies.get(<span class="number">0</span>).value().equals(cookie.value())) &#123;</span><br><span class="line">                        cookieStore.clear();</span><br><span class="line">                        cookie = cookies.get(<span class="number">0</span>);</span><br><span class="line">                        cookieStore.add(cookie);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> List&lt;Cookie&gt; <span class="title">loadForRequest</span><span class="params">(HttpUrl url)</span> </span>&#123;</span><br><span class="line">                    <span class="comment">/** 将本地的Cookie添加进Request中 */</span></span><br><span class="line">                    <span class="keyword">return</span> cookieStore != <span class="keyword">null</span> ? cookieStore : <span class="keyword">new</span> ArrayList&lt;Cookie&gt;();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            mOkHttpClient = builder.build();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mOkHttpClient;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Cookie/Session机制<a href="http://blog.csdn.net/fangaoxin/article/details/6952954" target="_blank" rel="noopener">详细说明</a></p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/29/冒泡算法的优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/29/冒泡算法的优化/" itemprop="url">冒泡算法的优化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T00:34:14+08:00">
-                2017-09-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>原理：一层循环在某次扫描中没有执行交换，则说明此时数组已经全部有序列，无需再扫描了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort_3</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> size)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">int</span> lastSwapPos = <span class="number">0</span>,lastSwapPosTemp = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size - <span class="number">1</span>; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        lastSwapPos = lastSwapPosTemp;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = size - <span class="number">1</span>; j &gt;lastSwapPos; j--)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">if</span> (a[j - <span class="number">1</span>] &gt; a[j])  </span><br><span class="line">            &#123;  </span><br><span class="line">                <span class="keyword">int</span> temp = a[j - <span class="number">1</span>];  </span><br><span class="line">                a[j - <span class="number">1</span>] = a[j];  </span><br><span class="line">                a[j] = temp;  </span><br><span class="line">  </span><br><span class="line">                lastSwapPosTemp = j;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (lastSwapPos == lastSwapPosTemp)  </span><br><span class="line">            <span class="keyword">break</span>;  </span><br><span class="line">          </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1843,7 +1854,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-count">118</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

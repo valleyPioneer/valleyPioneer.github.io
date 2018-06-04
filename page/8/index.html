@@ -249,6 +249,185 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/14/Android、linux中进程通信方式对比/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/14/Android、linux中进程通信方式对比/" itemprop="url">Android、linux中进程通信方式对比</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-14T00:34:14+08:00">
+                2018-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Android中IPC方式"><a href="#Android中IPC方式" class="headerlink" title="Android中IPC方式"></a>Android中IPC方式</h2><ol>
+<li>intent</li>
+<li>文件共享<ul>
+<li>文件读写</li>
+<li>序列化和反序列化</li>
+<li>sharedPreferences</li>
+</ul>
+</li>
+<li>Messenger(基于aidl，主要用于消息的传递，串行工作)</li>
+<li>AIDL（基于binder）</li>
+<li>socket</li>
+<li>Broadcast</li>
+</ol>
+<h2 id="Linux中IPC方式"><a href="#Linux中IPC方式" class="headerlink" title="Linux中IPC方式"></a>Linux中IPC方式</h2><ol>
+<li><p>管道、流管道、命名管道FiFO</p>
+<ul>
+<li>管道：具有两种限制。一是半双工的通信，数据只能单向流动，二是只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</li>
+<li>流管道：去除了第一种限制,可以双向传输.</li>
+<li>命名管道：除具有管道所具有的功能外，它还允许无亲缘关系进程间的通信。</li>
+</ul>
+</li>
+<li><p>信号</p>
+<p> 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</p>
+<p> 主要作为进程间以及同一进程不同线程之间的同步手段。</p>
+</li>
+<li><p>信号量</p>
+<p> 信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。</p>
+<p> 主要作为进程间以及同一进程内不同线程之间的同步手段。</p>
+</li>
+<li><p>共享内存</p>
+<p> 使得多个进程可以访问同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。往往与其它通信机制，如信号量结合使用，来达到进程间的同步及互斥。</p>
+</li>
+<li><p>消息队列</p>
+<p> 消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</p>
+</li>
+<li><p>socket</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/Java的5种线程状态/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -363,6 +542,404 @@
 <p><img src="http://img.blog.csdn.net/20140828202610671" alt="img"></p>
 <h2 id="java死锁的原因"><a href="#java死锁的原因" class="headerlink" title="java死锁的原因"></a>java死锁的原因</h2><p>suspend()挂起以及不指定超时期限的wait()方法的调用</p>
 <h2 id="wait和suspend、sleep区别"><a href="#wait和suspend、sleep区别" class="headerlink" title="wait和suspend、sleep区别"></a>wait和suspend、sleep区别</h2><p>wait会释放线程占用的锁、而suspend以及sleep不会</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTSP协议详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/13/RTSP协议详解/" itemprop="url">RTSP协议详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
+                2018-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="RTSP协议简介"><a href="#RTSP协议简介" class="headerlink" title="RTSP协议简介"></a>RTSP协议简介</h2><p>RTSP是研究如何有效地在IP网络上传输流媒体数据的应用层协议。RTSP对流媒体提供了诸如暂停，快进等控制，而它本身并不传输数据，RTSP的作用相当于流媒体服务器的远程控制。服务器端可以自行选择使用TCP或UDP来传送串流内容。</p>
+<p><strong>RTSP的对带宽的要求更低，RTMP实时性更好</strong></p>
+<p>特点：</p>
+<ul>
+<li>允许同时多个串流需求控制（Multicast），支持多方视频会议</li>
+<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求，可以实现流量的重新导向。</li>
+</ul>
+<h2 id="RTSP和HTTP区别"><a href="#RTSP和HTTP区别" class="headerlink" title="RTSP和HTTP区别"></a>RTSP和HTTP区别</h2><ol>
+<li>相同点</li>
+</ol>
+<ul>
+<li>两者都用纯文本来发送消息，且rtsp协议的语法也和HTTP类似。</li>
+</ul>
+<ol start="2">
+<li>不同点</li>
+</ol>
+<ul>
+<li>RTSP有状态，HTTP无状态，rtsp的命令总是按照顺序来发送。</li>
+</ul>
+<h2 id="RTSP和SIP区别"><a href="#RTSP和SIP区别" class="headerlink" title="RTSP和SIP区别"></a>RTSP和SIP区别</h2><p>SIP是基于IP的一个应用层控制协议。</p>
+<ol>
+<li>相同点</li>
+</ol>
+<ul>
+<li>sip和rtsp都是应用层的控制协议，负责一次通信过程的建立和控制和结束，不负责中间的传输部分。</li>
+<li>他们都是基于纯文本的信令协议，支持tcp、udp，支持多方通信。</li>
+<li><strong>sip和rtsp 都使用sdp协议来传送媒体参数，使用rtp（rtcp）协议来传输媒体流。</strong></li>
+</ul>
+<ol start="2">
+<li>不同点</li>
+</ol>
+<ul>
+<li>rtsp是专门为流媒体制定的协议，在多个媒体流的时间同步方面比sip强大。</li>
+<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求。</li>
+<li>sip一般用来创建一次音频、视频通话（双向），而rtsp一般用来做视频点播、视频监控等（单向）。从原理上讲，rtsp也可以做双向的视频通话。</li>
+</ul>
+<h2 id="RTSP和RTP（rtcp）的关系"><a href="#RTSP和RTP（rtcp）的关系" class="headerlink" title="RTSP和RTP（rtcp）的关系"></a>RTSP和RTP（rtcp）的关系</h2><p><img src="http://images.cnblogs.com/cnblogs_com/whyandinside/RTPRTSP.jpg" alt="img"></p>
+<p>rtsp负责建立和控制会话，rtp负责多媒体的传输，rtcp配合rtp做控制和流量统计，他们是合作的关系。</p>
+<h2 id="RTSP消息"><a href="#RTSP消息" class="headerlink" title="RTSP消息"></a>RTSP消息</h2><h3 id="请求格式"><a href="#请求格式" class="headerlink" title="请求格式"></a>请求格式</h3><p><strong>请求消息</strong>格式：<br><br>       方法 URI RTSP版本 CR LF<br><br>       消息头 CR LF CR LF<br>       消息体 CR LF</p>
+<h3 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h3><p><strong>回应消息</strong>格式：<br><br>       RTSP版本 状态码 解释 CR LF<br><br>       消息头 CR LF CR LF<br><br>       消息体 CR LF</p>
+<h2 id="RTSP请求方法介绍"><a href="#RTSP请求方法介绍" class="headerlink" title="RTSP请求方法介绍"></a>RTSP请求方法介绍</h2><ol>
+<li>OPTION</li>
+</ol>
+<p>目的是得到服务器提供的可用方法</p>
+<ol start="2">
+<li>DESCRIBE</li>
+</ol>
+<p>C向S发起DESCRIBE请求,为了得到会话描述信息(SDP)</p>
+<ol start="3">
+<li>SETUP</li>
+</ol>
+<p>客户端提醒服务器建立会话,并确定传输模式</p>
+<ol start="4">
+<li>PLAY</li>
+</ol>
+<p>客户端发送播放请求</p>
+<ol start="5">
+<li>TEARDOWN</li>
+</ol>
+<p>客户端发起关闭请求</p>
+<p><img src="http://img.blog.csdn.net/20130924000903765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVpeGlhb2h1YTEwMjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<ul>
+<li>第一步，只要服务器客户端约定好，有哪些方法可用，则<strong>option请求可以不要</strong>。</li>
+<li>第二步，如果我们有其他途径得到媒体初始化描述信息（比如http请求等等），则我们也<strong>不需要通过rtsp中的describe请求来完成</strong>。</li>
+</ul>
+<h2 id="RTSP推流过程"><a href="#RTSP推流过程" class="headerlink" title="RTSP推流过程"></a>RTSP推流过程</h2><p>options -&gt; announce(发送一些媒体对象描述信息sdp格式) -&gt; setup（定义实时流的传输模式） -&gt; record(初始化媒体数据记录范围，主要包括开始和结束时间)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTMP详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/13/RTMP详解/" itemprop="url">RTMP详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T00:34:14+08:00">
+                2018-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="RTMP握手过程"><a href="#RTMP握手过程" class="headerlink" title="RTMP握手过程"></a>RTMP握手过程</h2><p>握手复杂规则：</p>
+<ul>
+<li>客户端要等收到S1之后才能发送C2</li>
+<li>客户端要等收到S2之后才能发送其他信息（控制信息和真实音视频等数据）</li>
+<li>服务端要等到收到C0之后发送S1</li>
+<li>服务端必须等到收到C1之后才能发送S2</li>
+<li>服务端必须等到收到C2之后才能发送其他信息（控制信息和真实音视频等数据）</li>
+</ul>
+<p><strong>实际上为了在保证握手的身份验证功能的基础上尽量减少通信的次数，一般的发送顺序是这样的：</strong><br><br><br>｜client｜Server ｜<br><br>｜－－－C0+C1—-&gt;| <br><br>｜&lt;－－S0+S1+S2– |<br><br>｜－－－C2-－－－&gt; ｜</p>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><ul>
+<li>Timestamp（时间戳）：消息的时间戳（但不一定是当前时间，后面会介绍），4个字节</li>
+<li>Length(长度)：是指Message Payload（消息负载）即音视频等信息的数据的长度，3个字节</li>
+<li>TypeId(类型Id)：消息的类型Id，1个字节</li>
+<li>Message Stream ID（消息的流ID）：每个消息的唯一标识，划分成Chunk和还原Chunk为Message的时候都是根据这个ID来辨识是否是同一个消息的Chunk的，4个字节，并且以小端格式存储</li>
+</ul>
+<h2 id="Chunk"><a href="#Chunk" class="headerlink" title="Chunk"></a>Chunk</h2><p><img src="http://7xpoty.com1.z0.glb.clouddn.com/QQ20160228-0@2x.png" alt="img"></p>
+<ol>
+<li><p>Basic Header</p>
+<p> 包含了chunk stream ID（流通道Id）和chunk type（chunk的类型），chunk stream id一般被简写为CSID，用来唯一标识一个特定的流通道，chunk type决定了后面Message Header的格式。</p>
+</li>
+<li><p>Message Header（消息的头信息）</p>
+<p> 包含了要发送的实际信息（可能是完整的，也可能是一部分）的描述信息。包含前面Message里面提到的4个字段。</p>
+</li>
+</ol>
+<p>chunk size默认为128字节，需要根据实际的带宽情况进行动态调整。</p>
+<h2 id="协议控制消息（Protocol-Control-Message）"><a href="#协议控制消息（Protocol-Control-Message）" class="headerlink" title="协议控制消息（Protocol Control Message）"></a>协议控制消息（Protocol Control Message）</h2><p>在RTMP的chunk流会用一些特殊的值来代表协议的控制消息，它们的Message Stream ID必须为0（代表控制流信息），CSID必须为2，Message Type ID可以为1，2，3，5，6。</p>
+<ul>
+<li>Set Chunk Size</li>
+<li>Abort Message</li>
+<li>Acknowledgement</li>
+<li>Window Acknowledgement Size</li>
+<li>Set Peer Bandwidth</li>
+</ul>
+<p>注意<strong>这是属于RTMPchunk流层的消息，和RTMP中的用户控制消息不同</strong>。</p>
+<h2 id="RTMP-七种Message"><a href="#RTMP-七种Message" class="headerlink" title="RTMP 七种Message"></a>RTMP 七种Message</h2><ol>
+<li>Command Message(命令消息，Message Type ID＝17或20)：表示在客户端盒服务器间传递的在对端执行某些操作的命令消息，如connect表示连接对端，对端如果同意连接的话会记录发送端信息并返回连接成功消息，publish表示开始向对方推流，接受端接到命令后准备好接受对端发送的流信息。</li>
+<li>Data Message（数据消息，Message Type ID＝15或18）：传递一些元数据（MetaData，比如视频名，分辨率等等）或者用户自定义的一些消息。</li>
+<li>Shared Object Message(共享消息，Message Type ID＝16或19)：表示一个Flash类型的对象，由键值对的集合组成，用于多客户端，多实例时使用。</li>
+<li>Audio Message（音频信息，Message Type ID＝8）：音频数据。</li>
+<li>Video Message（视频信息，Message Type ID＝9）：视频数据。</li>
+<li>Aggregate Message (聚集信息，Message Type ID＝22)：多个RTMP子消息的集合。</li>
+<li><strong>User Control Message Events</strong>(用户控制消息，Message Type ID=4):告知对方执行该信息中包含的用户控制事件，比如Stream Begin事件告知对方流信息开始传输。和前面提到的协议控制信息（Protocol Control Message）不同，这是在RTMP协议层的，而不是在RTMP chunk流协议层的，这个很容易弄混。该信息在chunk流中发送时，Message Stream ID=0,Chunk Stream Id=2,Message Type Id=4。</li>
+</ol>
+<h2 id="RTMP"><a href="#RTMP" class="headerlink" title="RTMP"></a>RTMP</h2><ul>
+<li>推流过程<br><img src="http://7xpoty.com1.z0.glb.clouddn.com/publish-flow.png" alt="img"></li>
+</ul>
+<p><strong>Window Acknowledge Size代表发送端在接收到接受端返回的两个ACK间最多可以发送的字节数。</strong></p>
+<ul>
+<li>拉流过程<br><img src="http://7xpoty.com1.z0.glb.clouddn.com/play-flow.png" alt="img"></li>
+</ul>
 
           
         
@@ -1300,522 +1877,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/29/访问网址的完整过程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/29/访问网址的完整过程/" itemprop="url">访问网址的整个过程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-29T00:34:14+08:00">
-                2017-12-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="DNS解析过程（递归查询）"><a href="#DNS解析过程（递归查询）" class="headerlink" title="DNS解析过程（递归查询）"></a>DNS解析过程（递归查询）</h2><ol>
-<li>若DNS缓存中没有相关数据，则IE浏览器先向DNS服务器发出DNS请求：</li>
-<li>这一过程的目的是获取<a href="http://www.sina.com这个域名所对应的IP地址；" target="_blank" rel="noopener">www.sina.com这个域名所对应的IP地址；</a></li>
-<li>IE浏览器向本机DNS模块发出DNS请求，DNS模块生成相关的DNS报文；</li>
-<li>DNS模块将生成的DNS报文传递给传输层的UDP协议单元；</li>
-<li>UDP协议单元将该数据封装成UDP数据报，传递给网络层的IP协议单元；</li>
-<li>IP协议单元将该数据封装成IP数据包，其中目的IP地址为DNS服务器的IP地址；</li>
-<li>封装好的IP数据包将传递给数据链路层的协议单元进行发送；</li>
-<li>发送时如果ARP缓存中没有相关数据，则发送ARP广播请求，等待ARP回应；</li>
-<li>得到ARP回应后，将IP地址与路由下一跳MAC地址对应的信息写入ARP缓存表；</li>
-<li>写入缓存后，以路由下一跳地址填充目的MAC地址，并以数据帧形式转发；</li>
-<li>这个转发过程可能会进行多次，这取决于DNS服务器在校园网中的位置；</li>
-<li>DNS请求被发送到DNS服务器的数据链路层协议单元；</li>
-<li>DNS服务器的数据链路层协议单元解析收到的数据帧，将其内部所含有的IP数据包传递给网络层IP协议单元；</li>
-<li>DNS服务器的IP协议单元解析收到的IP数据包，将其内部所含有的UDP数据报传递给传输层的UDP协议单元；</li>
-<li>DNS服务器的UDP协议单元解析收到的UDP数据包，将其内部所含有的DNS报文传递给该服务器上的DNS服务单元；</li>
-<li>DNS服务单元收到DNS请求，将域名解析为对应的IP地址，产生DNS回应报文；</li>
-<li>（所有应用层报文必须通过传输层、网络层和数据链路层，因此在下面的叙述中，我将简化这一过程的叙述，简化形式如下面的样子，其中单箭头为本机内部传递，双箭头为网络上的发送）<br>DNS回应报文→UDP→IP→MAC→→请求域名解析的主机；</li>
-<li>请求域名解析的主机收到数据帧，该数据帧→IP→UDP→DNS→IE浏览器；</li>
-<li>将域名解析的结果以域名和IP地址对应的形式写入DNS缓存表。</li>
-</ol>
-<h2 id="IE浏览器与www-sina-com-cn建立TCP连接：TCP建立连接的三次握手"><a href="#IE浏览器与www-sina-com-cn建立TCP连接：TCP建立连接的三次握手" class="headerlink" title="IE浏览器与www.sina.com.cn建立TCP连接：TCP建立连接的三次握手"></a>IE浏览器与<a href="http://www.sina.com.cn建立TCP连接：TCP建立连接的三次握手" target="_blank" rel="noopener">www.sina.com.cn建立TCP连接：TCP建立连接的三次握手</a></h2><ol>
-<li>IE浏览器向<a href="http://www.sina.com.cn发出TCP连接请求报文；" target="_blank" rel="noopener">www.sina.com.cn发出TCP连接请求报文；</a></li>
-<li>该请求TCP报文中的SYN标志位被设置为1，表示连接请求；</li>
-<li>该TCP请求报文→IP(DNS)→MAC(ARP)→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
-<li>该TCP请求报文经过IP层时，填入的目的IP地址就是上面DNS过程获得的IP地址；</li>
-<li>经过数据链路层时，若MAC地址不明，还要进行上面所叙述的ARP过程；</li>
-<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应请求应答报文；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应请求应答报文；</a></li>
-<li>该请求应答TCP报文中的SYN和ACK标志位均被设置为1，表示连接请求应答；</li>
-<li>该TCP请求应答报文→IP→MAC(ARP)→→校园网关→→请求主机；</li>
-<li>请求主机收到数据帧→IP→TCP，TCP协议单元会回应请求确认报文；</li>
-<li>该请求应答TCP报文中的ACK标志位被设置为1，表示连接请求确认；</li>
-<li>该TCP请求确认报文→IP→MAC(ARP)→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
-<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP，连接建立完成；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP，连接建立完成；</a></li>
-</ol>
-<h2 id="IE浏览器开始HTTP访问过程"><a href="#IE浏览器开始HTTP访问过程" class="headerlink" title="IE浏览器开始HTTP访问过程"></a>IE浏览器开始HTTP访问过程</h2><ol>
-<li>IE浏览器向<a href="http://www.sina.com.cn发出HTTP-GET方法报文；" target="_blank" rel="noopener">www.sina.com.cn发出HTTP-GET方法报文；</a></li>
-<li>该HTTP-GET方法报文→TCP→IP→MAC→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
-<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP→HTTP，HTTP协议单元会回应HTTP协议格式封装好的HTML超文本形式数据；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP→HTTP，HTTP协议单元会回应HTTP协议格式封装好的HTML超文本形式数据；</a></li>
-<li>HTTP-HTML数据→TCP→IP→MAC(ARP)→→校园网关→→请求主机；</li>
-<li>请求主机收到的数据帧→IP→TCP→HTTP→IE浏览器，浏览器会以网页形式显示HTML超文本，就是我们所看到的网页。</li>
-<li><strong>涉及到html的解析（通常使用有限状态自动机）和渲染</strong>。</li>
-</ol>
-<h2 id="断开TCP连接：TCP断开连接的四次挥手"><a href="#断开TCP连接：TCP断开连接的四次挥手" class="headerlink" title="断开TCP连接：TCP断开连接的四次挥手"></a>断开TCP连接：TCP断开连接的四次挥手</h2><ol>
-<li>IE浏览器向<a href="http://www.sina.com.cn发出TCP连接结束请求报文；" target="_blank" rel="noopener">www.sina.com.cn发出TCP连接结束请求报文；</a></li>
-<li>该请求TCP报文中的FIN标志位被设置为1，表示结束请求；</li>
-<li>该TCP结束请求报文→IP→MAC(ARP)→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
-<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应结束应答报文；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应结束应答报文；</a></li>
-<li>该结束应答TCP报文中的FIN和ACK标志位均被设置为1，表示结束应答；</li>
-<li>该TCP结束应答报文→IP→MAC(ARP)→→校园网关→→请求主机；</li>
-<li><strong>这个过程需要双向进行，因此<a href="http://www.sina.com.cn主机也会按上述流程再做一次" target="_blank" rel="noopener">www.sina.com.cn主机也会按上述流程再做一次</a></strong>；</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/LRU和LFU的Java实现/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/28/LRU和LFU的Java实现/" itemprop="url">LRU和LFU的Java实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T00:34:14+08:00">
-                2017-12-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="LRU和LFU的区别"><a href="#LRU和LFU的区别" class="headerlink" title="LRU和LFU的区别"></a>LRU和LFU的区别</h2><ul>
-<li>LRU是最近最少使用页面置换算法(Least Recently Used),也就是首先淘汰最长时间未被使用的页面。</li>
-<li>LFU是最近最不常用页面置换算法(Least Frequently Used),也就是淘汰一定时期内被访问次数最少的页面。</li>
-</ul>
-<h2 id="LRU-Cache的实现思路"><a href="#LRU-Cache的实现思路" class="headerlink" title="LRU Cache的实现思路"></a>LRU Cache的实现思路</h2><ul>
-<li>双向链表和HashMap<br><img src="http://img.blog.csdn.net/20170414150755501?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ3hpbG9uZzE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="img"></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">        Node pre;</span><br><span class="line">        Node next;</span><br><span class="line">        Integer key;</span><br><span class="line">        Integer val;</span><br><span class="line">        Node(Integer k, Integer v) &#123;</span><br><span class="line">            key = k;</span><br><span class="line">            val = v;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Map&lt;Integer, Node&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, Node&gt;();</span><br><span class="line">    <span class="comment">// The head (eldest) of the doubly linked list.</span></span><br><span class="line">    Node head;</span><br><span class="line">    <span class="comment">// The tail (youngest) of the doubly linked list.</span></span><br><span class="line">    Node tail;</span><br><span class="line">    <span class="keyword">int</span> cap;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LRUCache</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        cap = capacity;</span><br><span class="line">        head = <span class="keyword">new</span> Node(<span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">        tail = <span class="keyword">new</span> Node(<span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">        head.next = tail;</span><br><span class="line">        tail.pre = head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        Node n = map.get(key);</span><br><span class="line">        <span class="keyword">if</span>(n!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            n.pre.next = n.next;</span><br><span class="line">            n.next.pre = n.pre;</span><br><span class="line">            appendTail(n);</span><br><span class="line">            <span class="keyword">return</span> n.val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        Node n = map.get(key);</span><br><span class="line">        <span class="comment">// existed</span></span><br><span class="line">        <span class="keyword">if</span>(n!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            n.val = value;</span><br><span class="line">            map.put(key, n);</span><br><span class="line">            n.pre.next = n.next;</span><br><span class="line">            n.next.pre = n.pre;</span><br><span class="line">            appendTail(n);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// else &#123;</span></span><br><span class="line">        <span class="keyword">if</span>(map.size() == cap) &#123;</span><br><span class="line">            Node tmp = head.next;</span><br><span class="line">            head.next = head.next.next;</span><br><span class="line">            head.next.pre = head;</span><br><span class="line">            map.remove(tmp.key);</span><br><span class="line">        &#125;</span><br><span class="line">        n = <span class="keyword">new</span> Node(key, value);</span><br><span class="line">        <span class="comment">// youngest node append taill</span></span><br><span class="line">        appendTail(n);</span><br><span class="line">        map.put(key, n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">appendTail</span><span class="params">(Node n)</span> </span>&#123;</span><br><span class="line">        n.next = tail;</span><br><span class="line">        n.pre = tail.pre;</span><br><span class="line">        tail.pre.next = n;</span><br><span class="line">        tail.pre = n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>LinkedHashMap</p>
-<p>  关键点：</p>
-<ol>
-<li>开启按照访问顺序存储数据</li>
-<li>重写removeEldestEntry方法实现老数据的删除</li>
-</ol>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> capacity;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;Integer, Integer&gt; cache;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LRUCache</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.capacity = capacity;</span><br><span class="line">        <span class="keyword">this</span>.cache = <span class="keyword">new</span> java.util.LinkedHashMap&lt;Integer, Integer&gt; (Math.ceil(capacity / <span class="number">0.75f</span>) + <span class="number">1</span>, <span class="number">0.75f</span>, <span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 定义put后的移除规则，大于容量就删除eldest</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;Integer, Integer&gt; eldest)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> size() &gt; capacity;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cache.containsKey(key)) &#123;</span><br><span class="line">            <span class="keyword">return</span> cache.get(key);</span><br><span class="line">        &#125; <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        cache.put(key, value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="LFU-Cache"><a href="#LFU-Cache" class="headerlink" title="LFU Cache"></a>LFU Cache</h2><ol>
-<li><p>hashmap</p>
-<p> map中存储<strong>key和自定义的node结点</strong>，结点信息包括value值和使用次数，get和set都是O(1)，remove由于要遍历map找到最小的使用次数，所以为O(n)。</p>
-</li>
-<li><p>最小堆和hashmap实现</p>
-<p> get操作为O（1），remove、set都是O（logn）</p>
-<p> 实现结构：</p>
-<ul>
-<li>hashmap中key为用户指定的key，value为自定义的node结点。<strong>node结点信息包括：已有的value、当前结点在堆中的index。</strong></li>
-<li>最小堆用数组实现，<strong>数组元素存储的自定义的对象，包括value值和访问次数。</strong></li>
-<li>以上只是两个数据结构所需要的必须数据，可以<strong>模仿LRU算法的实现，使用同一个node结构存储即可</strong>。</li>
-</ul>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/Java Synchronized关键字总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/28/Java Synchronized关键字总结/" itemprop="url">Java Synchronized关键字总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T00:34:14+08:00">
-                2017-12-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="对象锁"><a href="#对象锁" class="headerlink" title="对象锁"></a>对象锁</h2><ol>
-<li>synchronized修饰非静态方法</li>
-<li>synchronized(this)</li>
-<li>synchronized(非this对象)</li>
-</ol>
-<h2 id="类锁"><a href="#类锁" class="headerlink" title="类锁"></a>类锁</h2><ol>
-<li>synchronized修饰静态方法</li>
-<li>synchronized (类.class)</li>
-</ol>
-<h2 id="类锁和对象锁互不干预"><a href="#类锁和对象锁互不干预" class="headerlink" title="类锁和对象锁互不干预"></a>类锁和对象锁互不干预</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1866,7 +1927,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-count">118</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

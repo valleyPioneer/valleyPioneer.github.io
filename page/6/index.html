@@ -249,6 +249,470 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/02/OKHTTP详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/02/OKHTTP详解/" itemprop="url">OKHTTP详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-02T00:34:14+08:00">
+                2018-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="okhttp各种详细用法"><a href="#okhttp各种详细用法" class="headerlink" title="okhttp各种详细用法"></a><a href="http://www.jianshu.com/p/9aa969dd1b4d" target="_blank" rel="noopener">okhttp各种详细用法</a></h2><h2 id="在okhttp中使用gson解析json字符串"><a href="#在okhttp中使用gson解析json字符串" class="headerlink" title="在okhttp中使用gson解析json字符串"></a>在okhttp中使用gson解析json字符串</h2><ol>
+<li><p>重写Callback接口，加入泛型的定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Callback</span>&lt;<span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> T <span class="title">parseNetworkResponse</span><span class="params">(Response response)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Call call, Exception e)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(T response)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自定义GsonCallback类，用于解析gson对象类型的解析</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GsonCallback</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Callback</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Gson mGson;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class&lt;T&gt; mClass;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GsonCallback</span><span class="params">(Class&lt;T&gt; mClass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mClass = mClass;</span><br><span class="line">        mGson = <span class="keyword">new</span> Gson();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">parseNetworkResponse</span><span class="params">(Response response)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mGson.fromJson(response.body().string(), mClass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Call call, Exception e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(T response)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>普通情况下，如果采用JsonObject对象进行解析，则可以直接实现OKHTTP3自带的Callback接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCallback</span> <span class="keyword">implements</span> <span class="title">Callback</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MyCallback"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call call, IOException e)</span> </span>&#123;</span><br><span class="line">        onError(<span class="string">"服务器可能有问题,请稍后再试"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String res = response.body().string();</span><br><span class="line">        Log.i(TAG,res);</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            JSONObject jsonObject = <span class="keyword">new</span> JSONObject(res);</span><br><span class="line">            <span class="keyword">if</span> (response.isSuccessful()) &#123;</span><br><span class="line">                String success = jsonObject.getString(<span class="string">"success"</span>);</span><br><span class="line">                <span class="keyword">if</span>(success.equals(<span class="string">"true"</span>))&#123;</span><br><span class="line">                    onSuccess(jsonObject.getString(<span class="string">"data"</span>));</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    onError(jsonObject.getString(<span class="string">"info"</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                onError(<span class="string">"服务器可能有问题,请稍后再试"</span>);</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"Unexpected code "</span> + response);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (JSONException e)&#123;</span><br><span class="line">            onError(<span class="string">"json解析错误"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(String data)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(String reason)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>自定义MyCallback接口，来实现异步请求响应的处理。先用JsonObject解析最通用的部分，然后定义onSuccess和onError两个回调方法来给使用者自己实现请求成功和请求失败的情况。</p>
+<ol start="4">
+<li><p>onResponse回调的参数是response，一般情况下，比如我们希望获得返回的字符串，可以通过response.body().string()获取；如果希望获得返回的二进制字节数组，则调用response.body().bytes()；如果你想拿到返回的inputStream，则调用response.body().byteStream()   </p>
+<p> 看到这，你可能会奇怪，竟然还能拿到返回的inputStream，看到这个最起码能意识到一点，这里支持大文件下载，有inputStream我们就可以通过IO的方式写文件。不过也说明一个问题，这个onResponse执行的线程并不是UI线程。的确是的，如果你希望操作控件，还是需要使用handler等，</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/22/Volley解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/22/Volley解析/" itemprop="url">Volley解析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T00:34:14+08:00">
+                2018-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>Volley中自带三种Request抽象类的具体实现类，分别是StringRequest、JsonObjectRequest、JsonArrayRequest三个具体请求类</li>
+<li><p>一般需要通过自定义GsonRequest来实现Gson解析json字符串的功能，具体做法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line">gson.fromJson(json字符串，mclass（泛型类）);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一般来说重写两个方法即可，parseNetworkResponse()和deliverResponse()方法<br>*如果需要通过post或者put请求使用json方式来传递数据，getBodyContentType()方法也是需要重写的。</p>
+<pre><code>return &quot;application/json; charset=utf-8&quot; 
+</code></pre></li>
+<li><p>一般来说：<br>==如果使用的是键值对（String类型的数据）的方式可以通过getParams()方法直接设置；<br>如果是通过json的形式需要通过getBody()方式进行设置==。<br>其实getbody函数中就调用了getParams方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">byte</span>[] getBody() <span class="keyword">throws</span> AuthFailureError &#123;</span><br><span class="line">        Map&lt;String, String&gt; params = getParams();</span><br><span class="line">        <span class="keyword">if</span> (params != <span class="keyword">null</span> &amp;&amp; params.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> encodeParameters(params, getParamsEncoding());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在重写了getbody之后一般需要考虑重写getBodyContentType()方法</p>
+</li>
+<li>get请求携带的参数放在url中，而post请求的参数放在body里面</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/21/java序列化和RPC详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/21/java序列化和RPC详解/" itemprop="url">java序列化和RPC详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-21T00:34:14+08:00">
+                2018-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="RMI和RPC"><a href="#RMI和RPC" class="headerlink" title="RMI和RPC"></a>RMI和RPC</h2><p>RMI（Remote Method Invocation）是Java中的远程过程调用（Remote Procedure Call，RPC）实现，是一种分布式Java应用的实现方式。它的目的在于对开发人员屏蔽横跨不同JVM和网络连接等细节，使得分布在不同JVM上的对 象像是存在于一个统一的JVM中一样，可以很方便的互相通讯。</p>
+<h2 id="RMI动态代理对象原理"><a href="#RMI动态代理对象原理" class="headerlink" title="RMI动态代理对象原理"></a>RMI动态代理对象原理</h2><ul>
+<li>当客户端通过RMI注册表找到一个远程接口的时候，所得到的其实是远程接口的一个动态代理对象。</li>
+<li>当客户端调用 其中的方法的时候，方法的参数对象会在序列化之后，传输到服务器端。</li>
+<li>服务器端接收到之后，进行反序列化得到参数对象。并使用这些参数对象，在服务器端调用 实际的方法。</li>
+<li>调用的返回值Java对象经过序列化之后，再发送回客户端。</li>
+<li>客户端再经过反序列化之后得到Java对象，返回给调用者。</li>
+<li><strong>这中间的序列化过程对 于使用者来说是透明的，由动态代理对象自动完成。</strong></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/20/JAVA中的正则表达式用法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1269,149 +1733,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/06/Java动态代理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/06/Java动态代理/" itemprop="url">Java动态代理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-06T00:34:14+08:00">
-                2018-02-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>java动态代理可以动态地创建代理并且动态地处理对所代理方法的调用。</p>
-<p>在动态代理上做的所有调用都会被重定向到单一的调用处理器（InvocationHandler）上</p>
-<h2 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object proxied;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyHandler</span><span class="params">(Object proxied)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.proxied = proxied;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy,Method method,Object[] args)</span> <span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">        <span class="comment">//对传入的参数做一些逻辑处理</span></span><br><span class="line">        <span class="keyword">return</span> method.invoke(proxied,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">RealObject realObject = <span class="keyword">new</span> RealObject();</span><br><span class="line"></span><br><span class="line">Interface proxy = (Interface)Proxy.newProxyInstance(Interface.class.getClassLoader(),<span class="keyword">new</span> Class[]&#123;Interface.class&#125;,<span class="keyword">new</span> ProxyHandler(realObject));</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/06/java自身实现观察者模式的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1541,360 +1862,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/OKHTTP缓存机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/05/OKHTTP缓存机制/" itemprop="url">OKHTTP缓存机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-05T00:34:14+08:00">
-                2018-02-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="HTTP-Response中Cache-Control字段的含义"><a href="#HTTP-Response中Cache-Control字段的含义" class="headerlink" title="HTTP Response中Cache-Control字段的含义"></a>HTTP Response中Cache-Control字段的含义</h2><ul>
-<li><strong>max-age</strong>：这个参数告诉浏览器将页面缓存多长时间，超过这个时间后才再次向服务器发起请求检查页面是否有更新。对于静态的页面，比如图片、CSS、Javascript，一般都不大变更，因此通常我们将存储这些内容的时间设置为较长的时间，这样浏览器会不会向浏览器反复发起请求，也不会去检查是否更新了。</li>
-<li>s-maxage：这个参数告诉缓存服务器(proxy，如Squid)的缓存页面的时间。如果不单独指定，缓存服务器将使用max-age。对于动态内容(比如文档的查看页面)，我们可告诉浏览器很快就过时了(max-age=0)，并告诉缓存服务器(Squid)保留内容一段时间(比如，s-maxage=7200)。一旦我们更新文档，我们将告诉Squid清除老的缓存版本。</li>
-<li>must-revalidate：这告诉浏览器，一旦缓存的内容过期，一定要向服务器询问是否有新版本。</li>
-<li>proxy-revalidate：proxy上的缓存一旦过期，一定要向服务器询问是否有新版本。</li>
-<li><strong>no-cache</strong>：不做缓存。</li>
-<li><strong>no-store</strong>：数据不在硬盘中临时保存，这对需要保密的内容比较重要。</li>
-<li>public：告诉缓存服务器, 即便是对于不该缓存的内容也缓存起来，比如当用户已经认证的时候。所有的静态内容(图片、Javascript、CSS等)应该是public的。</li>
-<li>private：告诉proxy不要缓存，但是浏览器可使用private cache进行缓存。一般登录后的个性化页面是private的。</li>
-<li>no-transform: 告诉proxy不进行转换，比如告诉手机浏览器不要下载某些图片。</li>
-<li><strong>max-stale</strong>指示客户机可以接收超出超时期间的响应消息。如果指定max-stale消息的值，那么客户机可以接收超出超时期指定值之内的响应消息。</li>
-</ul>
-<h2 id="OKHTTP缓存设置"><a href="#OKHTTP缓存设置" class="headerlink" title="OKHTTP缓存设置"></a>OKHTTP缓存设置</h2><ol>
-<li><strong>服务器支持缓存</strong></li>
-</ol>
-<p>cache-control字段返回max-age,只需要手动给okhttp设置缓存就可以让okhttp自动帮你缓存,这个缓存时间也可以自定义修改。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">httpClientBuilder</span><br><span class="line">    .cache(cache)</span><br><span class="line">    .connectTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br><span class="line">    .readTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>连接时间：发送请求开始到与目标主机建立连接所需的时间。</p>
-</blockquote>
-<blockquote>
-<p>读取时间：已经连接到了目标服务器后，将数据完全读取所需的时间。</p>
-</blockquote>
-<ol start="2">
-<li><strong>服务器不支持缓存</strong></li>
-</ol>
-<p>cache-control字段未指定或者指定为no-store等等，此时可以用interceptor拦截response并手动添加header</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheInterceptor</span> <span class="keyword">implements</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Request request = chain.request();</span><br><span class="line">        Response response = chain.proceed(request);</span><br><span class="line">        Response response1 = response.newBuilder()</span><br><span class="line">            .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">            .removeHeader(<span class="string">"Cache-Control"</span>)</span><br><span class="line">            <span class="comment">//cache for 30 days</span></span><br><span class="line">            .header(<span class="string">"Cache-Control"</span>, <span class="string">"max-age="</span> + <span class="number">3600</span> * <span class="number">24</span> * <span class="number">30</span>)</span><br><span class="line">            .build();</span><br><span class="line">        <span class="keyword">return</span> response1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">httpClientBuilder</span><br><span class="line">    .addNetworkInterceptor(<span class="keyword">new</span> CacheInterceptor())</span><br><span class="line">    .cache(cache)</span><br><span class="line">    .connectTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br><span class="line">    .readTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/03/Volley源码解析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/03/Volley源码解析/" itemprop="url">Volley源码解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-03T00:34:14+08:00">
-                2018-02-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Volley工作流程图"><a href="#Volley工作流程图" class="headerlink" title="Volley工作流程图"></a>Volley工作流程图</h2><p><img src="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/Volley-run-flow-chart.png" alt="img"></p>
-<h2 id="从Volley-newRequestQueue-this-到Request-deliveryResponse-中Listener-onResponse-的回调全过程"><a href="#从Volley-newRequestQueue-this-到Request-deliveryResponse-中Listener-onResponse-的回调全过程" class="headerlink" title="从Volley.newRequestQueue(this)到Request.deliveryResponse()中Listener.onResponse()的回调全过程"></a>从Volley.newRequestQueue(this)到Request.deliveryResponse()中Listener.onResponse()的回调全过程</h2><ol>
-<li><p>Volley.newRequestQueue(this)</p>
-<ol>
-<li>首先调用两个参数的构造方法，context和BaseHttpStack（null）</li>
-<li>然后构造Network接口的具体实现BasicNetWork，分api版本判断，如果是大于等于9，使用httpurlconnection（对应HurlStack），如果小于9，使用httpclient（对应HttpClientStack）</li>
-<li>最后调用真正的构造方法，也是两个参数，context和network，在其中new RequestQueue实例，传入cache（系统默认是DiskBasedCache）和network</li>
-<li>requestQueue构造方法里面最后调用到四个参数的构造方法，分别对应cache、network、网络请求的线程数量、ResponseDelivery。其中ResponseDelivery的具体实现类是ExecutorDelivery,其构造方法中传入了Looper.getMainLooper()获取的主线程的Looper，因此也<strong>决定了Volley的响应默认是回调在主线程中==（==这里充分体现出Volley设计的特点：针对接口编程，不针对具体实现编程,策略模式</strong>）</li>
-<li>然后最后在newRequestQueue最后调用queue.start()</li>
-</ol>
-</li>
-<li><p>RequestQueue.start()</p>
-<ol>
-<li>主要作用是启动CacheDispatcher和NetworkDispatcher(默认是1个cacheDispatcher和4个NetworkDispatcher，最多5个后台线程)</li>
-<li>其中RequestQueue中保存的cacheQueue和networkQueue都是PriorityBlockingQueue,线程安全的优先级阻塞队列。（<strong>通过put/take进行操作</strong>）</li>
-</ol>
-</li>
-<li><p>CacheDispatcher <strong>extends Thread</strong></p>
-<ol>
-<li>cacheDispatcher构造方法传入四个参数，mCacheQueue,mNetworkQueue,mCache,mDelivery,<strong>最后在构造函数中还会初始化一个WaitingRequestManager的实例</strong>，其主要作用是保存那些重复的请求，其中主要的数据结构是一个Map&lt;String,List<request>&gt;,对应cacheKey（默认是url）和重复的请求列表</request></li>
-<li>run()方法中有个死循环，里面是processRequest()处理请求</li>
-<li>请求包括两种情况，cache hit和cache miss，hit包括soft-expired和completely unexpired,miss包括不存在对应cache和expired</li>
-<li>miss情况下直接将request放进mNetworkQueue中</li>
-<li>hit情况下需要分情况考虑，如果完全未过期，直接调用mDelivery.postResponse(response,request)，解析response并且传给mDeliverz中定义的(Executor)mResponsePoster进行处理;如果快过期，需要先传递cache中的response，然后再重新做一次网络请求。<strong>这时还需要分情况判断，如果这个请求是重复的，那么不需要做网络请求，如果不是则需要</strong>。分别调用mDelivery.postResponse(response,request)和mDelivery.postResponse(response,request,runnable)方法，runnable会在传递完成之后执行。</li>
-</ol>
-</li>
-</ol>
-<ol start="4">
-<li><p>NetworkDispatcher <strong>extends Thread</strong></p>
-<ol>
-<li>networkDispatcher构造方法传入四个参数，mNetworkQueue,mNetwork,mCache,mDelivery</li>
-<li>run()方法中有个死循环，里面是processRequest()处理请求</li>
-<li>其中<strong>由mNetwork.performRequest(request)完成网络请求，传入的network接口实现是BasicNetwork，其中传入的初始化参数为BaseHttpStack的实现类HurlStack，所以最后调用hurlstack中的executeRequest()方法，这时候使用httpurlconnection来进行网络请求，然后返回原始网络数据（raw response）</strong></li>
-<li>然后调用reqeust的parseNetworkResponse方法来将原始的响应数据解析成正确格式的数据。</li>
-<li>判断是否应该写入缓存，如果需要，则写入mCache中</li>
-<li>最后调用mDelivery.postResponse(reqeust,reponse)来传递数据。</li>
-</ol>
-</li>
-<li><p>ResponseDelivery.postResponse()</p>
-<ol>
-<li>具体实现类是ExecutorDelivery，然后最后都会调用postResponse(request,response,runnable)方法</li>
-<li>该方法解析response并且传给mDelivery中定义的(Executor)mResponsePoster进行处理，由于之前传入的是主线程的Looper，所以在execute（）方法调用的handler.post()方法对应会在主线程执行</li>
-<li>然后传入的execute()方法的runnable对象是私有内部类实例,ResponseDeliveryRunnable,构造函数中传入request,response,runnable,主要逻辑是判断response是否成功，如果成功回调request.deliverResponse()，不成功，回调request.deliverError(),，然后最后执行runnable。<strong>其中deliverResponse()通常自定义request时需要重写，一般在其中回调listenr.onResponse()方法，从而显示响应结果。</strong></li>
-</ol>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1945,7 +1912,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-count">118</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
