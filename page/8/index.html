@@ -249,6 +249,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/25/Android 自定义轮播图的要点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/25/Android 自定义轮播图的要点/" itemprop="url">Android 自定义轮播图的要点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-25T00:34:14+08:00">
+                2018-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="ViewPager的长度为实际数据集长度-2"><a href="#ViewPager的长度为实际数据集长度-2" class="headerlink" title="ViewPager的长度为实际数据集长度+2"></a>ViewPager的长度为实际数据集长度+2</h2><p>轮播图有5张图片，用户看到的也应该是5张图片，而实际上我们的ViewPager会有7张图片，因为第1张图片和第6张图片是同一张图片，第7张图片和第2张图片是同一张图片，保证无缝跳转。</p>
+<p>以下是在<strong>AutoChangePagerAdapter</strong>中的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//ViewPager的实际长度是他的数据的长度+2</span></span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mDatas == <span class="keyword">null</span> || mDatas.isEmpty() ? <span class="number">0</span> : mDatas.size() + <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过实际的position计算用户所理解的position</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getActualPosition</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (position == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//如果是头节点，返回最后一个数据的position</span></span><br><span class="line">            <span class="comment">//因为头节点的数据和最后一个数据是一样的。</span></span><br><span class="line">            <span class="keyword">return</span> mDatas.size() - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position == getCount() - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">//如果是尾节点，返回第一个数据的position</span></span><br><span class="line">            <span class="comment">//因为尾节点的数据和第一个数据是一样的。</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//除了头尾以外，position节点的数据是mDatas中的第position - 1的下标的数据</span></span><br><span class="line">            <span class="keyword">return</span> position - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置ViewPager的滚动速度"><a href="#设置ViewPager的滚动速度" class="headerlink" title="设置ViewPager的滚动速度"></a>设置ViewPager的滚动速度</h2><p>ViewPager有自己的mScroller属性，负责控制ViewPager的滚动速度。<strong>但是ViewPager的默认滚动速度太快了，而且ViewPager并没有提供方法设置mScroller的滚动速度也没有提供方法设置mScroller</strong>，所以我们需要通过反射用自己的mScroller替换掉ViewPager的mScroller，使我们可以完全控制和操作ViewPager的mScroller属性。</p>
+<p>以下是<strong>AutoChangeViewPager</strong>代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/通过反射替换掉mBannerViewPager的mScroller属性</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">replaceViewPagerScroll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Field field = ViewPager.class.getDeclaredField(<span class="string">"mScroller"</span>);</span><br><span class="line">            field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            mScroller = <span class="keyword">new</span> ViewPagerScroller(mContext,</span><br><span class="line">                    <span class="keyword">new</span> AccelerateInterpolator());</span><br><span class="line">            field.set(mBannerViewPager, mScroller);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置轮播图的滚动速度</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> scrollDuration</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CustomBanner&lt;T&gt; <span class="title">setScrollDuration</span><span class="params">(<span class="keyword">int</span> scrollDuration)</span> </span>&#123;</span><br><span class="line">        mScroller.setScrollDuration(scrollDuration);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>自定义ViewPagerScroller<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewPagerScroller</span> <span class="keyword">extends</span> <span class="title">Scroller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mScrollDuration = <span class="number">550</span>;</span><br><span class="line">    <span class="comment">//是否无缝跳转</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> sudden;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewPagerScroller</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewPagerScroller</span><span class="params">(Context context, Interpolator interpolator)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, interpolator);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewPagerScroller</span><span class="params">(Context context, Interpolator interpolator,</span></span></span><br><span class="line"><span class="function"><span class="params">                             <span class="keyword">boolean</span> flywheel)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, interpolator, flywheel);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startScroll</span><span class="params">(<span class="keyword">int</span> startX, <span class="keyword">int</span> startY, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span> duration)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.startScroll(startX, startY, dx, dy, sudden ? <span class="number">0</span> : mScrollDuration);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startScroll</span><span class="params">(<span class="keyword">int</span> startX, <span class="keyword">int</span> startY, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.startScroll(startX, startY, dx, dy, sudden ? <span class="number">0</span> : mScrollDuration);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getScrollDuration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mScrollDuration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setScrollDuration</span><span class="params">(<span class="keyword">int</span> scrollDuration)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mScrollDuration = scrollDuration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSudden</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sudden;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSudden</span><span class="params">(<span class="keyword">boolean</span> zero)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sudden = zero;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="实现ViewPager的自动轮播"><a href="#实现ViewPager的自动轮播" class="headerlink" title="实现ViewPager的自动轮播"></a>实现ViewPager的自动轮播</h2><p>利用Handler延迟发送消息的功能来进行<strong>轮播滚动的计时</strong>，在消息的处理中改变ViewPager显示的Item，达到ViewPager的自动滚动效果，然后再Handler发送一个延迟消息，形成循环。</p>
+<p>以下是AutoChangeViewPager中的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startAutoChange</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mIsAutoChange = <span class="keyword">true</span>;</span><br><span class="line">        removeCallbacks(mChangeTask);</span><br><span class="line">        postDelayed(mChangeTask, getRealChangeInterval());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span> Runnable mChangeTask = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != getAdapter() &amp;&amp; SCROLL_STATE_IDLE == mPageScrollState &amp;&amp; getAdapter().getCount()!=<span class="number">0</span>) &#123;</span><br><span class="line">               <span class="comment">//还需要判断在末尾时使用非平滑移动</span></span><br><span class="line">                setCurrentItem((currentPage + <span class="number">1</span>) % getAdapter().getCount(),</span><br><span class="line">                        <span class="keyword">true</span>);</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            postDelayed(mChangeTask, getRealChangeInterval());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="IndicatorView的更新操作"><a href="#IndicatorView的更新操作" class="headerlink" title="IndicatorView的更新操作"></a>IndicatorView的更新操作</h2><p>IndicatorView继承自LinearLayout，主要逻辑为：</p>
+<ol>
+<li>初始化时根据ViewPager的页数创建相应数量的子View，然后添加进父ViewGroup中。</li>
+<li>对ViewPager添加OnPageChangeListener监听器，在onPageSelected回调方法中获取当前ViewPager显示的位置。</li>
+<li>根据ViewPager的显示位置设置子View控件的图片背景更新（此处使用StateListDrawable的选中和未选中状态来更新图片）</li>
+</ol>
+<h2 id="AutoChangePagerAdapter的精髓在于"><a href="#AutoChangePagerAdapter的精髓在于" class="headerlink" title="AutoChangePagerAdapter的精髓在于"></a>AutoChangePagerAdapter的精髓在于</h2><p>imageList为5张，对应viewList为5个view，<strong>getrealPos()方法生效的地方在于container（ViewGroup）中需要对应生成7个View</strong>，分别在instantiateItem()以及destroyItem()中调用</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/21/IP详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -889,7 +1044,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/Java的5种线程状态/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTSP协议详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -908,7 +1063,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/13/Java的5种线程状态/" itemprop="url">Java的5种线程状态</a></h1>
+                <a class="post-title-link" href="/2018/01/13/RTSP协议详解/" itemprop="url">RTSP协议详解</a></h1>
         
 
         <div class="post-meta">
@@ -943,8 +1098,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
                   </a>
                 </span>
 
@@ -982,27 +1137,72 @@
       
         
           
-            <ol>
-<li>新建状态new</li>
-<li>就绪状态runnable</li>
-<li>运行状态running</li>
-<li>阻塞状态blocked</li>
-<li>终止状态dead</li>
-</ol>
-<h2 id="阻塞的三种情况"><a href="#阻塞的三种情况" class="headerlink" title="阻塞的三种情况"></a>阻塞的三种情况</h2><ul>
-<li><p>等待阻塞</p>
-<p>  运行的线程执行wait()方法，该线程会释放占用的所有资源，JVM会把该线程放入“等待池”中。进入这个状态后，是不能自动唤醒的，必须依靠其他线程调用notify()或notifyAll()方法才能被唤醒，</p>
-</li>
-<li><p>同步阻塞</p>
-<p>  运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入“锁池”中。</p>
-</li>
-<li><p>其他阻塞</p>
-<p>  运行的线程执行sleep()或join()方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</p>
-</li>
+            <h2 id="RTSP协议简介"><a href="#RTSP协议简介" class="headerlink" title="RTSP协议简介"></a>RTSP协议简介</h2><p>RTSP是研究如何有效地在IP网络上传输流媒体数据的应用层协议。RTSP对流媒体提供了诸如暂停，快进等控制，而它本身并不传输数据，RTSP的作用相当于流媒体服务器的远程控制。服务器端可以自行选择使用TCP或UDP来传送串流内容。</p>
+<p><strong>RTSP的对带宽的要求更低，RTMP实时性更好</strong></p>
+<p>特点：</p>
+<ul>
+<li>允许同时多个串流需求控制（Multicast），支持多方视频会议</li>
+<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求，可以实现流量的重新导向。</li>
 </ul>
-<p><img src="http://img.blog.csdn.net/20140828202610671" alt="img"></p>
-<h2 id="java死锁的原因"><a href="#java死锁的原因" class="headerlink" title="java死锁的原因"></a>java死锁的原因</h2><p>suspend()挂起以及不指定超时期限的wait()方法的调用</p>
-<h2 id="wait和suspend、sleep区别"><a href="#wait和suspend、sleep区别" class="headerlink" title="wait和suspend、sleep区别"></a>wait和suspend、sleep区别</h2><p>wait会释放线程占用的锁、而suspend以及sleep不会</p>
+<h2 id="RTSP和HTTP区别"><a href="#RTSP和HTTP区别" class="headerlink" title="RTSP和HTTP区别"></a>RTSP和HTTP区别</h2><ol>
+<li>相同点</li>
+</ol>
+<ul>
+<li>两者都用纯文本来发送消息，且rtsp协议的语法也和HTTP类似。</li>
+</ul>
+<ol start="2">
+<li>不同点</li>
+</ol>
+<ul>
+<li>RTSP有状态，HTTP无状态，rtsp的命令总是按照顺序来发送。</li>
+</ul>
+<h2 id="RTSP和SIP区别"><a href="#RTSP和SIP区别" class="headerlink" title="RTSP和SIP区别"></a>RTSP和SIP区别</h2><p>SIP是基于IP的一个应用层控制协议。</p>
+<ol>
+<li>相同点</li>
+</ol>
+<ul>
+<li>sip和rtsp都是应用层的控制协议，负责一次通信过程的建立和控制和结束，不负责中间的传输部分。</li>
+<li>他们都是基于纯文本的信令协议，支持tcp、udp，支持多方通信。</li>
+<li><strong>sip和rtsp 都使用sdp协议来传送媒体参数，使用rtp（rtcp）协议来传输媒体流。</strong></li>
+</ul>
+<ol start="2">
+<li>不同点</li>
+</ol>
+<ul>
+<li>rtsp是专门为流媒体制定的协议，在多个媒体流的时间同步方面比sip强大。</li>
+<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求。</li>
+<li>sip一般用来创建一次音频、视频通话（双向），而rtsp一般用来做视频点播、视频监控等（单向）。从原理上讲，rtsp也可以做双向的视频通话。</li>
+</ul>
+<h2 id="RTSP和RTP（rtcp）的关系"><a href="#RTSP和RTP（rtcp）的关系" class="headerlink" title="RTSP和RTP（rtcp）的关系"></a>RTSP和RTP（rtcp）的关系</h2><p><img src="http://images.cnblogs.com/cnblogs_com/whyandinside/RTPRTSP.jpg" alt="img"></p>
+<p>rtsp负责建立和控制会话，rtp负责多媒体的传输，rtcp配合rtp做控制和流量统计，他们是合作的关系。</p>
+<h2 id="RTSP消息"><a href="#RTSP消息" class="headerlink" title="RTSP消息"></a>RTSP消息</h2><h3 id="请求格式"><a href="#请求格式" class="headerlink" title="请求格式"></a>请求格式</h3><p><strong>请求消息</strong>格式：<br><br>       方法 URI RTSP版本 CR LF<br><br>       消息头 CR LF CR LF<br>       消息体 CR LF</p>
+<h3 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h3><p><strong>回应消息</strong>格式：<br><br>       RTSP版本 状态码 解释 CR LF<br><br>       消息头 CR LF CR LF<br><br>       消息体 CR LF</p>
+<h2 id="RTSP请求方法介绍"><a href="#RTSP请求方法介绍" class="headerlink" title="RTSP请求方法介绍"></a>RTSP请求方法介绍</h2><ol>
+<li>OPTION</li>
+</ol>
+<p>目的是得到服务器提供的可用方法</p>
+<ol start="2">
+<li>DESCRIBE</li>
+</ol>
+<p>C向S发起DESCRIBE请求,为了得到会话描述信息(SDP)</p>
+<ol start="3">
+<li>SETUP</li>
+</ol>
+<p>客户端提醒服务器建立会话,并确定传输模式</p>
+<ol start="4">
+<li>PLAY</li>
+</ol>
+<p>客户端发送播放请求</p>
+<ol start="5">
+<li>TEARDOWN</li>
+</ol>
+<p>客户端发起关闭请求</p>
+<p><img src="http://img.blog.csdn.net/20130924000903765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVpeGlhb2h1YTEwMjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<ul>
+<li>第一步，只要服务器客户端约定好，有哪些方法可用，则<strong>option请求可以不要</strong>。</li>
+<li>第二步，如果我们有其他途径得到媒体初始化描述信息（比如http请求等等），则我们也<strong>不需要通过rtsp中的describe请求来完成</strong>。</li>
+</ul>
+<h2 id="RTSP推流过程"><a href="#RTSP推流过程" class="headerlink" title="RTSP推流过程"></a>RTSP推流过程</h2><p>options -&gt; announce(发送一些媒体对象描述信息sdp格式) -&gt; setup（定义实时流的传输模式） -&gt; record(初始化媒体数据记录范围，主要包括开始和结束时间)</p>
 
           
         
@@ -1242,7 +1442,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/RTSP协议详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/Java的5种线程状态/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -1261,7 +1461,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/13/RTSP协议详解/" itemprop="url">RTSP协议详解</a></h1>
+                <a class="post-title-link" href="/2018/01/13/Java的5种线程状态/" itemprop="url">Java的5种线程状态</a></h1>
         
 
         <div class="post-meta">
@@ -1296,8 +1496,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1335,72 +1535,27 @@
       
         
           
-            <h2 id="RTSP协议简介"><a href="#RTSP协议简介" class="headerlink" title="RTSP协议简介"></a>RTSP协议简介</h2><p>RTSP是研究如何有效地在IP网络上传输流媒体数据的应用层协议。RTSP对流媒体提供了诸如暂停，快进等控制，而它本身并不传输数据，RTSP的作用相当于流媒体服务器的远程控制。服务器端可以自行选择使用TCP或UDP来传送串流内容。</p>
-<p><strong>RTSP的对带宽的要求更低，RTMP实时性更好</strong></p>
-<p>特点：</p>
-<ul>
-<li>允许同时多个串流需求控制（Multicast），支持多方视频会议</li>
-<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求，可以实现流量的重新导向。</li>
+            <ol>
+<li>新建状态new</li>
+<li>就绪状态runnable</li>
+<li>运行状态running</li>
+<li>阻塞状态blocked</li>
+<li>终止状态dead</li>
+</ol>
+<h2 id="阻塞的三种情况"><a href="#阻塞的三种情况" class="headerlink" title="阻塞的三种情况"></a>阻塞的三种情况</h2><ul>
+<li><p>等待阻塞</p>
+<p>  运行的线程执行wait()方法，该线程会释放占用的所有资源，JVM会把该线程放入“等待池”中。进入这个状态后，是不能自动唤醒的，必须依靠其他线程调用notify()或notifyAll()方法才能被唤醒，</p>
+</li>
+<li><p>同步阻塞</p>
+<p>  运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入“锁池”中。</p>
+</li>
+<li><p>其他阻塞</p>
+<p>  运行的线程执行sleep()或join()方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</p>
+</li>
 </ul>
-<h2 id="RTSP和HTTP区别"><a href="#RTSP和HTTP区别" class="headerlink" title="RTSP和HTTP区别"></a>RTSP和HTTP区别</h2><ol>
-<li>相同点</li>
-</ol>
-<ul>
-<li>两者都用纯文本来发送消息，且rtsp协议的语法也和HTTP类似。</li>
-</ul>
-<ol start="2">
-<li>不同点</li>
-</ol>
-<ul>
-<li>RTSP有状态，HTTP无状态，rtsp的命令总是按照顺序来发送。</li>
-</ul>
-<h2 id="RTSP和SIP区别"><a href="#RTSP和SIP区别" class="headerlink" title="RTSP和SIP区别"></a>RTSP和SIP区别</h2><p>SIP是基于IP的一个应用层控制协议。</p>
-<ol>
-<li>相同点</li>
-</ol>
-<ul>
-<li>sip和rtsp都是应用层的控制协议，负责一次通信过程的建立和控制和结束，不负责中间的传输部分。</li>
-<li>他们都是基于纯文本的信令协议，支持tcp、udp，支持多方通信。</li>
-<li><strong>sip和rtsp 都使用sdp协议来传送媒体参数，使用rtp（rtcp）协议来传输媒体流。</strong></li>
-</ul>
-<ol start="2">
-<li>不同点</li>
-</ol>
-<ul>
-<li>rtsp是专门为流媒体制定的协议，在多个媒体流的时间同步方面比sip强大。</li>
-<li>rtsp还提供网络负载均衡的功能，减轻服务器压力和网络带宽要求。</li>
-<li>sip一般用来创建一次音频、视频通话（双向），而rtsp一般用来做视频点播、视频监控等（单向）。从原理上讲，rtsp也可以做双向的视频通话。</li>
-</ul>
-<h2 id="RTSP和RTP（rtcp）的关系"><a href="#RTSP和RTP（rtcp）的关系" class="headerlink" title="RTSP和RTP（rtcp）的关系"></a>RTSP和RTP（rtcp）的关系</h2><p><img src="http://images.cnblogs.com/cnblogs_com/whyandinside/RTPRTSP.jpg" alt="img"></p>
-<p>rtsp负责建立和控制会话，rtp负责多媒体的传输，rtcp配合rtp做控制和流量统计，他们是合作的关系。</p>
-<h2 id="RTSP消息"><a href="#RTSP消息" class="headerlink" title="RTSP消息"></a>RTSP消息</h2><h3 id="请求格式"><a href="#请求格式" class="headerlink" title="请求格式"></a>请求格式</h3><p><strong>请求消息</strong>格式：<br><br>       方法 URI RTSP版本 CR LF<br><br>       消息头 CR LF CR LF<br>       消息体 CR LF</p>
-<h3 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h3><p><strong>回应消息</strong>格式：<br><br>       RTSP版本 状态码 解释 CR LF<br><br>       消息头 CR LF CR LF<br><br>       消息体 CR LF</p>
-<h2 id="RTSP请求方法介绍"><a href="#RTSP请求方法介绍" class="headerlink" title="RTSP请求方法介绍"></a>RTSP请求方法介绍</h2><ol>
-<li>OPTION</li>
-</ol>
-<p>目的是得到服务器提供的可用方法</p>
-<ol start="2">
-<li>DESCRIBE</li>
-</ol>
-<p>C向S发起DESCRIBE请求,为了得到会话描述信息(SDP)</p>
-<ol start="3">
-<li>SETUP</li>
-</ol>
-<p>客户端提醒服务器建立会话,并确定传输模式</p>
-<ol start="4">
-<li>PLAY</li>
-</ol>
-<p>客户端发送播放请求</p>
-<ol start="5">
-<li>TEARDOWN</li>
-</ol>
-<p>客户端发起关闭请求</p>
-<p><img src="http://img.blog.csdn.net/20130924000903765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVpeGlhb2h1YTEwMjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<ul>
-<li>第一步，只要服务器客户端约定好，有哪些方法可用，则<strong>option请求可以不要</strong>。</li>
-<li>第二步，如果我们有其他途径得到媒体初始化描述信息（比如http请求等等），则我们也<strong>不需要通过rtsp中的describe请求来完成</strong>。</li>
-</ul>
-<h2 id="RTSP推流过程"><a href="#RTSP推流过程" class="headerlink" title="RTSP推流过程"></a>RTSP推流过程</h2><p>options -&gt; announce(发送一些媒体对象描述信息sdp格式) -&gt; setup（定义实时流的传输模式） -&gt; record(初始化媒体数据记录范围，主要包括开始和结束时间)</p>
+<p><img src="http://img.blog.csdn.net/20140828202610671" alt="img"></p>
+<h2 id="java死锁的原因"><a href="#java死锁的原因" class="headerlink" title="java死锁的原因"></a>java死锁的原因</h2><p>suspend()挂起以及不指定超时期限的wait()方法的调用</p>
+<h2 id="wait和suspend、sleep区别"><a href="#wait和suspend、sleep区别" class="headerlink" title="wait和suspend、sleep区别"></a>wait和suspend、sleep区别</h2><p>wait会释放线程占用的锁、而suspend以及sleep不会</p>
 
           
         
@@ -1735,154 +1890,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/10/线程和进程的区别与联系/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/10/线程和进程的区别与联系/" itemprop="url">线程和进程的区别与联系</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-10T00:34:14+08:00">
-                2018-01-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/操作系统/" itemprop="url" rel="index">
-                    <span itemprop="name">操作系统</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>进程是系统资源分配的基本单位，而线程是cpu调度的基本单位。</li>
-<li>进程有自己独立的地址空间，而线程没有。</li>
-<li>每个线程虽然有一个程序运行的入口、顺序执行序列和程序的出口。但是<strong>线程不能独立执行，必须依存在应用程序中</strong>，由应用程序提供多个线程执行控制。</li>
-<li><strong>一个程序至少有一个进程,一个进程至少有一个线程.</strong></li>
-</ol>
-<h2 id="多线程和多进程的区别"><a href="#多线程和多进程的区别" class="headerlink" title="多线程和多进程的区别"></a>多线程和多进程的区别</h2><p>进程有独立的地址空间，一个进程崩溃后，在保护模式下<strong>不会对其它进程产生影响==，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，==一个线程死掉就等于整个进程死掉</strong>，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1933,7 +1940,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">121</span>
+                  <span class="site-state-item-count">122</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

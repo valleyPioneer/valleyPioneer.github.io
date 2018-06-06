@@ -249,6 +249,357 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/03/Android强引用、弱引用、软引用、虚引用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/03/Android强引用、弱引用、软引用、虚引用/" itemprop="url">Android强引用、弱引用、软引用、虚引用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T00:34:14+08:00">
+                2017-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>回收机制</th>
+<th>生命周期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StrongReference(强引用)</td>
+<td>StrongReference(强引用)</td>
+<td>进程终止</td>
+</tr>
+<tr>
+<td>SoftReference(软引用)</td>
+<td>当内存不足时才回收</td>
+<td>内存不足，进程GC的时候</td>
+</tr>
+<tr>
+<td>WeakReference(弱引用)</td>
+<td>GC的时候回收</td>
+<td>GC后终止</td>
+</tr>
+<tr>
+<td>PhantomReference(虚引用)</td>
+<td>和没有引用一样</td>
+<td>任何时候都可能被回收</td>
+</tr>
+</tbody>
+</table>
+<h2 id="引用队列"><a href="#引用队列" class="headerlink" title="引用队列"></a>引用队列</h2><p>一旦弱引用对象开始返回null，该弱引用指向的对象就被标记成了垃圾。而这个弱引用对象（非其指向的对象）就没有什么用了。通常这时候需要进行一些清理工作。比如WeakHashMap会在这时候移除没用的条目来避免保存无限制增长的没有意义的弱引用。</p>
+<p>引用队列可以很容易地实现跟踪不需要的引用。当你在构造WeakReference时传入一个ReferenceQueue对象，当该引用指向的对象被标记为垃圾的时候，这个引用对象会自动地加入到引用队列里面。接下来，你就可以在固定的周期，处理传入的引用队列，比如做一些清理工作来处理这些没有用的引用对象。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><p>以前我们使用的大部分引用实际上都是强引用，这是使用最普遍的引用。如果一个对象具有强引用，那就类似于必不可少的生活用品，垃圾回收器绝不会回收它。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题。</p>
+<h3 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h3><p>如果一个对象只具有软引用，那就类似于可有可物的生活用品。如果内存空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存。</p>
+<h3 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h3><p>如果一个对象只具有弱引用，那就类似于可有可物的生活用品。弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它 所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程， 因此不一定会很快发现那些只具有弱引用的对象。</p>
+<h3 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h3><p>与软引用，弱引用不同，虚引用指向的对象十分脆弱，<strong>我们不可以通过get方法来得到其指向的对象</strong>。它的唯一作用就是当其指向的对象被回收之后，自己被加入到引用队列，用作记录该引用指向的对象已被销毁。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/Android中的Token机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/02/Android中的Token机制/" itemprop="url">Android中的Token机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">
+                2017-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Token的含义"><a href="#Token的含义" class="headerlink" title="Token的含义"></a>Token的含义</h2><p>Token是服务端生成的一串字符串，以作客户端进行请求的一个令牌，当第一次登录后，服务器生成一个Token便将此Token返回给客户端，以后客户端只需带上这个Token前来请求数据即可，无需再次带上用户名和密码。</p>
+<h2 id="使用Token的目的"><a href="#使用Token的目的" class="headerlink" title="使用Token的目的"></a>使用Token的目的</h2><p>Token的目的是为了减轻服务器的压力，减少频繁的查询数据库，使服务器更加健壮。</p>
+<h2 id="Android中常用的Token方式"><a href="#Android中常用的Token方式" class="headerlink" title="Android中常用的Token方式"></a>Android中常用的Token方式</h2><ol>
+<li><p>用设备号/设备mac地址作为Token（推荐）</p>
+<p> 客户端：客户端在登录的时候获取设备的设备号/mac地址，并将其作为参数传递到服务端。</p>
+<p> 服务端：服务端接收到该参数后，便用一个变量来接收同时将其作为Token保存在数据库，<strong>并将该Token设置到session中</strong>，客户端每次请求的时候都要统一拦截，并将客户端传递的token和服务器端session中的token进行对比，如果相同则放行，不同则拒绝。 </p>
+<p> <strong>此种情况下，超时问题由服务器来解决。如果Token超时，服务器只需要将客户端传递过来的Token在数据库中进行查询，然后同时赋值給变量Token，如此，Token又可以重新计时。</strong></p>
+</li>
+<li><p>用SessionID作为Token</p>
+<p> 客户端：第一次登录时携带用户名和密码，以后每次都只需带上SeesionID即可</p>
+<p> 服务器：服务器接收到用户名和密码后并判断，如果正确了就将本地获取sessionID作为Token返回给客户端，客户端以后只需带上请求数据即可。</p>
+<p> 这种方式使用的好处是方便，不用存储数据，但是缺点就是<strong>当session过期后，客户端必须重新登录才能进行访问数据</strong>。</p>
+</li>
+</ol>
+<h2 id="Android-中全局处理-token"><a href="#Android-中全局处理-token" class="headerlink" title="Android 中全局处理 token"></a>Android 中全局处理 token</h2><ul>
+<li><p>实现方案：okhttp + retrofit，通过拦截器拦截请求，再往请求头里面添加 token</p>
+</li>
+<li><p>static方法获取RetrofitService对象</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RetrofitServiceInstance</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> RetrofitService instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> RetrofitService <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Authenticator authenticator = <span class="keyword">new</span> Authenticator() &#123;<span class="comment">//当服务器返回的状态码为401时，会自动执行里面的代码，也就实现了自动刷新token</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Request <span class="title">authenticate</span><span class="params">(Route route, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                L.d(<span class="string">"**======**&gt;   重新刷新了token"</span>);<span class="comment">//这里可以进行刷新 token 的操作</span></span><br><span class="line"><span class="comment">//                instance.getUploadToken()</span></span><br><span class="line">                <span class="keyword">return</span> response.request().newBuilder()</span><br><span class="line">                        .addHeader(<span class="string">"token"</span>, <span class="string">""</span>)</span><br><span class="line">                        .build();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Interceptor tokenInterceptor = <span class="keyword">new</span> Interceptor() &#123;<span class="comment">//全局拦截器，往请求头部添加 token 字段，实现了全局添加 token</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                Request originalRequest = chain.request();<span class="comment">//获取请求</span></span><br><span class="line">                Request tokenRequest = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">if</span> (TextUtils.isEmpty(MyApplication.getToken())) &#123;<span class="comment">//对 token 进行判空，如果为空，则不进行修改</span></span><br><span class="line">                    <span class="keyword">return</span> chain.proceed(originalRequest);</span><br><span class="line">                &#125;</span><br><span class="line">                tokenRequest = originalRequest.newBuilder()<span class="comment">//往请求头中添加 token 字段</span></span><br><span class="line">                        .header(<span class="string">"token"</span>, MyApplication.getToken())</span><br><span class="line">                        .build();</span><br><span class="line">                <span class="keyword">return</span> chain.proceed(tokenRequest);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        HttpLoggingInterceptor loggingInterceptor = <span class="keyword">new</span> HttpLoggingInterceptor(<span class="keyword">new</span> HttpLoggingInterceptor.Logger() &#123;<span class="comment">//log拦截器，打印所有的log</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">                L.d(message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        OkHttpClient client = <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">                .connectTimeout(<span class="number">15</span>, TimeUnit.SECONDS)</span><br><span class="line">                .retryOnConnectionFailure(<span class="keyword">true</span>)</span><br><span class="line">                .addNetworkInterceptor(tokenInterceptor)</span><br><span class="line">                .addInterceptor(loggingInterceptor)<span class="comment">//使用上面的拦截器</span></span><br><span class="line">                .authenticator(authenticator)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (RetrofitService.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()                              <span class="comment">//生成实例</span></span><br><span class="line">                            .baseUrl(CommenPara.serverURL)                                  <span class="comment">//基础url，会拼接NetService中的参数</span></span><br><span class="line">                            .client(client)                                                 <span class="comment">//使用 okhttp</span></span><br><span class="line">                            .addConverterFactory(GsonConverterFactory.create())            <span class="comment">//使用Gson解析</span></span><br><span class="line">                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())      <span class="comment">//加入RxJava的适配器</span></span><br><span class="line">                            .build();</span><br><span class="line"></span><br><span class="line">                    instance = retrofit.create(RetrofitService.class);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Session-Cookie机制和Session-Token机制异同点"><a href="#Session-Cookie机制和Session-Token机制异同点" class="headerlink" title="Session/Cookie机制和Session/Token机制异同点"></a>Session/Cookie机制和Session/Token机制异同点</h2><ul>
+<li><p>相同点：</p>
+<ol>
+<li>前者使用SessionID作为客户端会话的唯一标识,后者也可以使用SessionID作为会话的唯一标识。</li>
+<li>两者都使用SessionID作为标识时，当Session过期时，用户都需要重新登录。</li>
+</ol>
+</li>
+<li><p>不同点：</p>
+<p>  前者将SessionID保存在Cookie中（发送请求时直接携带此Cookie即可）；<strong>而后者发送请求时有两种方式携带Token，一种是直接在get/post请求参数中加上token，另一种是在请求头header中加上token</strong>。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/Android View的层级架构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -511,179 +862,6 @@
 </li>
 <li><p>外部连接</p>
 <p>  在一个多文件程序中,如果一个名称在连接时可以和其他编译单元交互,那么这个名称就具有外部连接。具有外部连接对应的名称在程序中必须是唯一的。</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/Android中的Token机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/02/Android中的Token机制/" itemprop="url">Android中的Token机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">
-                2017-11-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Token的含义"><a href="#Token的含义" class="headerlink" title="Token的含义"></a>Token的含义</h2><p>Token是服务端生成的一串字符串，以作客户端进行请求的一个令牌，当第一次登录后，服务器生成一个Token便将此Token返回给客户端，以后客户端只需带上这个Token前来请求数据即可，无需再次带上用户名和密码。</p>
-<h2 id="使用Token的目的"><a href="#使用Token的目的" class="headerlink" title="使用Token的目的"></a>使用Token的目的</h2><p>Token的目的是为了减轻服务器的压力，减少频繁的查询数据库，使服务器更加健壮。</p>
-<h2 id="Android中常用的Token方式"><a href="#Android中常用的Token方式" class="headerlink" title="Android中常用的Token方式"></a>Android中常用的Token方式</h2><ol>
-<li><p>用设备号/设备mac地址作为Token（推荐）</p>
-<p> 客户端：客户端在登录的时候获取设备的设备号/mac地址，并将其作为参数传递到服务端。</p>
-<p> 服务端：服务端接收到该参数后，便用一个变量来接收同时将其作为Token保存在数据库，<strong>并将该Token设置到session中</strong>，客户端每次请求的时候都要统一拦截，并将客户端传递的token和服务器端session中的token进行对比，如果相同则放行，不同则拒绝。 </p>
-<p> <strong>此种情况下，超时问题由服务器来解决。如果Token超时，服务器只需要将客户端传递过来的Token在数据库中进行查询，然后同时赋值給变量Token，如此，Token又可以重新计时。</strong></p>
-</li>
-<li><p>用SessionID作为Token</p>
-<p> 客户端：第一次登录时携带用户名和密码，以后每次都只需带上SeesionID即可</p>
-<p> 服务器：服务器接收到用户名和密码后并判断，如果正确了就将本地获取sessionID作为Token返回给客户端，客户端以后只需带上请求数据即可。</p>
-<p> 这种方式使用的好处是方便，不用存储数据，但是缺点就是<strong>当session过期后，客户端必须重新登录才能进行访问数据</strong>。</p>
-</li>
-</ol>
-<h2 id="Android-中全局处理-token"><a href="#Android-中全局处理-token" class="headerlink" title="Android 中全局处理 token"></a>Android 中全局处理 token</h2><ul>
-<li><p>实现方案：okhttp + retrofit，通过拦截器拦截请求，再往请求头里面添加 token</p>
-</li>
-<li><p>static方法获取RetrofitService对象</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RetrofitServiceInstance</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> RetrofitService instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> RetrofitService <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Authenticator authenticator = <span class="keyword">new</span> Authenticator() &#123;<span class="comment">//当服务器返回的状态码为401时，会自动执行里面的代码，也就实现了自动刷新token</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Request <span class="title">authenticate</span><span class="params">(Route route, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                L.d(<span class="string">"**======**&gt;   重新刷新了token"</span>);<span class="comment">//这里可以进行刷新 token 的操作</span></span><br><span class="line"><span class="comment">//                instance.getUploadToken()</span></span><br><span class="line">                <span class="keyword">return</span> response.request().newBuilder()</span><br><span class="line">                        .addHeader(<span class="string">"token"</span>, <span class="string">""</span>)</span><br><span class="line">                        .build();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Interceptor tokenInterceptor = <span class="keyword">new</span> Interceptor() &#123;<span class="comment">//全局拦截器，往请求头部添加 token 字段，实现了全局添加 token</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                Request originalRequest = chain.request();<span class="comment">//获取请求</span></span><br><span class="line">                Request tokenRequest = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">if</span> (TextUtils.isEmpty(MyApplication.getToken())) &#123;<span class="comment">//对 token 进行判空，如果为空，则不进行修改</span></span><br><span class="line">                    <span class="keyword">return</span> chain.proceed(originalRequest);</span><br><span class="line">                &#125;</span><br><span class="line">                tokenRequest = originalRequest.newBuilder()<span class="comment">//往请求头中添加 token 字段</span></span><br><span class="line">                        .header(<span class="string">"token"</span>, MyApplication.getToken())</span><br><span class="line">                        .build();</span><br><span class="line">                <span class="keyword">return</span> chain.proceed(tokenRequest);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        HttpLoggingInterceptor loggingInterceptor = <span class="keyword">new</span> HttpLoggingInterceptor(<span class="keyword">new</span> HttpLoggingInterceptor.Logger() &#123;<span class="comment">//log拦截器，打印所有的log</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">                L.d(message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        OkHttpClient client = <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">                .connectTimeout(<span class="number">15</span>, TimeUnit.SECONDS)</span><br><span class="line">                .retryOnConnectionFailure(<span class="keyword">true</span>)</span><br><span class="line">                .addNetworkInterceptor(tokenInterceptor)</span><br><span class="line">                .addInterceptor(loggingInterceptor)<span class="comment">//使用上面的拦截器</span></span><br><span class="line">                .authenticator(authenticator)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (RetrofitService.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()                              <span class="comment">//生成实例</span></span><br><span class="line">                            .baseUrl(CommenPara.serverURL)                                  <span class="comment">//基础url，会拼接NetService中的参数</span></span><br><span class="line">                            .client(client)                                                 <span class="comment">//使用 okhttp</span></span><br><span class="line">                            .addConverterFactory(GsonConverterFactory.create())            <span class="comment">//使用Gson解析</span></span><br><span class="line">                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())      <span class="comment">//加入RxJava的适配器</span></span><br><span class="line">                            .build();</span><br><span class="line"></span><br><span class="line">                    instance = retrofit.create(RetrofitService.class);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Session-Cookie机制和Session-Token机制异同点"><a href="#Session-Cookie机制和Session-Token机制异同点" class="headerlink" title="Session/Cookie机制和Session/Token机制异同点"></a>Session/Cookie机制和Session/Token机制异同点</h2><ul>
-<li><p>相同点：</p>
-<ol>
-<li>前者使用SessionID作为客户端会话的唯一标识,后者也可以使用SessionID作为会话的唯一标识。</li>
-<li>两者都使用SessionID作为标识时，当Session过期时，用户都需要重新登录。</li>
-</ol>
-</li>
-<li><p>不同点：</p>
-<p>  前者将SessionID保存在Cookie中（发送请求时直接携带此Cookie即可）；<strong>而后者发送请求时有两种方式携带Token，一种是直接在get/post请求参数中加上token，另一种是在请求头header中加上token</strong>。</p>
 </li>
 </ul>
 
@@ -1032,147 +1210,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android Crash如何捕捉/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/25/Android Crash如何捕捉/" itemprop="url">Android Crash如何捕捉</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T00:34:14+08:00">
-                2017-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="重写UncaughtExceptionhandler接口"><a href="#重写UncaughtExceptionhandler接口" class="headerlink" title="重写UncaughtExceptionhandler接口"></a>重写UncaughtExceptionhandler接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WholeCrashHandler</span> <span class="keyword">implements</span> <span class="title">UncaughtExceptionHandler</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"TAG"</span>;  </span><br><span class="line">    <span class="comment">/***************************** 单例模式 ***************************************/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> WholeCrashHandler crashHandler = <span class="keyword">new</span> WholeCrashHandler();  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">WholeCrashHandler</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> WholeCrashHandler <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> crashHandler;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/***************************************************************************/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> ISOPEN = <span class="keyword">true</span>; <span class="comment">// 是否打开日志写入和发送  </span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> Thread.UncaughtExceptionHandler mDefaultHandler;  </span><br><span class="line">    <span class="keyword">private</span> Context context;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;  </span><br><span class="line">        LogUtils.i(TAG, <span class="string">"zhuce**=**"</span>);  </span><br><span class="line">        <span class="keyword">this</span>.context = context;  </span><br><span class="line">        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();  </span><br><span class="line">        Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">this</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uncaughtException</span><span class="params">(Thread thread, Throwable ex)</span> </span>&#123;  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">if</span> (!handleException(ex) &amp;&amp; mDefaultHandler != <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="comment">// 如果用户没有处理则让系统默认的异常处理器来处理  </span></span><br><span class="line">            mDefaultHandler.uncaughtException(thread, ex);  </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            Activity currentActivity = ActivityUtils.Instance().getCurrentActivity();  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"current===&gt;&gt;&gt;&gt;."</span>+currentActivity);  </span><br><span class="line">            ActivityUtils.Instance().finishAll();  </span><br><span class="line">            Intent intent = <span class="keyword">new</span> Intent();  </span><br><span class="line">            intent.setClass(context, CrashHintActivity1.class);  </span><br><span class="line">            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"zhuce**111=**"</span>);  </span><br><span class="line">            context.startActivity(intent);  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"zhuce**2222=**"</span>);  </span><br><span class="line">            android.os.Process.killProcess(android.os.Process.myPid());  </span><br><span class="line">  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 异常处理 </span></span><br><span class="line"><span class="comment">     *  </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ex </span></span><br><span class="line"><span class="comment">     *            异常信息 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean true 已处理，false 未处理 </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">handleException</span><span class="params">(Throwable ex)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span> (ex == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (!ISOPEN) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//收集设备信息  </span></span><br><span class="line">          </span><br><span class="line">        <span class="comment">// 写入本地文件  </span></span><br><span class="line">        LogUtils.write(ex);  </span><br><span class="line">          </span><br><span class="line">        <span class="comment">//可以在这直接操作发送log日志  </span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1325,7 +1362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android apk 反编译总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android Crash如何捕捉/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -1344,7 +1381,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/23/Android apk 反编译总结/" itemprop="url">Android apk 反编译总结</a></h1>
+                <a class="post-title-link" href="/2017/10/25/Android Crash如何捕捉/" itemprop="url">Android Crash如何捕捉</a></h1>
         
 
         <div class="post-meta">
@@ -1356,8 +1393,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">
-                2017-10-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T00:34:14+08:00">
+                2017-10-25
               </time>
             
 
@@ -1418,177 +1455,7 @@
       
         
           
-            <h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><ul>
-<li><p>apktool<br>  作用：主要查看res文件下的xml文件、AndroidManifest文件和图片。（直接解压apk得到的xml文件大多是乱码）</p>
-</li>
-<li><p>dex2jar<br>  作用：将classes.dex文件转换成jar文件</p>
-</li>
-<li><p>jd-gui<br>  作用：查看jar文件，将jar文件转换成java文件</p>
-</li>
-<li><p>smali2JavaUI<br>  作用：直接打开apk，结合以上两步直接得到java源文件或者将smali文件转换成java文件。缺点在于，无法解析出资源文件。</p>
-</li>
-</ul>
-<h2 id="反编译以及重新打包过程中使用到的命令"><a href="#反编译以及重新打包过程中使用到的命令" class="headerlink" title="反编译以及重新打包过程中使用到的命令"></a>反编译以及重新打包过程中使用到的命令</h2><ol>
-<li><p>反编译apk<br> apktool d app.apk  </p>
-</li>
-<li><p>修改资源文件或者修改smali源代码 </p>
-</li>
-<li><p>打包<br> apktool b app -o app_new.apk</p>
-</li>
-<li><p>签名<br> mykeystore.jks<a href="自己填写好路径\(千万记得填写完整的钥匙库的文件后缀\)">^1</a>:使用Android Studio生成</p>
-<p> 签名命令：jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore mykeystore.jks -storepass android -signedjar app_new_signed.apk app_new.apk mykeystore.jks</p>
-</li>
-<li><p>对齐<br> zipalign 4 app_new_signed.apk app_new_signed_aligned.apk</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android Intent可以携带的数据/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/23/Android Intent可以携带的数据/" itemprop="url">Android Intent可以携带的数据</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">
-                2017-10-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>8种基本数据类型及其数组 </li>
-<li>String（String实现了 Serializable ）/CharSequence实例类型的数据及其数组 </li>
-<li>实现了Parcelable的对象及其数组 </li>
-<li>实现了 Serializable 的对象及其数组 </li>
-</ol>
-
+            <h2 id="重写UncaughtExceptionhandler接口"><a href="#重写UncaughtExceptionhandler接口" class="headerlink" title="重写UncaughtExceptionhandler接口"></a>重写UncaughtExceptionhandler接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WholeCrashHandler</span> <span class="keyword">implements</span> <span class="title">UncaughtExceptionHandler</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"TAG"</span>;  </span><br><span class="line">    <span class="comment">/***************************** 单例模式 ***************************************/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> WholeCrashHandler crashHandler = <span class="keyword">new</span> WholeCrashHandler();  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">WholeCrashHandler</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> WholeCrashHandler <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> crashHandler;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/***************************************************************************/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> ISOPEN = <span class="keyword">true</span>; <span class="comment">// 是否打开日志写入和发送  </span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> Thread.UncaughtExceptionHandler mDefaultHandler;  </span><br><span class="line">    <span class="keyword">private</span> Context context;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;  </span><br><span class="line">        LogUtils.i(TAG, <span class="string">"zhuce**=**"</span>);  </span><br><span class="line">        <span class="keyword">this</span>.context = context;  </span><br><span class="line">        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();  </span><br><span class="line">        Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">this</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uncaughtException</span><span class="params">(Thread thread, Throwable ex)</span> </span>&#123;  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">if</span> (!handleException(ex) &amp;&amp; mDefaultHandler != <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="comment">// 如果用户没有处理则让系统默认的异常处理器来处理  </span></span><br><span class="line">            mDefaultHandler.uncaughtException(thread, ex);  </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            Activity currentActivity = ActivityUtils.Instance().getCurrentActivity();  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"current===&gt;&gt;&gt;&gt;."</span>+currentActivity);  </span><br><span class="line">            ActivityUtils.Instance().finishAll();  </span><br><span class="line">            Intent intent = <span class="keyword">new</span> Intent();  </span><br><span class="line">            intent.setClass(context, CrashHintActivity1.class);  </span><br><span class="line">            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"zhuce**111=**"</span>);  </span><br><span class="line">            context.startActivity(intent);  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"zhuce**2222=**"</span>);  </span><br><span class="line">            android.os.Process.killProcess(android.os.Process.myPid());  </span><br><span class="line">  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 异常处理 </span></span><br><span class="line"><span class="comment">     *  </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ex </span></span><br><span class="line"><span class="comment">     *            异常信息 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean true 已处理，false 未处理 </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">handleException</span><span class="params">(Throwable ex)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span> (ex == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (!ISOPEN) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//收集设备信息  </span></span><br><span class="line">          </span><br><span class="line">        <span class="comment">// 写入本地文件  </span></span><br><span class="line">        LogUtils.write(ex);  </span><br><span class="line">          </span><br><span class="line">        <span class="comment">//可以在这直接操作发送log日志  </span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1799,6 +1666,170 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android apk 反编译总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/23/Android apk 反编译总结/" itemprop="url">Android apk 反编译总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><ul>
+<li><p>apktool<br>  作用：主要查看res文件下的xml文件、AndroidManifest文件和图片。（直接解压apk得到的xml文件大多是乱码）</p>
+</li>
+<li><p>dex2jar<br>  作用：将classes.dex文件转换成jar文件</p>
+</li>
+<li><p>jd-gui<br>  作用：查看jar文件，将jar文件转换成java文件</p>
+</li>
+<li><p>smali2JavaUI<br>  作用：直接打开apk，结合以上两步直接得到java源文件或者将smali文件转换成java文件。缺点在于，无法解析出资源文件。</p>
+</li>
+</ul>
+<h2 id="反编译以及重新打包过程中使用到的命令"><a href="#反编译以及重新打包过程中使用到的命令" class="headerlink" title="反编译以及重新打包过程中使用到的命令"></a>反编译以及重新打包过程中使用到的命令</h2><ol>
+<li><p>反编译apk<br> apktool d app.apk  </p>
+</li>
+<li><p>修改资源文件或者修改smali源代码 </p>
+</li>
+<li><p>打包<br> apktool b app -o app_new.apk</p>
+</li>
+<li><p>签名<br> mykeystore.jks<a href="自己填写好路径\(千万记得填写完整的钥匙库的文件后缀\)">^1</a>:使用Android Studio生成</p>
+<p> 签名命令：jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore mykeystore.jks -storepass android -signedjar app_new_signed.apk app_new.apk mykeystore.jks</p>
+</li>
+<li><p>对齐<br> zipalign 4 app_new_signed.apk app_new_signed_aligned.apk</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1849,7 +1880,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">121</span>
+                  <span class="site-state-item-count">122</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
