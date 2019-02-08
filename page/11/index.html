@@ -319,7 +319,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/04/Android事件分发机制图解/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/19/Android apk 反编译总结/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jasper"/>
@@ -339,7 +339,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/04/Android事件分发机制图解/" class="post-title-link" itemprop="url">Android事件分发机制图解</a>
+                <a href="/2018/03/19/Android apk 反编译总结/" class="post-title-link" itemprop="url">Android apk 反编译总结</a>
               
             
           </h1>
@@ -364,25 +364,9 @@
                 
               
 
-              <time title="创建时间：2017-11-04 00:34:14" itemprop="dateCreated datePublished" datetime="2017-11-04T00:34:14+08:00">2017-11-04</time>
+              <time title="创建时间：2018-03-19 08:34:14" itemprop="dateCreated datePublished" datetime="2018-03-19T08:34:14+08:00">2018-03-19</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 13:04:20" itemprop="dateModified" datetime="2018-04-23T13:04:20+08:00">2018-04-23</time>
-              
             
           </span>
 
@@ -435,430 +419,29 @@
       
         
           
-            <h2 id="action-down事件的分发图解"><a href="#action-down事件的分发图解" class="headerlink" title="action_down事件的分发图解"></a>action_down事件的分发图解</h2><p><img src="https://upload-images.jianshu.io/upload_images/966283-b9cb65aceea9219b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="img"></p>
-<ul>
-<li><strong>更正点</strong>:这张图中onTouchEvent()方法一般来说super效果和true相同，只有当控件不可点击(clickable和longclickable同时为false)时，才是false</li>
-<li>这张图中onInterceptTouchEvent()方法默认(super)效果是不拦截</li>
-</ul>
-<h2 id="action-move和action-up事件的分发图解"><a href="#action-move和action-up事件的分发图解" class="headerlink" title="action_move和action_up事件的分发图解"></a>action_move和action_up事件的分发图解</h2><ul>
-<li>红色的箭头代表ACTION_DOWN 事件的流向</li>
-<li>蓝色的箭头代表ACTION_MOVE 和 ACTION_UP 事件的流向<br><img src="https://upload-images.jianshu.io/upload_images/966283-7026c3e2fc1b0fa8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="img"></li>
-</ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/966283-4713e647448ce48f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="img"></p>
-<ul>
-<li>以上两个流程图只是代表action_move和action_up事件的正常流向。</li>
-<li>如果在<strong>基本事件流基础上可能出现的==onInterceptTouchEvent()方法中对action_move和action_up事件进行拦截，那么今后的所有事件流都==最多只能传递到此ViewGroup层次</strong>，不能再往下传递了。</li>
-<li>基本原则：一个触摸事件不能被消费两次！</li>
-</ul>
-<h2 id="onInterceptTouchEvent-方法"><a href="#onInterceptTouchEvent-方法" class="headerlink" title="onInterceptTouchEvent()方法"></a>onInterceptTouchEvent()方法</h2><ul>
-<li>如果返回true，那么<strong>一定是拦截今后的所有事件，使事件无法往下传递==，==而且以后的事件也不会再调用此方法了</strong>。</li>
-<li>如果返回false，那么表示不拦截，但是也<strong>不影响后面的事件处理流程</strong>。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/03/Android强引用、弱引用、软引用、虚引用/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jasper"/>
-      <meta itemprop="description" content=""/>
-      <meta itemprop="image" content="/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/11/03/Android强引用、弱引用、软引用、虚引用/" class="post-title-link" itemprop="url">Android强引用、弱引用、软引用、虚引用</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-11-03 00:34:14" itemprop="dateCreated datePublished" datetime="2017-11-03T00:34:14+08:00">2017-11-03</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-25 16:15:25" itemprop="dateModified" datetime="2018-04-25T16:15:25+08:00">2018-04-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>回收机制</th>
-<th>生命周期</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>StrongReference(强引用)</td>
-<td>StrongReference(强引用)</td>
-<td>进程终止</td>
-</tr>
-<tr>
-<td>SoftReference(软引用)</td>
-<td>当内存不足时才回收</td>
-<td>内存不足，进程GC的时候</td>
-</tr>
-<tr>
-<td>WeakReference(弱引用)</td>
-<td>GC的时候回收</td>
-<td>GC后终止</td>
-</tr>
-<tr>
-<td>PhantomReference(虚引用)</td>
-<td>和没有引用一样</td>
-<td>任何时候都可能被回收</td>
-</tr>
-</tbody>
-</table>
-<h2 id="引用队列"><a href="#引用队列" class="headerlink" title="引用队列"></a>引用队列</h2><p>一旦弱引用对象开始返回null，该弱引用指向的对象就被标记成了垃圾。而这个弱引用对象（非其指向的对象）就没有什么用了。通常这时候需要进行一些清理工作。比如WeakHashMap会在这时候移除没用的条目来避免保存无限制增长的没有意义的弱引用。</p>
-<p>引用队列可以很容易地实现跟踪不需要的引用。当你在构造WeakReference时传入一个ReferenceQueue对象，当该引用指向的对象被标记为垃圾的时候，这个引用对象会自动地加入到引用队列里面。接下来，你就可以在固定的周期，处理传入的引用队列，比如做一些清理工作来处理这些没有用的引用对象。</p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><p>以前我们使用的大部分引用实际上都是强引用，这是使用最普遍的引用。如果一个对象具有强引用，那就类似于必不可少的生活用品，垃圾回收器绝不会回收它。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题。</p>
-<h3 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h3><p>如果一个对象只具有软引用，那就类似于可有可物的生活用品。如果内存空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存。</p>
-<h3 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h3><p>如果一个对象只具有弱引用，那就类似于可有可物的生活用品。弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它 所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程， 因此不一定会很快发现那些只具有弱引用的对象。</p>
-<h3 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h3><p>与软引用，弱引用不同，虚引用指向的对象十分脆弱，<strong>我们不可以通过get方法来得到其指向的对象</strong>。它的唯一作用就是当其指向的对象被回收之后，自己被加入到引用队列，用作记录该引用指向的对象已被销毁。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/C++和C中const的区别/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jasper"/>
-      <meta itemprop="description" content=""/>
-      <meta itemprop="image" content="/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/11/02/C++和C中const的区别/" class="post-title-link" itemprop="url">C++和C中const的区别</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-11-02 00:34:14" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">2017-11-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 13:06:34" itemprop="dateModified" datetime="2018-04-23T13:06:34+08:00">2018-04-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><ul>
-<li>C++中可以使用const完全取代#define</li>
-<li><strong>const属于常量</strong></li>
-</ul>
-<h2 id="C-1"><a href="#C-1" class="headerlink" title="C"></a>C</h2><ul>
-<li>C中const作用不大，多用#define</li>
-<li><strong>const属于不能改变的普通变量</strong></li>
-</ul>
-<h2 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h2><ol>
-<li><p>c中是变量，总是占用内存，而且属于全局变量，而c++中是常量</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> size = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">char</span> strs[size]; <span class="comment">// c中报错，c++中可以，主要是c编译器在编译期无法知道该值</span></span><br></pre></td></tr></table></figure>
+            <h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><ul>
+<li><p>apktool<br>  作用：主要查看res文件下的xml文件、AndroidManifest文件和图片。（直接解压apk得到的xml文件大多是乱码）</p>
 </li>
-<li><p>c中默认const是外部连接，c++默认是内部连接</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> size;<span class="comment">//c中可以，c++中报错</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> size;<span class="comment">//c++写法</span></span><br></pre></td></tr></table></figure>
+<li><p>dex2jar<br>  作用：将classes.dex文件转换成jar文件</p>
+</li>
+<li><p>jd-gui<br>  作用：查看jar文件，将jar文件转换成java文件</p>
+</li>
+<li><p>smali2JavaUI<br>  作用：直接打开apk，结合以上两步直接得到java源文件或者将smali文件转换成java文件。缺点在于，无法解析出资源文件。</p>
+</li>
+</ul>
+<h2 id="反编译以及重新打包过程中使用到的命令"><a href="#反编译以及重新打包过程中使用到的命令" class="headerlink" title="反编译以及重新打包过程中使用到的命令"></a>反编译以及重新打包过程中使用到的命令</h2><ol>
+<li><p>反编译apk<br> apktool d app.apk  </p>
+</li>
+<li><p>修改资源文件或者修改smali源代码 </p>
+</li>
+<li><p>打包<br> apktool b app -o app_new.apk</p>
+</li>
+<li><p>签名<br> mykeystore.jks<a href="自己填写好路径\(千万记得填写完整的钥匙库的文件后缀\)">^1</a>:使用Android Studio生成</p>
+<p> 签名命令：jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore mykeystore.jks -storepass android -signedjar app_new_signed.apk app_new.apk mykeystore.jks</p>
+</li>
+<li><p>对齐<br> zipalign 4 app_new_signed.apk app_new_signed_aligned.apk</p>
 </li>
 </ol>
-<h2 id="内部连接和外部连接"><a href="#内部连接和外部连接" class="headerlink" title="内部连接和外部连接"></a>内部连接和外部连接</h2><ul>
-<li><p>内部连接</p>
-<p>  假如一个名称对于他的编译单元来说是局部的，并且在连接时不会和其他编译单元中的同样的名称相冲突，那么这个名称有内部连接。</p>
-</li>
-<li><p>外部连接</p>
-<p>  在一个多文件程序中,如果一个名称在连接时可以和其他编译单元交互,那么这个名称就具有外部连接。具有外部连接对应的名称在程序中必须是唯一的。</p>
-</li>
-</ul>
 
           
         
@@ -915,7 +498,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/Android中的Token机制/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/Android 卡顿的分析思路/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jasper"/>
@@ -935,7 +518,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/02/Android中的Token机制/" class="post-title-link" itemprop="url">Android中的Token机制</a>
+                <a href="/2018/03/15/Android 卡顿的分析思路/" class="post-title-link" itemprop="url">Android 卡顿的分析思路</a>
               
             
           </h1>
@@ -960,25 +543,9 @@
                 
               
 
-              <time title="创建时间：2017-11-02 00:34:14" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">2017-11-02</time>
+              <time title="创建时间：2018-03-15 08:34:14" itemprop="dateCreated datePublished" datetime="2018-03-15T08:34:14+08:00">2018-03-15</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 13:05:09" itemprop="dateModified" datetime="2018-04-23T13:05:09+08:00">2018-04-23</time>
-              
             
           </span>
 
@@ -1031,38 +598,33 @@
       
         
           
-            <h2 id="Token的含义"><a href="#Token的含义" class="headerlink" title="Token的含义"></a>Token的含义</h2><p>Token是服务端生成的一串字符串，以作客户端进行请求的一个令牌，当第一次登录后，服务器生成一个Token便将此Token返回给客户端，以后客户端只需带上这个Token前来请求数据即可，无需再次带上用户名和密码。</p>
-<h2 id="使用Token的目的"><a href="#使用Token的目的" class="headerlink" title="使用Token的目的"></a>使用Token的目的</h2><p>Token的目的是为了减轻服务器的压力，减少频繁的查询数据库，使服务器更加健壮。</p>
-<h2 id="Android中常用的Token方式"><a href="#Android中常用的Token方式" class="headerlink" title="Android中常用的Token方式"></a>Android中常用的Token方式</h2><ol>
-<li><p>用设备号/设备mac地址作为Token（推荐）</p>
-<p> 客户端：客户端在登录的时候获取设备的设备号/mac地址，并将其作为参数传递到服务端。</p>
-<p> 服务端：服务端接收到该参数后，便用一个变量来接收同时将其作为Token保存在数据库，<strong>并将该Token设置到session中</strong>，客户端每次请求的时候都要统一拦截，并将客户端传递的token和服务器端session中的token进行对比，如果相同则放行，不同则拒绝。 </p>
-<p> <strong>此种情况下，超时问题由服务器来解决。如果Token超时，服务器只需要将客户端传递过来的Token在数据库中进行查询，然后同时赋值給变量Token，如此，Token又可以重新计时。</strong></p>
-</li>
-<li><p>用SessionID作为Token</p>
-<p> 客户端：第一次登录时携带用户名和密码，以后每次都只需带上SeesionID即可</p>
-<p> 服务器：服务器接收到用户名和密码后并判断，如果正确了就将本地获取sessionID作为Token返回给客户端，客户端以后只需带上请求数据即可。</p>
-<p> 这种方式使用的好处是方便，不用存储数据，但是缺点就是<strong>当session过期后，客户端必须重新登录才能进行访问数据</strong>。</p>
-</li>
+            <h2 id="分析思路"><a href="#分析思路" class="headerlink" title="分析思路"></a>分析思路</h2><ol>
+<li>cpu</li>
+<li>gpu</li>
+<li>内存</li>
 </ol>
-<h2 id="Android-中全局处理-token"><a href="#Android-中全局处理-token" class="headerlink" title="Android 中全局处理 token"></a>Android 中全局处理 token</h2><ul>
-<li><p>实现方案：okhttp + retrofit，通过拦截器拦截请求，再往请求头里面添加 token</p>
-</li>
-<li><p>static方法获取RetrofitService对象</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RetrofitServiceInstance</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> RetrofitService instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> RetrofitService <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Authenticator authenticator = <span class="keyword">new</span> Authenticator() &#123;<span class="comment">//当服务器返回的状态码为401时，会自动执行里面的代码，也就实现了自动刷新token</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Request <span class="title">authenticate</span><span class="params">(Route route, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                L.d(<span class="string">"**======**&gt;   重新刷新了token"</span>);<span class="comment">//这里可以进行刷新 token 的操作</span></span><br><span class="line"><span class="comment">//                instance.getUploadToken()</span></span><br><span class="line">                <span class="keyword">return</span> response.request().newBuilder()</span><br><span class="line">                        .addHeader(<span class="string">"token"</span>, <span class="string">""</span>)</span><br><span class="line">                        .build();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Interceptor tokenInterceptor = <span class="keyword">new</span> Interceptor() &#123;<span class="comment">//全局拦截器，往请求头部添加 token 字段，实现了全局添加 token</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                Request originalRequest = chain.request();<span class="comment">//获取请求</span></span><br><span class="line">                Request tokenRequest = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">if</span> (TextUtils.isEmpty(MyApplication.getToken())) &#123;<span class="comment">//对 token 进行判空，如果为空，则不进行修改</span></span><br><span class="line">                    <span class="keyword">return</span> chain.proceed(originalRequest);</span><br><span class="line">                &#125;</span><br><span class="line">                tokenRequest = originalRequest.newBuilder()<span class="comment">//往请求头中添加 token 字段</span></span><br><span class="line">                        .header(<span class="string">"token"</span>, MyApplication.getToken())</span><br><span class="line">                        .build();</span><br><span class="line">                <span class="keyword">return</span> chain.proceed(tokenRequest);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        HttpLoggingInterceptor loggingInterceptor = <span class="keyword">new</span> HttpLoggingInterceptor(<span class="keyword">new</span> HttpLoggingInterceptor.Logger() &#123;<span class="comment">//log拦截器，打印所有的log</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">                L.d(message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        OkHttpClient client = <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">                .connectTimeout(<span class="number">15</span>, TimeUnit.SECONDS)</span><br><span class="line">                .retryOnConnectionFailure(<span class="keyword">true</span>)</span><br><span class="line">                .addNetworkInterceptor(tokenInterceptor)</span><br><span class="line">                .addInterceptor(loggingInterceptor)<span class="comment">//使用上面的拦截器</span></span><br><span class="line">                .authenticator(authenticator)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (RetrofitService.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()                              <span class="comment">//生成实例</span></span><br><span class="line">                            .baseUrl(CommenPara.serverURL)                                  <span class="comment">//基础url，会拼接NetService中的参数</span></span><br><span class="line">                            .client(client)                                                 <span class="comment">//使用 okhttp</span></span><br><span class="line">                            .addConverterFactory(GsonConverterFactory.create())            <span class="comment">//使用Gson解析</span></span><br><span class="line">                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())      <span class="comment">//加入RxJava的适配器</span></span><br><span class="line">                            .build();</span><br><span class="line"></span><br><span class="line">                    instance = retrofit.create(RetrofitService.class);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Session-Cookie机制和Session-Token机制异同点"><a href="#Session-Cookie机制和Session-Token机制异同点" class="headerlink" title="Session/Cookie机制和Session/Token机制异同点"></a>Session/Cookie机制和Session/Token机制异同点</h2><ul>
-<li><p>相同点：</p>
+<p>UI渲染的整个过程是由CPU和GPU两个部分协同完成的。</p>
+<p>其中, CPU负责UI布局元素的Measure, Layout, Draw等相关运算执行. GPU负责栅格化(rasterization), 将UI元素绘制到屏幕上.</p>
+<h2 id="过于复杂的布局-cpu"><a href="#过于复杂的布局-cpu" class="headerlink" title="过于复杂的布局(cpu)"></a>过于复杂的布局(cpu)</h2><ol>
+<li><strong>UI布局层次太深</strong>；</li>
+<li><strong>自定义控件的onDraw中有复杂运算。</strong></li>
+</ol>
+<p>以上两点原因会导致CPU的相关运算就可能大于16ms, 导致卡顿。</p>
+<p>可以借助<strong>Hierarchy Viewer</strong>这个工具来帮我们分析布局了. Hierarchy Viewer不仅可以以图形化树状结构的形式展示出UI层级, 还对每个节点给出了三个小圆点, 以指示该元素Measure, Layout, Draw的耗时及性能。</p>
+<h2 id="过度绘制-overDraw-gpu"><a href="#过度绘制-overDraw-gpu" class="headerlink" title="过度绘制(overDraw)(gpu)"></a>过度绘制(overDraw)(gpu)</h2><p>Overdraw: 用来描述一个像素在屏幕上多少次被重绘在一帧上。</p>
+<p>Android可视化界面分析：”系统设置”–&gt;”开发者选项”–&gt;”调试GPU过度绘制”</p>
+<p>造成overdraw的主要原因：</p>
 <ol>
-<li>前者使用SessionID作为客户端会话的唯一标识,后者也可以使用SessionID作为会话的唯一标识。</li>
-<li>两者都使用SessionID作为标识时，当Session过期时，用户都需要重新登录。</li>
+<li><strong>绘制了多重背景.</strong></li>
+<li><strong>绘制了不可见的UI元素.</strong></li>
 </ol>
-</li>
-<li><p>不同点：</p>
-<p>  前者将SessionID保存在Cookie中（发送请求时直接携带此Cookie即可）；<strong>而后者发送请求时有两种方式携带Token，一种是直接在get/post请求参数中加上token，另一种是在请求头header中加上token</strong>。</p>
-</li>
+<h2 id="UI线程的复杂运算-cpu"><a href="#UI线程的复杂运算-cpu" class="headerlink" title="UI线程的复杂运算(cpu)"></a>UI线程的复杂运算(cpu)</h2><p>UI线程的复杂运算会造成UI无响应, 当然更多的是造成UI响应停滞, 卡顿.</p>
+<h2 id="频繁的GC-内存"><a href="#频繁的GC-内存" class="headerlink" title="频繁的GC(内存)"></a>频繁的GC(内存)</h2><p>执行GC操作的时候，任何线程的任何操作都会需要暂停，等待GC操作完成之后，其他操作才能够继续运行, 故而如果程序频繁GC, 自然会导致界面卡顿。</p>
+<p>造成频繁GC的主要原因：</p>
+<ul>
+<li>内存抖动：大量的对象被创建又在短时间内马上被释放。</li>
 </ul>
+<p>工程中的原因：<br><strong>我们在代码的循环中new对象, 或是在onDraw中创建对象等.</strong></p>
 
           
         
@@ -1119,7 +681,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/Android View的层级架构/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/12/AIDL的大致使用过程/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jasper"/>
@@ -1139,7 +701,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/02/Android View的层级架构/" class="post-title-link" itemprop="url">Android View的层级架构</a>
+                <a href="/2018/03/12/AIDL的大致使用过程/" class="post-title-link" itemprop="url">AIDL的大致使用过程</a>
               
             
           </h1>
@@ -1164,25 +726,496 @@
                 
               
 
-              <time title="创建时间：2017-11-02 00:34:14" itemprop="dateCreated datePublished" datetime="2017-11-02T00:34:14+08:00">2017-11-02</time>
+              <time title="创建时间：2018-03-12 08:34:14" itemprop="dateCreated datePublished" datetime="2018-03-12T08:34:14+08:00">2018-03-12</time>
             
 
             
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>服务端首先创建一个Service用来监听客户端的连接请求，然后创建一个AIDL文件，将暴露给客户端的接口在AIDL文件中声明，最后在Service中实现这个AIDL接口即可。</p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>绑定服务端Service，绑定成功之后，将服务端返回的Binder对象转成AIDL接口所属的类型，接着就可以调用AIDL中的方法了。</p>
+<h2 id="Service关键代码"><a href="#Service关键代码" class="headerlink" title="Service关键代码"></a>Service关键代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Binder mBinder = <span class="keyword">new</span> IBookManager.Stub()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Book&gt; <span class="title">getBookList</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException</span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mBinder;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Client关键代码"><a href="#Client关键代码" class="headerlink" title="Client关键代码"></a>Client关键代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> ServiceConnection mConnection = <span class="keyword">new</span> ServiceConnection()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName className,IBinder service)</span></span>&#123;</span><br><span class="line">        IBookManager bookManager = IBookManager.Stub.asInterface(service);</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//调用service中实现的方法</span></span><br><span class="line">        &#125;<span class="keyword">catch</span>(RemoteException e)&#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/冒泡算法的优化/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jasper"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/03/08/冒泡算法的优化/" class="post-title-link" itemprop="url">冒泡算法的优化</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 12:38:20" itemprop="dateModified" datetime="2018-04-23T12:38:20+08:00">2018-04-23</time>
               
+
+              <time title="创建时间：2018-03-08 08:34:14" itemprop="dateCreated datePublished" datetime="2018-03-08T08:34:14+08:00">2018-03-08</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原理：一层循环在某次扫描中没有执行交换，则说明此时数组已经全部有序列，无需再扫描了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort_3</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> size)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">int</span> lastSwapPos = <span class="number">0</span>,lastSwapPosTemp = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size - <span class="number">1</span>; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        lastSwapPos = lastSwapPosTemp;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = size - <span class="number">1</span>; j &gt;lastSwapPos; j--)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">if</span> (a[j - <span class="number">1</span>] &gt; a[j])  </span><br><span class="line">            &#123;  </span><br><span class="line">                <span class="keyword">int</span> temp = a[j - <span class="number">1</span>];  </span><br><span class="line">                a[j - <span class="number">1</span>] = a[j];  </span><br><span class="line">                a[j] = temp;  </span><br><span class="line">  </span><br><span class="line">                lastSwapPosTemp = j;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (lastSwapPos == lastSwapPosTemp)  </span><br><span class="line">            <span class="keyword">break</span>;  </span><br><span class="line">          </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/05/计算机中取余和取模运算的区别/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jasper"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/03/05/计算机中取余和取模运算的区别/" class="post-title-link" itemprop="url">计算机中取余和取模运算的区别</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-03-05 08:34:14" itemprop="dateCreated datePublished" datetime="2018-03-05T08:34:14+08:00">2018-03-05</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机基础/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="两个运算的共同点"><a href="#两个运算的共同点" class="headerlink" title="两个运算的共同点"></a>两个运算的共同点</h2><ol>
+<li>求整数商： c = a/b;</li>
+<li>计算模或者余数： r = a - c*b.</li>
+</ol>
+<h2 id="两个运算在计算整数商上的区别"><a href="#两个运算在计算整数商上的区别" class="headerlink" title="两个运算在计算整数商上的区别"></a>两个运算在计算整数商上的区别</h2><ol>
+<li>求余运算在取c的值时，<strong>向0方向舍入</strong>(fix()函数)；</li>
+<li>取模运算在计算c的值时，<strong>向无穷小方向舍入</strong>(floor()函数)。</li>
+</ol>
+<h2 id="在编程语言中常见的表示形式"><a href="#在编程语言中常见的表示形式" class="headerlink" title="在编程语言中常见的表示形式"></a>在编程语言中常见的表示形式</h2><ol>
+<li>取余运算<br><br>rem % </li>
+<li>取模运算<br><br>mod</li>
+</ol>
+<h2 id="常见的取余运算的运算规律"><a href="#常见的取余运算的运算规律" class="headerlink" title="常见的取余运算的运算规律"></a>常见的取余运算的运算规律</h2><p>无论正负，<strong>取余运算的结果符号只看前面的操作数符号，和后面操作数符号不相关</strong>，至于值的计算和均为正数相同。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/23/Android View的层级架构/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jasper"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/02/23/Android View的层级架构/" class="post-title-link" itemprop="url">Android View的层级架构</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-02-23 08:34:14" itemprop="dateCreated datePublished" datetime="2018-02-23T08:34:14+08:00">2018-02-23</time>
+            
+
             
           </span>
 
@@ -1297,7 +1330,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/30/Android finish方法与异常生命周期/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/17/初级-其他-汉明距离/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jasper"/>
@@ -1317,7 +1350,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/10/30/Android finish方法与异常生命周期/" class="post-title-link" itemprop="url">Android finish方法与异常生命周期</a>
+                <a href="/2018/02/17/初级-其他-汉明距离/" class="post-title-link" itemprop="url">汉明距离</a>
               
             
           </h1>
@@ -1342,25 +1375,9 @@
                 
               
 
-              <time title="创建时间：2017-10-30 00:34:14" itemprop="dateCreated datePublished" datetime="2017-10-30T00:34:14+08:00">2017-10-30</time>
+              <time title="创建时间：2018-02-17 08:34:14" itemprop="dateCreated datePublished" datetime="2018-02-17T08:34:14+08:00">2018-02-17</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 12:52:51" itemprop="dateModified" datetime="2018-04-23T12:52:51+08:00">2018-04-23</time>
-              
             
           </span>
 
@@ -1376,7 +1393,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
 
                 
                 
@@ -1413,18 +1430,20 @@
       
         
           
-            <ol>
-<li>调用finish方法后，activity会从栈中移除，此时实例和资源并没有被销毁。如果按back键，由于已经不再活动栈中，因此无法返回到该活动中。</li>
-<li><p>异常的生命周期是指Activity被系统回收或者当前设备的Configuration发生变化（一般指横竖屏切换）从而导致Activity被销毁重建。异常的生命周期主要分以下两种情况：</p>
+            <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。</p>
+<p>给出两个整数 x 和 y，计算它们之间的汉明距离。</p>
+<p>注意：<br>0 ≤ x, y &lt; 231.</p>
+<p>示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入: x = 1, y = 4</span><br><span class="line"></span><br><span class="line">输出: 2</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">1   (0 0 0 1)</span><br><span class="line">4   (0 1 0 0)</span><br><span class="line">       ↑   ↑</span><br><span class="line"></span><br><span class="line">上面的箭头指出了对应二进制位不同的位置。</span><br></pre></td></tr></table></figure></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>计算两个数的二进制表示对应的位的异或结果</p>
 <ol>
-<li>相关的系统配置发生改变导致Activity被杀死并重新创建（一般指横竖屏切换）</li>
-<li>内存不足导致低优先级的Activity被杀死</li>
-<li><strong>两者对应的生命周期均为当我们正常启动Activity时，onCreate，onStart，onResume方法都会依次被回调，而如果我们此时把竖屏的Activity人为的调整为横屏，我们可以发现onPause，onSaveInstanceState，onStop，onDestroy，onCreate，onStart，onRestoreInstanceState，onResume依次被调用，单从调用的方法我们就可以知道，Activity先被销毁后再重新创建</strong></li>
-</ol>
-</li>
-<li><p>在一些突发情况下，系统回收内存会导致onStop、onDestroy方法不被调用，因此onPause方法是保证可以被调用的最后一个生命周期中的方法。</p>
+<li>移位法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hammingDistance</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x != <span class="number">0</span> || y != <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((x &amp; <span class="number">1</span>) != (y &amp; <span class="number">1</span>))&#123;</span><br><span class="line">                ++count;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(x != <span class="number">0</span>)</span><br><span class="line">                x = x &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(y != <span class="number">0</span>)</span><br><span class="line">                y = y &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<p>或者使用1 &lt;&lt; i进行计数移位也可以</p>
+<ol start="2">
+<li>整体异或法</li>
+</ol>
+<p>题目转换成求二进制数中1的个数<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hammingDistance</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> res = <span class="number">0</span>, exc = x ^ y;</span><br><span class="line">        <span class="keyword">while</span> (exc != <span class="number">0</span>) &#123;</span><br><span class="line">            ++res;</span><br><span class="line">            exc &amp;= (exc - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1481,7 +1500,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/27/Android UID PID的区别/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/15/初级-其他-位1的个数/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jasper"/>
@@ -1501,7 +1520,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/10/27/Android UID PID的区别/" class="post-title-link" itemprop="url">Android UID PID的区别</a>
+                <a href="/2018/02/15/初级-其他-位1的个数/" class="post-title-link" itemprop="url">位1的个数</a>
               
             
           </h1>
@@ -1526,25 +1545,9 @@
                 
               
 
-              <time title="创建时间：2017-10-27 00:34:14" itemprop="dateCreated datePublished" datetime="2017-10-27T00:34:14+08:00">2017-10-27</time>
+              <time title="创建时间：2018-02-15 08:34:14" itemprop="dateCreated datePublished" datetime="2018-02-15T08:34:14+08:00">2018-02-15</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-25 16:14:46" itemprop="dateModified" datetime="2018-04-25T16:14:46+08:00">2018-04-25</time>
-              
             
           </span>
 
@@ -1560,7 +1563,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
 
                 
                 
@@ -1597,10 +1600,11 @@
       
         
           
-            <h2 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h2><p>PID：为Process Identifier，　PID就是各进程的身份标识,程序一运行系统就会自动分配给进程一个独一无二的PID。进程中止后PID被系统回收，可能会被继续分配给新运行的程序，但是在android系统中一般不会把已经kill掉的进程ID重新分配给新的进程，新产生进程的进程号，一般比产生之前所有的进程号都要大。</p>
-<h2 id="UID"><a href="#UID" class="headerlink" title="UID"></a>UID</h2><p>UID：一般理解为User Identifier,UID在linux中就是用户的ID，表明时哪个用户运行了这个程序，主要用于权限的管理。而在android 中又有所不同，因为android为单用户系统，这时UID 便被赋予了新的使命，数据共享，为了实现数据共享，android为每个应用几乎都分配了不同的UID，不像传统的linux，每个用户相同就为之分配相同的UID。（当然这也就表明了一个问题，android只能时单用户系统，在设计之初就被他们的工程师给阉割了多用户），使之成了数据共享的工具。</p>
-<h2 id="相同UID和签名可以实现数据共享"><a href="#相同UID和签名可以实现数据共享" class="headerlink" title="相同UID和签名可以实现数据共享"></a>相同UID和签名可以实现数据共享</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;manifest xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">          <span class="keyword">package</span>=<span class="string">"com.perseus.a"</span></span><br><span class="line">　　　　　 android:versionCode=<span class="string">"1"</span></span><br><span class="line">　　　　　 android:versionName=<span class="string">"1.0"</span></span><br><span class="line">          android:sharedUserId=<span class="string">"com.share"</span></span><br><span class="line">&gt;</span><br><span class="line">&lt;manifest xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">          <span class="keyword">package</span>=<span class="string">"com.perseus.b"</span></span><br><span class="line">　　　　　 android:versionCode=<span class="string">"1"</span></span><br><span class="line">　　　　　 android:versionName=<span class="string">"1.0"</span></span><br><span class="line">          android:sharedUserId=<span class="string">"com.share"</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<p>可以访问对方的私有数据，比如data目录、组件信息；如果跑在同一个进程中，还可以共享内存数据，看起来就像一个应用的两个部分。</p>
+            <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>编写一个函数，输入是一个无符号整数，返回其二进制表达式中数字位数为 ‘1’ 的个数（也被称为汉明重量）。</p>
+<p>示例 :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 11</span><br><span class="line">输出: 3</span><br><span class="line">解释: 整数 11 的二进制表示为 00000000000000000000000000001011</span><br></pre></td></tr></table></figure></p>
+<p>示例 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 128</span><br><span class="line">输出: 1</span><br><span class="line">解释: 整数 128 的二进制表示为 00000000000000000000000010000000</span><br></pre></td></tr></table></figure></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>找到规律，每次利用n-1与n的与结果消除最后一个1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n != <span class="number">0</span>)&#123;</span><br><span class="line">            ++count;</span><br><span class="line">            n = n &amp; (n - <span class="number">1</span>); <span class="comment">//每次操作都是从后面消除第一个1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1657,7 +1661,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/11/TCP和UDP协议详解/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jasper"/>
@@ -1677,7 +1681,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/10/25/Android onSaveInstanceState onRestoreInstanceState调用时机/" class="post-title-link" itemprop="url">onSaveInstanceState调用时机</a>
+                <a href="/2018/02/11/TCP和UDP协议详解/" class="post-title-link" itemprop="url">TCP和UDP协议详解</a>
               
             
           </h1>
@@ -1702,25 +1706,9 @@
                 
               
 
-              <time title="创建时间：2017-10-25 00:34:14" itemprop="dateCreated datePublished" datetime="2017-10-25T00:34:14+08:00">2017-10-25</time>
+              <time title="创建时间：2018-02-11 08:34:14" itemprop="dateCreated datePublished" datetime="2018-02-11T08:34:14+08:00">2018-02-11</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 12:53:27" itemprop="dateModified" datetime="2018-04-23T12:53:27+08:00">2018-04-23</time>
-              
             
           </span>
 
@@ -1736,7 +1724,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
 
                 
                 
@@ -1773,17 +1761,41 @@
       
         
           
-            <p>当某个activity容易被系统销毁时（具有可能性，但是还没有被销毁）。</p>
+            <h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h3 id="TCP报文结构"><a href="#TCP报文结构" class="headerlink" title="TCP报文结构"></a>TCP报文结构</h3><p><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/CFC6314E4B2FD039C450821D946E93E2.png" alt="img"></p>
+<p><a href="https://jerryc8080.gitbooks.io/understand-tcp-and-udp/chapter2.html" target="_blank" rel="noopener">TCP报文结构详解</a></p>
+<h3 id="三次握手和四次挥手"><a href="#三次握手和四次挥手" class="headerlink" title="三次握手和四次挥手"></a>三次握手和四次挥手</h3><p><strong>注意ack和seq的变化，syn同步报文段占用一个序号（相当于一个字节），而fin终止报文段由于没有数据，所以不占用序列号，而且最后的ack报文也不传输数据，所以不占用序列号。</strong><br><img src="https://www.polarxiong.com/usr/uploads/2017/04/3086068925.png" alt="img"></p>
+<p><strong>Q</strong>: 三次握手建立连接时，发送方再次发送确认的必要性？</p>
+<p>A: 主 要是为了防止已失效的连接请求报文段突然又传到了B,因而产生错误。假定出现一种异常情况，即A发出的第一个连接请求报文段并没有丢失，而是在某些网络结 点长时间滞留了，一直延迟到连接释放以后的某个时间才到达B，本来这是一个早已失效的报文段。但B收到此失效的连接请求报文段后，就误认为是A又发出一次 新的连接请求，于是就向A发出确认报文段，同意建立连接。假定不采用三次握手，那么只要B发出确认，新的连接就建立了，这样一直等待A发来数据，B的许多 资源就这样白白浪费了。</p>
+<p><strong>Q</strong>: 四次挥手释放连接时，等待2MSL的意义？</p>
+<p>A: </p>
 <ol>
-<li>按下home键</li>
-<li>长按home键，选择运行其他程序</li>
-<li>按下电源键（关闭屏幕显示）</li>
-<li>从当前活动启动一个新的活动</li>
-<li>屏幕方向切换时，从竖屏切换至横屏</li>
-<li>电话打入等情况</li>
+<li>为了保证A发送的最有一个ACK报文段能够到达B。这个ACK报文段有可能丢失，因而使处在LAST-ACK状态的B收不到对已发送的FIN和ACK 报文段的确认。B会超时重传这个FIN和ACK报文段，而A就能在2MSL时间内收到这个重传的ACK+FIN报文段。接着A重传一次确认。</li>
+<li>他还可以防止已失效的报文段。客户端在发送最后一个ACK之后，再经过经过2MSL，就可以使本链接持续时间内所产生的所有报文段都从网络中消失。<strong>从而保证如果马上建立下一次连接，上一次失效的报文不会干扰此次通信过程。</strong></li>
 </ol>
-<h2 id="onRestoreInstanceState调用时机"><a href="#onRestoreInstanceState调用时机" class="headerlink" title="onRestoreInstanceState调用时机"></a>onRestoreInstanceState调用时机</h2><p>onSaveInstanceState方法和onRestoreInstanceState方法“不一定”是成对的被调用的，onRestoreInstanceState被调用的前提是，activity A“确实”被系统销毁了，而如果仅仅是停留在有这种可能性的情况下，则该方法不会被调用，例如，当正在显示activity A的时候，用户按下HOME键回到主界面，然后用户紧接着又返回到activity A，这种情况下activity A一般不会因为内存的原因被系统销毁，故activity A的onRestoreInstanceState方法不会被执行。</p>
-<p>onRestoreInstanceState方法中bundle参数和onCreate方法中bundle参数相同，都是onSaveInstanceState方法中返回的，<strong>因此也可以选择在onCreate中做数据还原。</strong></p>
+<p><strong>Q</strong>: 为什么是2MSL？</p>
+<p>A: </p>
+<ol>
+<li>服务器fin报文超时重传时间一般为1个MSL，然后再考虑到fin报文传递到的客户端的时间最长为1个MSL</li>
+</ol>
+<h3 id="TCP中的三种关键技术"><a href="#TCP中的三种关键技术" class="headerlink" title="TCP中的三种关键技术"></a>TCP中的三种关键技术</h3><h4 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h4><p>RTO、RTT</p>
+<h4 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h4><ol>
+<li>慢启动和拥塞避免<br><img src="http://img.blog.csdn.net/20140509221015859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"></li>
+<li>快重传和快恢复<br><img src="http://img.blog.csdn.net/20140509221048265?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"><h4 id="流量控制（滑动窗口实现）"><a href="#流量控制（滑动窗口实现）" class="headerlink" title="流量控制（滑动窗口实现）"></a>流量控制（滑动窗口实现）</h4>发送窗口（四种状态）：<br><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/FCA43D210DF50C93E428DFD04FBBBF32.png" alt="img"><br>接收窗口（三种状态）：<br><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/F4B7AEDE41EE179676E79DEF2601D4A4.png" alt="img"><br><strong>大写ACK表示首部中的确认位ACK，小写ack表示确认字段的值ack。</strong><br><img src="http://img.blog.csdn.net/20140509220855687?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvZGVjaHVudGlhbg**/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA**/dissolve/70/gravity/SouthEast" alt="img"></li>
+</ol>
+<h3 id="TCP-ack机制"><a href="#TCP-ack机制" class="headerlink" title="TCP ack机制"></a>TCP ack机制</h3><ol>
+<li>快速确认</li>
+<li>延迟确认（捎带在数据包中）</li>
+</ol>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p><strong>udp支持广播和组播，支持一对一、一对多、多对一、多对多的通信，而tcp不支持广播和组播</strong></p>
+<h3 id="UDP报文结构"><a href="#UDP报文结构" class="headerlink" title="UDP报文结构"></a>UDP报文结构</h3><p><img src="http://om6ayrafu.bkt.clouddn.com/post/understand-tcp-udp/6FCC9F4EDE80F784BD11ED9FA76FA375.png" alt="img"></p>
+<ol>
+<li>源端口：源端口号，在需要对方回信时选用，不需要时可全 0.</li>
+<li>目的端口：目的端口号，在终点交付报文时必须要使用到。</li>
+<li>长度：UDP 用户数据报的长度，在只有首部的情况，其最小值是 8 。</li>
+<li>检验和：检测 UDP 用户数据报在传输中是否有错，有错就丢弃。</li>
+</ol>
+<h3 id="UDP校验和的计算方法"><a href="#UDP校验和的计算方法" class="headerlink" title="UDP校验和的计算方法"></a>UDP校验和的计算方法</h3><p><strong>现在数据报之前加入12个字节的伪首部，先令2个字节的校验和全为0，然后利用二进制反码求和机制计算出最后的校验和。</strong></p>
+<p>伪首部并不是数据报真正的首部，是为了计算校验和而临时添加在数据报前面的，在真正传输的时候并不会把伪首部一并发送。</p>
 
           
         
@@ -1840,7 +1852,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/Android Crash如何捕捉/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/09/初级-数学-罗马数字转整数/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jasper"/>
@@ -1860,7 +1872,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/10/25/Android Crash如何捕捉/" class="post-title-link" itemprop="url">Android Crash如何捕捉</a>
+                <a href="/2018/02/09/初级-数学-罗马数字转整数/" class="post-title-link" itemprop="url">罗马数字转整数</a>
               
             
           </h1>
@@ -1885,25 +1897,9 @@
                 
               
 
-              <time title="创建时间：2017-10-25 00:34:14" itemprop="dateCreated datePublished" datetime="2017-10-25T00:34:14+08:00">2017-10-25</time>
+              <time title="创建时间：2018-02-09 08:34:14" itemprop="dateCreated datePublished" datetime="2018-02-09T08:34:14+08:00">2018-02-09</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 12:52:32" itemprop="dateModified" datetime="2018-04-23T12:52:32+08:00">2018-04-23</time>
-              
             
           </span>
 
@@ -1919,7 +1915,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
 
                 
                 
@@ -1956,184 +1952,18 @@
       
         
           
-            <h2 id="重写UncaughtExceptionhandler接口"><a href="#重写UncaughtExceptionhandler接口" class="headerlink" title="重写UncaughtExceptionhandler接口"></a>重写UncaughtExceptionhandler接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WholeCrashHandler</span> <span class="keyword">implements</span> <span class="title">UncaughtExceptionHandler</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"TAG"</span>;  </span><br><span class="line">    <span class="comment">/***************************** 单例模式 ***************************************/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> WholeCrashHandler crashHandler = <span class="keyword">new</span> WholeCrashHandler();  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">WholeCrashHandler</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> WholeCrashHandler <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> crashHandler;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/***************************************************************************/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> ISOPEN = <span class="keyword">true</span>; <span class="comment">// 是否打开日志写入和发送  </span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> Thread.UncaughtExceptionHandler mDefaultHandler;  </span><br><span class="line">    <span class="keyword">private</span> Context context;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;  </span><br><span class="line">        LogUtils.i(TAG, <span class="string">"zhuce**=**"</span>);  </span><br><span class="line">        <span class="keyword">this</span>.context = context;  </span><br><span class="line">        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();  </span><br><span class="line">        Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">this</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uncaughtException</span><span class="params">(Thread thread, Throwable ex)</span> </span>&#123;  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">if</span> (!handleException(ex) &amp;&amp; mDefaultHandler != <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="comment">// 如果用户没有处理则让系统默认的异常处理器来处理  </span></span><br><span class="line">            mDefaultHandler.uncaughtException(thread, ex);  </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            Activity currentActivity = ActivityUtils.Instance().getCurrentActivity();  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"current===&gt;&gt;&gt;&gt;."</span>+currentActivity);  </span><br><span class="line">            ActivityUtils.Instance().finishAll();  </span><br><span class="line">            Intent intent = <span class="keyword">new</span> Intent();  </span><br><span class="line">            intent.setClass(context, CrashHintActivity1.class);  </span><br><span class="line">            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"zhuce**111=**"</span>);  </span><br><span class="line">            context.startActivity(intent);  </span><br><span class="line">            LogUtils.i(TAG, <span class="string">"zhuce**2222=**"</span>);  </span><br><span class="line">            android.os.Process.killProcess(android.os.Process.myPid());  </span><br><span class="line">  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 异常处理 </span></span><br><span class="line"><span class="comment">     *  </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ex </span></span><br><span class="line"><span class="comment">     *            异常信息 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean true 已处理，false 未处理 </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">handleException</span><span class="params">(Throwable ex)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span> (ex == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (!ISOPEN) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//收集设备信息  </span></span><br><span class="line">          </span><br><span class="line">        <span class="comment">// 写入本地文件  </span></span><br><span class="line">        LogUtils.write(ex);  </span><br><span class="line">          </span><br><span class="line">        <span class="comment">//可以在这直接操作发送log日志  </span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/Android Intent可以携带的数据/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jasper"/>
-      <meta itemprop="description" content=""/>
-      <meta itemprop="image" content="/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/10/23/Android Intent可以携带的数据/" class="post-title-link" itemprop="url">Android Intent可以携带的数据</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-10-23 00:34:14" itemprop="dateCreated datePublished" datetime="2017-10-23T00:34:14+08:00">2017-10-23</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 12:53:05" itemprop="dateModified" datetime="2018-04-23T12:53:05+08:00">2018-04-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>8种基本数据类型及其数组 </li>
-<li>String（String实现了 Serializable ）/CharSequence实例类型的数据及其数组 </li>
-<li>实现了Parcelable的对象及其数组 </li>
-<li>实现了 Serializable 的对象及其数组 </li>
-</ol>
+            <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>罗马数字包含以下七种字符：I， V， X， L，C，D 和 M。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">字符          数值</span><br><span class="line">I             1</span><br><span class="line">V             5</span><br><span class="line">X             10</span><br><span class="line">L             50</span><br><span class="line">C             100</span><br><span class="line">D             500</span><br><span class="line">M             1000</span><br></pre></td></tr></table></figure></p>
+<p>例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。</p>
+<p>通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况：</p>
+<p>I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。<br>X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。<br>C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。<br>给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。</p>
+<p>示例 1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;III&quot;</span><br><span class="line">输出: 3</span><br></pre></td></tr></table></figure></p>
+<p>示例 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;IV&quot;</span><br><span class="line">输出: 4</span><br></pre></td></tr></table></figure></p>
+<p>示例 3:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;IX&quot;</span><br><span class="line">输出: 9</span><br></pre></td></tr></table></figure></p>
+<p>示例 4:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;LVIII&quot;</span><br><span class="line">输出: 58</span><br><span class="line">解释: C = 100, L = 50, XXX = 30, III = 3.</span><br></pre></td></tr></table></figure></p>
+<p>示例 5:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;MCMXCIV&quot;</span><br><span class="line">输出: 1994</span><br><span class="line">解释: M = 1000, CM = 900, XC = 90, IV = 4.</span><br></pre></td></tr></table></figure></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>找到规律，遍历字符串时根据前后字符对应的大小关系，确定该数位的符号。</p>
+<p>注意比较前后关系的时候应该从后往前遍历，这样才能准确判断该位的符号取值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">romanToInt</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> prev = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=s.length()-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--)&#123;</span><br><span class="line">            <span class="keyword">char</span> c = s.charAt(i);</span><br><span class="line">            <span class="keyword">int</span> n;</span><br><span class="line">            <span class="keyword">switch</span>(c)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'I'</span>: n=<span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'V'</span>: n=<span class="number">5</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'X'</span>: n=<span class="number">10</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'L'</span>: n=<span class="number">50</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'C'</span>: n=<span class="number">100</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'D'</span>: n=<span class="number">500</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'M'</span>: n=<span class="number">1000</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>: n=-<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            sum = n &gt;= prev ? sum + n: sum - n;</span><br><span class="line">            prev = n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2344,13 +2174,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-count">37</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

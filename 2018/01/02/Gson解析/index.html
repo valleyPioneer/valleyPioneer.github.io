@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="序列化和反序列化 把对象转换为字节序列的过程称为对象的序列化。  对应gson的toJson方法 把字节序列恢复为对象的过程称为对象的反序列化。  对应gson的fromJson方法  Gson处理对象的几个重要点 推荐把成员变量都声明称private的  没有必要用注解（@Expose 注解）指明某个字段是否会被序列化或者反序列化，所有包含在当前类（包括父类）中的字段都应该默认被序列化或者反序列">
+<meta name="keywords" content="Android,Gson">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gson解析">
+<meta property="og:url" content="http://yoursite.com/2018/01/02/Gson解析/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="序列化和反序列化 把对象转换为字节序列的过程称为对象的序列化。  对应gson的toJson方法 把字节序列恢复为对象的过程称为对象的反序列化。  对应gson的fromJson方法  Gson处理对象的几个重要点 推荐把成员变量都声明称private的  没有必要用注解（@Expose 注解）指明某个字段是否会被序列化或者反序列化，所有包含在当前类（包括父类）中的字段都应该默认被序列化或者反序列">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-08T12:25:08.804Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gson解析">
+<meta name="twitter:description" content="序列化和反序列化 把对象转换为字节序列的过程称为对象的序列化。  对应gson的toJson方法 把字节序列恢复为对象的过程称为对象的反序列化。  对应gson的fromJson方法  Gson处理对象的几个重要点 推荐把成员变量都声明称private的  没有必要用注解（@Expose 注解）指明某个字段是否会被序列化或者反序列化，所有包含在当前类（包括父类）中的字段都应该默认被序列化或者反序列">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/02/Gson解析/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Gson解析 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/02/Gson解析/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jasper"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gson解析
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-01-02 08:34:14" itemprop="dateCreated datePublished" datetime="2018-01-02T08:34:14+08:00">2018-01-02</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><ul>
+<li>把对象转换为字节序列的过程称为对象的序列化。<br>  <strong>对应gson的toJson方法</strong></li>
+<li>把字节序列恢复为对象的过程称为对象的反序列化。<br>  <strong>对应gson的fromJson方法</strong></li>
+</ul>
+<h2 id="Gson处理对象的几个重要点"><a href="#Gson处理对象的几个重要点" class="headerlink" title="Gson处理对象的几个重要点"></a><a href="http://www.jianshu.com/p/fc5c9cdf3aab" target="_blank" rel="noopener">Gson处理对象的几个重要点</a></h2><ol>
+<li><p>推荐把成员变量都声明称private的</p>
+</li>
+<li><p><strong>没有必要用注解（@Expose 注解）指明某个字段是否会被序列化或者反序列化，所有包含在当前类（包括父类）中的字段都应该默认被序列化或者反序列化</strong></p>
+</li>
+<li><p>如果某个字段被 transient 这个Java关键词修饰，就不会被序列化或者反序列化</p>
+</li>
+<li><p>下面的实现方式能够正确的处理null</p>
+<ul>
+<li>当序列化的时候，如果对象的某个字段为null，是不会输出到Json字符串中的。</li>
+<li>当反序列化的时候，某个字段在Json字符串中找不到对应的值，就会被赋值为null。</li>
+</ul>
+</li>
+</ol>
+<ol start="5">
+<li><p>如果一个字段是 synthetic<br>的,他会被忽视，也即是不应该被序列化或者反序列化</p>
+</li>
+<li><p>内部类（或者anonymous class（匿名类），或者local class(局部类，可以理解为在方法内部声明的类)）的某个字段和外部类的某个字段一样的话，就会被忽视，不会被序列化或者反序列化</p>
+</li>
+<li><p><strong>Gson的model类在定义时不需要定义getter/setter方法，对构造函数也没有特殊要求，无需保证默认构造函数一定存在</strong></p>
+</li>
+</ol>
+<h2 id="Gson中常用注解"><a href="#Gson中常用注解" class="headerlink" title="Gson中常用注解"></a>Gson中常用注解</h2><ol>
+<li><p>@SerializedName注解</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SerializedName</span>(value = <span class="string">"emailAddress"</span>, alternate = &#123;<span class="string">"email"</span>, <span class="string">"email_address"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> String emailAddress;</span><br></pre></td></tr></table></figure>
+<p> 当上面的三个属性(email_address、email、emailAddress)都中出现任意一个时均可以得到正确的结果。<br> 注：当多种情况同时出时，以最后一个出现的值为准。</p>
+</li>
+</ol>
+<h2 id="Gson泛型的使用方法"><a href="#Gson泛型的使用方法" class="headerlink" title="Gson泛型的使用方法"></a>Gson泛型的使用方法</h2><ul>
+<li><p>json格式的数据如下：</p>
+  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;  </span><br><span class="line"><span class="attr">"status"</span>: <span class="number">0</span>,  </span><br><span class="line"><span class="attr">"data"</span>: &#123;  </span><br><span class="line">    <span class="attr">"price"</span>: <span class="number">4</span>,  </span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"脉动"</span>,  </span><br><span class="line">    <span class="attr">"type"</span>: <span class="string">"饮料"</span>,  </span><br><span class="line">    <span class="attr">"amount"</span>: <span class="number">50</span>,  </span><br><span class="line">    <span class="attr">"summary"</span>: <span class="string">"随时随地，脉动回来"</span>,  </span><br><span class="line">    <span class="attr">"picture"</span>: <span class="string">"http://www.jpjy365.com/images/201402/source_img/29726_G_1393285888119.jpg"</span>,  </span><br><span class="line">    <span class="attr">"hot"</span>: <span class="literal">true</span>,  </span><br><span class="line">    <span class="attr">"sales"</span>: <span class="number">100</span>  </span><br><span class="line">&#125;,  </span><br><span class="line"><span class="attr">"err"</span>: <span class="literal">null</span>  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>gson泛型解析类：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UniApiResult</span>&lt;<span class="title">T</span>&gt; </span>&#123;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"status"</span>)  </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> mStatus;      </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"err"</span>)  </span><br><span class="line"><span class="keyword">private</span> String mErr;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"data"</span>)  </span><br><span class="line"><span class="keyword">private</span> T mData;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStatus</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mStatus;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStatus</span><span class="params">(<span class="keyword">int</span> status)</span> </span>&#123;  </span><br><span class="line">    mStatus = status;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getErr</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mErr;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setErr</span><span class="params">(String err)</span> </span>&#123;  </span><br><span class="line">    mErr = err;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getData</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mData;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(T data)</span> </span>&#123;  </span><br><span class="line">    mData = data;  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>json字符串解析</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> UniApiResult&lt;GoodsInfoModel&gt; <span class="title">parseJson</span><span class="params">(String jsonStr)</span> </span>&#123;  </span><br><span class="line">    Gson gson = <span class="keyword">new</span> Gson();  </span><br><span class="line">    Type jsonType = <span class="keyword">new</span> TypeToken&lt;UniApiResult&lt;GoodsInfoModel&gt;&gt;() &#123;  </span><br><span class="line">    &#125;.getType();  </span><br><span class="line">    <span class="keyword">return</span> gson.fromJson(jsonStr, jsonType);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行"><a href="#Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行" class="headerlink" title="Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行"></a><strong>Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行</strong></h2>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Gson/" rel="tag"># Gson</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/05/8种排序方式的总结/" rel="next" title="8种排序方式的总结">
+                <i class="fa fa-chevron-left"></i> 8种排序方式的总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/12/Android中使用特有的SparseArray和ArrayMap来优化Map的内存使用/" rel="prev" title="Android内存优化">
+                Android内存优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jasper</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">123</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化和反序列化"><span class="nav-number">1.</span> <span class="nav-text">序列化和反序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gson处理对象的几个重要点"><span class="nav-number">2.</span> <span class="nav-text">Gson处理对象的几个重要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gson中常用注解"><span class="nav-number">3.</span> <span class="nav-text">Gson中常用注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gson泛型的使用方法"><span class="nav-number">4.</span> <span class="nav-text">Gson泛型的使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行"><span class="nav-number">5.</span> <span class="nav-text">Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jasper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

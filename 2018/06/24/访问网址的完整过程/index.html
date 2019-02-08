@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="DNS解析过程（递归查询） 若DNS缓存中没有相关数据，则IE浏览器先向DNS服务器发出DNS请求： 这一过程的目的是获取www.sina.com这个域名所对应的IP地址； IE浏览器向本机DNS模块发出DNS请求，DNS模块生成相关的DNS报文； DNS模块将生成的DNS报文传递给传输层的UDP协议单元； UDP协议单元将该数据封装成UDP数据报，传递给网络层的IP协议单元； IP协议单元将该数">
+<meta name="keywords" content="Network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="访问网址的整个过程">
+<meta property="og:url" content="http://yoursite.com/2018/06/24/访问网址的完整过程/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="DNS解析过程（递归查询） 若DNS缓存中没有相关数据，则IE浏览器先向DNS服务器发出DNS请求： 这一过程的目的是获取www.sina.com这个域名所对应的IP地址； IE浏览器向本机DNS模块发出DNS请求，DNS模块生成相关的DNS报文； DNS模块将生成的DNS报文传递给传输层的UDP协议单元； UDP协议单元将该数据封装成UDP数据报，传递给网络层的IP协议单元； IP协议单元将该数">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-08T12:56:30.136Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="访问网址的整个过程">
+<meta name="twitter:description" content="DNS解析过程（递归查询） 若DNS缓存中没有相关数据，则IE浏览器先向DNS服务器发出DNS请求： 这一过程的目的是获取www.sina.com这个域名所对应的IP地址； IE浏览器向本机DNS模块发出DNS请求，DNS模块生成相关的DNS报文； DNS模块将生成的DNS报文传递给传输层的UDP协议单元； UDP协议单元将该数据封装成UDP数据报，传递给网络层的IP协议单元； IP协议单元将该数">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/24/访问网址的完整过程/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>访问网址的整个过程 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/24/访问网址的完整过程/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jasper"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">访问网址的整个过程
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-24 08:34:14" itemprop="dateCreated datePublished" datetime="2018-06-24T08:34:14+08:00">2018-06-24</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="DNS解析过程（递归查询）"><a href="#DNS解析过程（递归查询）" class="headerlink" title="DNS解析过程（递归查询）"></a>DNS解析过程（递归查询）</h2><ol>
+<li>若DNS缓存中没有相关数据，则IE浏览器先向DNS服务器发出DNS请求：</li>
+<li>这一过程的目的是获取<a href="http://www.sina.com这个域名所对应的IP地址；" target="_blank" rel="noopener">www.sina.com这个域名所对应的IP地址；</a></li>
+<li>IE浏览器向本机DNS模块发出DNS请求，DNS模块生成相关的DNS报文；</li>
+<li>DNS模块将生成的DNS报文传递给传输层的UDP协议单元；</li>
+<li>UDP协议单元将该数据封装成UDP数据报，传递给网络层的IP协议单元；</li>
+<li>IP协议单元将该数据封装成IP数据包，其中目的IP地址为DNS服务器的IP地址；</li>
+<li>封装好的IP数据包将传递给数据链路层的协议单元进行发送；</li>
+<li>发送时如果ARP缓存中没有相关数据，则发送ARP广播请求，等待ARP回应；</li>
+<li>得到ARP回应后，将IP地址与路由下一跳MAC地址对应的信息写入ARP缓存表；</li>
+<li>写入缓存后，以路由下一跳地址填充目的MAC地址，并以数据帧形式转发；</li>
+<li>这个转发过程可能会进行多次，这取决于DNS服务器在校园网中的位置；</li>
+<li>DNS请求被发送到DNS服务器的数据链路层协议单元；</li>
+<li>DNS服务器的数据链路层协议单元解析收到的数据帧，将其内部所含有的IP数据包传递给网络层IP协议单元；</li>
+<li>DNS服务器的IP协议单元解析收到的IP数据包，将其内部所含有的UDP数据报传递给传输层的UDP协议单元；</li>
+<li>DNS服务器的UDP协议单元解析收到的UDP数据包，将其内部所含有的DNS报文传递给该服务器上的DNS服务单元；</li>
+<li>DNS服务单元收到DNS请求，将域名解析为对应的IP地址，产生DNS回应报文；</li>
+<li>（所有应用层报文必须通过传输层、网络层和数据链路层，因此在下面的叙述中，我将简化这一过程的叙述，简化形式如下面的样子，其中单箭头为本机内部传递，双箭头为网络上的发送）<br>DNS回应报文→UDP→IP→MAC→→请求域名解析的主机；</li>
+<li>请求域名解析的主机收到数据帧，该数据帧→IP→UDP→DNS→IE浏览器；</li>
+<li>将域名解析的结果以域名和IP地址对应的形式写入DNS缓存表。</li>
+</ol>
+<h2 id="IE浏览器与www-sina-com-cn建立TCP连接：TCP建立连接的三次握手"><a href="#IE浏览器与www-sina-com-cn建立TCP连接：TCP建立连接的三次握手" class="headerlink" title="IE浏览器与www.sina.com.cn建立TCP连接：TCP建立连接的三次握手"></a>IE浏览器与<a href="http://www.sina.com.cn建立TCP连接：TCP建立连接的三次握手" target="_blank" rel="noopener">www.sina.com.cn建立TCP连接：TCP建立连接的三次握手</a></h2><ol>
+<li>IE浏览器向<a href="http://www.sina.com.cn发出TCP连接请求报文；" target="_blank" rel="noopener">www.sina.com.cn发出TCP连接请求报文；</a></li>
+<li>该请求TCP报文中的SYN标志位被设置为1，表示连接请求；</li>
+<li>该TCP请求报文→IP(DNS)→MAC(ARP)→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
+<li>该TCP请求报文经过IP层时，填入的目的IP地址就是上面DNS过程获得的IP地址；</li>
+<li>经过数据链路层时，若MAC地址不明，还要进行上面所叙述的ARP过程；</li>
+<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应请求应答报文；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应请求应答报文；</a></li>
+<li>该请求应答TCP报文中的SYN和ACK标志位均被设置为1，表示连接请求应答；</li>
+<li>该TCP请求应答报文→IP→MAC(ARP)→→校园网关→→请求主机；</li>
+<li>请求主机收到数据帧→IP→TCP，TCP协议单元会回应请求确认报文；</li>
+<li>该请求应答TCP报文中的ACK标志位被设置为1，表示连接请求确认；</li>
+<li>该TCP请求确认报文→IP→MAC(ARP)→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
+<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP，连接建立完成；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP，连接建立完成；</a></li>
+</ol>
+<h2 id="IE浏览器开始HTTP访问过程"><a href="#IE浏览器开始HTTP访问过程" class="headerlink" title="IE浏览器开始HTTP访问过程"></a>IE浏览器开始HTTP访问过程</h2><ol>
+<li>IE浏览器向<a href="http://www.sina.com.cn发出HTTP-GET方法报文；" target="_blank" rel="noopener">www.sina.com.cn发出HTTP-GET方法报文；</a></li>
+<li>该HTTP-GET方法报文→TCP→IP→MAC→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
+<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP→HTTP，HTTP协议单元会回应HTTP协议格式封装好的HTML超文本形式数据；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP→HTTP，HTTP协议单元会回应HTTP协议格式封装好的HTML超文本形式数据；</a></li>
+<li>HTTP-HTML数据→TCP→IP→MAC(ARP)→→校园网关→→请求主机；</li>
+<li>请求主机收到的数据帧→IP→TCP→HTTP→IE浏览器，浏览器会以网页形式显示HTML超文本，就是我们所看到的网页。</li>
+<li><strong>涉及到html的解析（通常使用有限状态自动机）和渲染</strong>。</li>
+</ol>
+<h2 id="断开TCP连接：TCP断开连接的四次挥手"><a href="#断开TCP连接：TCP断开连接的四次挥手" class="headerlink" title="断开TCP连接：TCP断开连接的四次挥手"></a>断开TCP连接：TCP断开连接的四次挥手</h2><ol>
+<li>IE浏览器向<a href="http://www.sina.com.cn发出TCP连接结束请求报文；" target="_blank" rel="noopener">www.sina.com.cn发出TCP连接结束请求报文；</a></li>
+<li>该请求TCP报文中的FIN标志位被设置为1，表示结束请求；</li>
+<li>该TCP结束请求报文→IP→MAC(ARP)→→校园网关→→<a href="http://www.sina.com.cn主机；" target="_blank" rel="noopener">www.sina.com.cn主机；</a></li>
+<li><a href="http://www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应结束应答报文；" target="_blank" rel="noopener">www.sina.com.cn收到的数据帧→IP→TCP，TCP协议单元会回应结束应答报文；</a></li>
+<li>该结束应答TCP报文中的FIN和ACK标志位均被设置为1，表示结束应答；</li>
+<li>该TCP结束应答报文→IP→MAC(ARP)→→校园网关→→请求主机；</li>
+<li><strong>这个过程需要双向进行，因此<a href="http://www.sina.com.cn主机也会按上述流程再做一次" target="_blank" rel="noopener">www.sina.com.cn主机也会按上述流程再做一次</a></strong>；</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Network/" rel="tag"># Network</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/18/操作系统的内存管理/" rel="next" title="操作系统的内存管理">
+                <i class="fa fa-chevron-left"></i> 操作系统的内存管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/27/Java try-catch-finally语句执行的顺序/" rel="prev" title="Java try-catch-finally语句执行的顺序">
+                Java try-catch-finally语句执行的顺序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jasper</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">123</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS解析过程（递归查询）"><span class="nav-number">1.</span> <span class="nav-text">DNS解析过程（递归查询）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IE浏览器与www-sina-com-cn建立TCP连接：TCP建立连接的三次握手"><span class="nav-number">2.</span> <span class="nav-text">IE浏览器与www.sina.com.cn建立TCP连接：TCP建立连接的三次握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IE浏览器开始HTTP访问过程"><span class="nav-number">3.</span> <span class="nav-text">IE浏览器开始HTTP访问过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断开TCP连接：TCP断开连接的四次挥手"><span class="nav-number">4.</span> <span class="nav-text">断开TCP连接：TCP断开连接的四次挥手</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jasper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -319,7 +319,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/13/关于Dalvik、ART、DEX、ODEX、JIT、AOT、OAT/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/12/Android中使用特有的SparseArray和ArrayMap来优化Map的内存使用/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jasper"/>
@@ -339,7 +339,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/09/13/关于Dalvik、ART、DEX、ODEX、JIT、AOT、OAT/" class="post-title-link" itemprop="url">未命名</a>
+                <a href="/2018/01/12/Android中使用特有的SparseArray和ArrayMap来优化Map的内存使用/" class="post-title-link" itemprop="url">Android内存优化</a>
               
             
           </h1>
@@ -364,25 +364,9 @@
                 
               
 
-              <time title="创建时间：2017-09-13 00:34:14" itemprop="dateCreated datePublished" datetime="2017-09-13T00:34:14+08:00">2017-09-13</time>
+              <time title="创建时间：2018-01-12 08:34:14" itemprop="dateCreated datePublished" datetime="2018-01-12T08:34:14+08:00">2018-01-12</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 12:47:26" itemprop="dateModified" datetime="2018-04-23T12:47:26+08:00">2018-04-23</time>
-              
             
           </span>
 
@@ -435,56 +419,56 @@
       
         
           
-            <h2 id="Dalvik和ART"><a href="#Dalvik和ART" class="headerlink" title="Dalvik和ART"></a>Dalvik和ART</h2><ul>
-<li>DVM基于寄存器，JVM基于栈</li>
-<li><p>执行的字节码文件不一样，DVM执行的是.dex文件，JVM执行的是.class文件。</p>
-<ol>
-<li>DVM解释执行的是dex字节码.dex：.java –&gt; .class –&gt; .dex –&gt; .apk</li>
-<li>JVM运行的是java字节码.class：.java –&gt; .class –&gt; .jar</li>
-</ol>
+            <h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p>hashmap图解</p>
+<ul>
+<li><img src="http://img.blog.csdn.net/20150820133048242" alt="img"></li>
+</ul>
+<p>从中可以看出，如果有多个元素key的hash值相同的话，后一个元素并不会覆盖上一个元素，而是采取链表的方式，把之后加进来的元素加入链表末尾，从而解决了hash冲突的问题，由此我们知道HashMap中处理hash冲突的方法是链地址法。<strong>如果多个元素的key值完全相同时，采取的是value覆盖策略。</strong></p>
+<ul>
+<li><p>我们知道HashMap中默认的存储大小就是一个容量 为16的数组，所以当我们创建出一个HashMap对象时，即使里面没有任何元素，也要分别一块内存空间给它，而且，我们再不断的向HashMap里put数据时，当达到一定的容量限制时（这个容量满足这样的一个关系时候将会扩容：HashMap中的数据量&gt;容量*加载因子，而HashMap中默认的加载因子是0.75），HashMap的空间将会扩大，而且扩大后新的空间一定是原来的2倍，我们可以看put()方法中有这样的一行代码：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> newCapacity = oldCapacity * <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>  所以，重点就是这个，只要一满足扩容条件，HashMap的空间将会以2倍的规律进行增大。假如我们有几十万、几百万条数据，那么HashMap要存储完这些数据将要不断的扩容，而且在此过程中也需要不断的做hash运算，这将对我们的内存空间造成很大消耗和浪费，而且HashMap获取数据是通过遍历Entry[]数组来得到对应的元素，在数据量很大时候会比较慢，所以在Android中，HashMap是比较费内存的，我们在一些情况下可以使用SparseArray和ArrayMap来代替HashMap。 </p>
 </li>
-<li><p>运行环境的区别</p>
-<ol>
-<li>DVM：允许运行多个虚拟机实例，每一个应用启动都运行一个单独的虚拟机，并且运行在一个独立的进程中</li>
-<li>JVM：只能运行一个实例，也就是所有应用都运行在同一个JVM中</li>
-</ol>
+</ul>
+<h2 id="SparseArray-Android特有"><a href="#SparseArray-Android特有" class="headerlink" title="SparseArray(Android特有)"></a>SparseArray(Android特有)</h2><ol>
+<li>相对于HashMap的优势：避免了对key的自动装箱（int转为integer类型）；采取了压缩的方式存储内部的两个稀疏数组。</li>
+<li>虽说SparseArray性能比较好，但是由于其添加、查找、删除数据都需要先进行一次二分查找，所以在数据量大的情况下性能并不明显，将降低至少50%。</li>
+<li><p>满足下面两个条件我们可以使用SparseArray代替HashMap：</p>
+<ul>
+<li>数据量不大，最好在千级以内</li>
+<li><p>key必须为int类型，这种情况下hashmap可以使用SparseArray代替</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="comment">//用SparseArray代替</span></span><br><span class="line">SparseArray&lt;Object&gt; array = <span class="keyword">new</span> SparseArray&lt;&gt;();</span><br></pre></td></tr></table></figure>
 </li>
-<li><strong>Dalvik在Android 4.4及以下运行，4.4版本开放了ART的预览版，用户可以自动选择，5.0及5.0之后删除了Dalvik虚拟机，完全改用ART。</strong></li>
 </ul>
-<h2 id="ART（Android-Runtime）"><a href="#ART（Android-Runtime）" class="headerlink" title="ART（Android Runtime）"></a>ART（Android Runtime）</h2><p>ART即Android Runtime，是在Dalvik的基础上做了一些优化。在Dalvik下，应用每次运行的时候，字节码都需要通过即时编译器（JIT, just in time）转换为机器码，这会拖慢应用的运行效率，而在ART 环境中，应用在第一次安装的时候，字节码就会预先编译成机器码，使其成为真正的本地应用。这个过程叫做预编译（AOT, Ahead-Of-Time）。这样的话，应用的启动(首次)和执行都会变得更加快速。</p>
-<h2 id="Dalvik和ART的区别"><a href="#Dalvik和ART的区别" class="headerlink" title="Dalvik和ART的区别"></a>Dalvik和ART的区别</h2><p>Dalvik是运行时解释dex文件，安装比较快，开启应用比较慢，应用占用空间小；ART是安装的时候字节码预编译成机器码存储在本地，执行的时候直接就可以运行的，安装慢，开启应用快，占用空间大。</p>
-<h2 id="dex、odex、oat文件"><a href="#dex、odex、oat文件" class="headerlink" title="dex、odex、oat文件"></a>dex、odex、oat文件</h2><h3 id="dex文件"><a href="#dex文件" class="headerlink" title="dex文件"></a>dex文件</h3><p><strong>dx工具负责将Java字节码.class文件转换为Dalvik字节码.dex</strong>，dx工具对Java类文件重新排列，消除在类文件中出现的所有冗余信息，避免虚拟机在初始化时出现反复的文件加载与解析过程。</p>
-<hr>
-<p>通常情况下，我们看到的Android应用程序实际上是一个以.apk为后缀名的压缩文件。我们可以通过压缩工具对apk进行解压，解压出来的内容中有一个名为<strong>classes.dex</strong>的文件。那么我们首次开机的时候系统需要将其从apk中解压出来保存在data/app目录中。 </p>
-<h3 id="odex文件"><a href="#odex文件" class="headerlink" title="odex文件"></a>odex文件</h3><p>如果当前运行在Dalvik虚拟机下，Dalvik会对classes.dex进行一次“翻译”，“翻译”的过程也就是<strong>守护进程installd的函数dexopt</strong>来对dex字节码进行优化，实际上也就是由dex文件生成odex文件。</p>
-<ul>
-<li><strong>生成的odex文件依旧是以.dex为后缀名，保存目录为手机的VM缓存目录data/dalvik-cache</strong></li>
-</ul>
-<h3 id="oat文件"><a href="#oat文件" class="headerlink" title="oat文件"></a>oat文件</h3><p>如果当前运行于ART模式下， ART同样会在首次进入系统的时候<strong>调用dex2oat工具</strong>来将dex字节码翻译成本地机器码，保存在data/dalvik-cache下</p>
-<ul>
-<li><strong>生成的oat文件依旧是以.dex为后缀名，保存目录为手机的VM缓存目录data/dalvik-cache</strong></li>
-</ul>
-<p><strong>Dalvik和ART对dex优化的结果都是保存在一个相同名称的odex文件中</strong></p>
-<ul>
-<li>oat文件是一个自定义的elf（<strong>可执行的二进制文件</strong>）文件，里面包含的都是本地机器指令</li>
-</ul>
-<h2 id="JIT、AOT"><a href="#JIT、AOT" class="headerlink" title="JIT、AOT"></a>JIT、AOT</h2><h3 id="JIT-Just-In-Time"><a href="#JIT-Just-In-Time" class="headerlink" title="JIT(Just In Time)"></a>JIT(Just In Time)</h3><ol>
-<li>JIT在2.2版本时提出</li>
-<li><strong>DVM负责解释dex文件为机器码==，如果我们不做处理的话，每次执行代码，都需要Dalvik将java代码由==解释器</strong>(Interpreter)将每个java指令转译为微处理器指令，并根据转译后的指令先后次序依序执行，一条java指令可能对应多条微处理器指令，这样效率不高。</li>
-<li>Google在2.2版本添加了JIT编译器，<strong>当App运行时，每当遇到一个新类，JIT编译器就会对这个类进行编译</strong>，经过编译后的代码，会被优化成相当精简的原生型指令码（即native code），这样在下次执行到相同逻辑的时候，速度就会更快。</li>
-<li><strong>JIT不对所有dex代码进行编译，而是只编译执行次数较多的dex为本地机器码。</strong></li>
+</li>
+<li><p><strong>SparseArray对其中元素的key值按从小到大的顺序排列</strong></p>
+</li>
 </ol>
-<h3 id="AOT（Ahead-Of-Time）"><a href="#AOT（Ahead-Of-Time）" class="headerlink" title="AOT（Ahead Of Time）"></a>AOT（Ahead Of Time）</h3><ol>
-<li>JIT是运行时编译，这样可以对执行次数频繁的dex代码进行编译和优化，减少以后使用时的翻译时间，虽然可以加快Dalvik运行速度，<strong>但是还是有弊病，那就是将dex翻译为本地机器码也要占用时间。</strong></li>
-<li>在ART 环境中，应用在第一次安装的时候，字节码就会预先编译成机器码。之后打开App的时候，不需要额外的翻译工作，直接使用本地机器码运行，因此运行速度提高。</li>
+<h2 id="ArrayMap-Android特有"><a href="#ArrayMap-Android特有" class="headerlink" title="ArrayMap(Android特有)"></a>ArrayMap(Android特有)</h2><ol>
+<li><img src="http://7jpolu.com1.z0.glb.clouddn.com/arraymap_internal_structure.png" alt="img"></li>
 </ol>
-<h3 id="JIT和AOT对比"><a href="#JIT和AOT对比" class="headerlink" title="JIT和AOT对比"></a>JIT和AOT对比</h3><ul>
-<li>JIT代表运行时编译策略，也可以理解成一种运行时编译器，是为了<strong>加快Dalvik虚拟机解释dex速度提出的一种技术方案，来缓存频繁使用的本地机器码</strong></li>
-<li>AOT可以理解<strong>运行前编译策略</strong>，ART虚拟机的主要特征就是AOT</li>
+<ul>
+<li>mHashes用来存放key的hash值</li>
+<li>mArray用来存放key与value值，它是一个Object数组</li>
+<li>索引对应关系：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mHashes[index] = hash;</span><br><span class="line">mArray[index&lt;&lt;<span class="number">1</span>] = key;  <span class="comment">//等同于 mArray[index * 2] = key;</span></span><br><span class="line">mArray[(index&lt;&lt;<span class="number">1</span>)+<span class="number">1</span>] = value; <span class="comment">//等同于 mArray[index * 2 + 1] = value;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="Android-N（7-0）以上新的特性"><a href="#Android-N（7-0）以上新的特性" class="headerlink" title="Android N（7.0）以上新的特性"></a>Android N（7.0）以上新的特性</h3><ul>
-<li>在AOT的编译方式基础上引入JIT，对于经常用的method用AOT方式，对于不经常用的method等用JIT，并且对于这些常用或者不常用维护一个profile。</li>
-<li>在设备空闲或者充电的情况做预编译，可以节约时间和省电。</li>
+<ol start="2">
+<li><p><strong>它和SparseArray一样，也会对key使用二分法进行从小到大排序</strong>，在添加、删除、查找数据的时候都是先使用二分查找法得到相应的index，然后通过index来进行添加、查找、删除等操作，所以，应用场景和SparseArray的一样，如果在数据量比较大的情况下，那么它的性能将退化至少50%。</p>
+</li>
+<li><p>应用场景</p>
+<ul>
+<li>数据量不大，最好千级以内</li>
+<li>数据结构类型为MAP类型</li>
+<li>如果我们要兼容aip19以下版本的话，那么导入的包需要为v4包  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.support.v4.util.ArrayMap;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>假设数据量都在千级以内：</p>
+<ul>
+<li>如果key的类型已经确定为int类型，那么使用SparseArray，因为它避免了自动装箱的过程，如果key为long类型，它还提供了一个LongSparseArray来确保key为long类型时的使用</li>
+<li>如果key类型为其它的类型，则使用ArrayMap</li>
 </ul>
 
           
@@ -542,7 +526,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/11/LinkedList相比于List接口新添的方法说明/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/02/Gson解析/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jasper"/>
@@ -562,7 +546,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/09/11/LinkedList相比于List接口新添的方法说明/" class="post-title-link" itemprop="url">LinkedList相比于List接口新添的方法说明</a>
+                <a href="/2018/01/02/Gson解析/" class="post-title-link" itemprop="url">Gson解析</a>
               
             
           </h1>
@@ -587,25 +571,9 @@
                 
               
 
-              <time title="创建时间：2017-09-11 00:34:14" itemprop="dateCreated datePublished" datetime="2017-09-11T00:34:14+08:00">2017-09-11</time>
+              <time title="创建时间：2018-01-02 08:34:14" itemprop="dateCreated datePublished" datetime="2018-01-02T08:34:14+08:00">2018-01-02</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 11:22:10" itemprop="dateModified" datetime="2018-04-23T11:22:10+08:00">2018-04-23</time>
-              
             
           </span>
 
@@ -621,7 +589,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
 
                 
                 
@@ -658,23 +626,50 @@
       
         
           
-            <ol>
-<li><p>getFrist()/element()<br> 返回列表的头但是不进行移除，如果List为空，则抛出异常</p>
+            <h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><ul>
+<li>把对象转换为字节序列的过程称为对象的序列化。<br>  <strong>对应gson的toJson方法</strong></li>
+<li>把字节序列恢复为对象的过程称为对象的反序列化。<br>  <strong>对应gson的fromJson方法</strong></li>
+</ul>
+<h2 id="Gson处理对象的几个重要点"><a href="#Gson处理对象的几个重要点" class="headerlink" title="Gson处理对象的几个重要点"></a><a href="http://www.jianshu.com/p/fc5c9cdf3aab" target="_blank" rel="noopener">Gson处理对象的几个重要点</a></h2><ol>
+<li><p>推荐把成员变量都声明称private的</p>
 </li>
-<li><p>peek()<br> 返回列表的头但是不进行移除，如果List为空，则返回null</p>
+<li><p><strong>没有必要用注解（@Expose 注解）指明某个字段是否会被序列化或者反序列化，所有包含在当前类（包括父类）中的字段都应该默认被序列化或者反序列化</strong></p>
 </li>
-<li><p>removeFirst()/remove()<br>移除并且返回列表==移除之前==的头，如果List为空，则抛出异常</p>
+<li><p>如果某个字段被 transient 这个Java关键词修饰，就不会被序列化或者反序列化</p>
 </li>
-<li><p>poll()<br> 移除并且返回列表移除之前的头，如果List为空，则返回null</p>
-</li>
-<li><p>addFirst()<br> 将某个元素插入列表的头部</p>
-</li>
-<li><p>add()/addLast()<br> 将某个元素插入列表的尾部</p>
-</li>
-<li><p>removeLast()<br> 移除并返回列表==移除之前==的最后一个元素 </p>
+<li><p>下面的实现方式能够正确的处理null</p>
+<ul>
+<li>当序列化的时候，如果对象的某个字段为null，是不会输出到Json字符串中的。</li>
+<li>当反序列化的时候，某个字段在Json字符串中找不到对应的值，就会被赋值为null。</li>
+</ul>
 </li>
 </ol>
-
+<ol start="5">
+<li><p>如果一个字段是 synthetic<br>的,他会被忽视，也即是不应该被序列化或者反序列化</p>
+</li>
+<li><p>内部类（或者anonymous class（匿名类），或者local class(局部类，可以理解为在方法内部声明的类)）的某个字段和外部类的某个字段一样的话，就会被忽视，不会被序列化或者反序列化</p>
+</li>
+<li><p><strong>Gson的model类在定义时不需要定义getter/setter方法，对构造函数也没有特殊要求，无需保证默认构造函数一定存在</strong></p>
+</li>
+</ol>
+<h2 id="Gson中常用注解"><a href="#Gson中常用注解" class="headerlink" title="Gson中常用注解"></a>Gson中常用注解</h2><ol>
+<li><p>@SerializedName注解</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SerializedName</span>(value = <span class="string">"emailAddress"</span>, alternate = &#123;<span class="string">"email"</span>, <span class="string">"email_address"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> String emailAddress;</span><br></pre></td></tr></table></figure>
+<p> 当上面的三个属性(email_address、email、emailAddress)都中出现任意一个时均可以得到正确的结果。<br> 注：当多种情况同时出时，以最后一个出现的值为准。</p>
+</li>
+</ol>
+<h2 id="Gson泛型的使用方法"><a href="#Gson泛型的使用方法" class="headerlink" title="Gson泛型的使用方法"></a>Gson泛型的使用方法</h2><ul>
+<li><p>json格式的数据如下：</p>
+  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;  </span><br><span class="line"><span class="attr">"status"</span>: <span class="number">0</span>,  </span><br><span class="line"><span class="attr">"data"</span>: &#123;  </span><br><span class="line">    <span class="attr">"price"</span>: <span class="number">4</span>,  </span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"脉动"</span>,  </span><br><span class="line">    <span class="attr">"type"</span>: <span class="string">"饮料"</span>,  </span><br><span class="line">    <span class="attr">"amount"</span>: <span class="number">50</span>,  </span><br><span class="line">    <span class="attr">"summary"</span>: <span class="string">"随时随地，脉动回来"</span>,  </span><br><span class="line">    <span class="attr">"picture"</span>: <span class="string">"http://www.jpjy365.com/images/201402/source_img/29726_G_1393285888119.jpg"</span>,  </span><br><span class="line">    <span class="attr">"hot"</span>: <span class="literal">true</span>,  </span><br><span class="line">    <span class="attr">"sales"</span>: <span class="number">100</span>  </span><br><span class="line">&#125;,  </span><br><span class="line"><span class="attr">"err"</span>: <span class="literal">null</span>  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>gson泛型解析类：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UniApiResult</span>&lt;<span class="title">T</span>&gt; </span>&#123;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"status"</span>)  </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> mStatus;      </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"err"</span>)  </span><br><span class="line"><span class="keyword">private</span> String mErr;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@SerializedName</span>(<span class="string">"data"</span>)  </span><br><span class="line"><span class="keyword">private</span> T mData;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStatus</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mStatus;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStatus</span><span class="params">(<span class="keyword">int</span> status)</span> </span>&#123;  </span><br><span class="line">    mStatus = status;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getErr</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mErr;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setErr</span><span class="params">(String err)</span> </span>&#123;  </span><br><span class="line">    mErr = err;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getData</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> mData;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(T data)</span> </span>&#123;  </span><br><span class="line">    mData = data;  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>json字符串解析</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> UniApiResult&lt;GoodsInfoModel&gt; <span class="title">parseJson</span><span class="params">(String jsonStr)</span> </span>&#123;  </span><br><span class="line">    Gson gson = <span class="keyword">new</span> Gson();  </span><br><span class="line">    Type jsonType = <span class="keyword">new</span> TypeToken&lt;UniApiResult&lt;GoodsInfoModel&gt;&gt;() &#123;  </span><br><span class="line">    &#125;.getType();  </span><br><span class="line">    <span class="keyword">return</span> gson.fromJson(jsonStr, jsonType);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行"><a href="#Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行" class="headerlink" title="Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行"></a><strong>Gson解析时model类成员变量可以比json字符串中字段多，也可以比它少，不影响反序列化的执行</strong></h2>
           
         
       
@@ -730,7 +725,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/10/leetcode字典树总结/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/05/8种排序方式的总结/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jasper"/>
@@ -750,7 +745,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/09/10/leetcode字典树总结/" class="post-title-link" itemprop="url">leetcode字典树总结</a>
+                <a href="/2017/12/05/8种排序方式的总结/" class="post-title-link" itemprop="url">8种排序方式的总结</a>
               
             
           </h1>
@@ -775,25 +770,9 @@
                 
               
 
-              <time title="创建时间：2017-09-10 00:34:14" itemprop="dateCreated datePublished" datetime="2017-09-10T00:34:14+08:00">2017-09-10</time>
+              <time title="创建时间：2017-12-05 00:34:14" itemprop="dateCreated datePublished" datetime="2017-12-05T00:34:14+08:00">2017-12-05</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 13:00:40" itemprop="dateModified" datetime="2018-04-23T13:00:40+08:00">2018-04-23</time>
-              
             
           </span>
 
@@ -809,7 +788,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
 
                 
                 
@@ -846,16 +825,65 @@
       
         
           
-            <ol>
-<li>一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。</li>
+            <h2 id="时间复杂度和空间复杂度总览"><a href="#时间复杂度和空间复杂度总览" class="headerlink" title="时间复杂度和空间复杂度总览"></a>时间复杂度和空间复杂度总览</h2><p><img src="http://img.blog.csdn.net/20160511201657270?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<ol>
+<li>选择排序、快速排序、希尔排序、堆排序是非稳定的排序方法</li>
+<li>冒泡排序、插入排序、归并排序、基数排序是稳定的排序方法</li>
+<li>基数排序空间复杂度准确地说应该为O(n + r)</li>
 </ol>
-<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ol>
-<li>根节点不包含字符，除根节点外每一个节点都只包含一个字符。</li>
-<li>从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串。</li>
-<li>每个节点的所有子节点包含的字符都不相同。</li>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序基本思想是对待排序的序列进行n-1遍处理，第i遍的处理将L[i…n]中的最小者与L[i]交换位置。</p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>分为直接插入排序和折半插入排序，关键的区别在于插入位置寻找方式的不同。</p>
+<p>设数组为a[0…n-1]。</p>
+<ol>
+<li>初始时，a[0]自成1个有序区，无序区为a[1..n-1]。令i=1</li>
+<li>将a[i]并入当前的有序区a[0…i-1]中形成a[0…i]的有序区间。</li>
+<li>i++并重复第二步直到i==n-1。排序完成。</li>
 </ol>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被<strong>搜索引擎系统用于文本词频统计</strong>。它的优点是：最大限度地减少无谓的字符串比较，查询效率比哈希表高。<br>缺点：内存消耗很大，可以使用左孩子右兄弟法存储来改善。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> isLeaf;</span><br><span class="line">    Map&lt;Character,TrieNode&gt; content;</span><br><span class="line">    <span class="comment">// Initialize your data structure here.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TrieNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        content = <span class="keyword">new</span> HashMap&lt;Character,TrieNode&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Trie</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> TrieNode root;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Trie</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        root = <span class="keyword">new</span> TrieNode();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Inserts a word into the trie.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(word ** <span class="keyword">null</span> || word.length() ** <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        TrieNode node = root;</span><br><span class="line">        TrieNode tempNode = <span class="keyword">null</span>;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>, len=word.length(); i&lt;len; i++)&#123;</span><br><span class="line">            Character c = word.charAt(i);</span><br><span class="line">            tempNode = node.content.get(c);</span><br><span class="line">            <span class="keyword">if</span>(tempNode == <span class="keyword">null</span>)&#123;</span><br><span class="line">                tempNode = <span class="keyword">new</span> TrieNode();</span><br><span class="line">                node.content.put(c,tempNode);</span><br><span class="line">            &#125;</span><br><span class="line">            node = tempNode;</span><br><span class="line">        &#125;</span><br><span class="line">        node.isLeaf = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Returns if the word is in the trie.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">search</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(word ** <span class="keyword">null</span> || word.length() ** <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        TrieNode node = root;</span><br><span class="line">        TrieNode tempNode = <span class="keyword">null</span>;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>, len=word.length(); i&lt;len; i++)&#123;</span><br><span class="line">            Character c = word.charAt(i);</span><br><span class="line">            tempNode = node.content.get(c);</span><br><span class="line">            <span class="keyword">if</span>(tempNode == <span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            node = tempNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node.isLeaf;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Returns if there is any word in the trie</span></span><br><span class="line">    <span class="comment">// that starts with the given prefix.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">startsWith</span><span class="params">(String prefix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prefix ** <span class="keyword">null</span> || prefix.length() ** <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        TrieNode node = root;</span><br><span class="line">        TrieNode tempNode = <span class="keyword">null</span>;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>, len=prefix.length(); i&lt;len; i++)&#123;</span><br><span class="line">            Character c = prefix.charAt(i);</span><br><span class="line">            tempNode = node.content.get(c);</span><br><span class="line">            <span class="keyword">if</span>(tempNode == <span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            node = tempNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接插入排序的三种实现方式：</p>
+<ol>
+<li><p>严格按照定义</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insertsort1</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> n)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line"><span class="keyword">int</span> i, j, k;  </span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; n; i++)  </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="comment">//为a[i]在前面的a[0...i-1]有序区间中找一个合适的位置  </span></span><br><span class="line">    <span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)  </span><br><span class="line">        <span class="keyword">if</span> (a[j] &lt; a[i])  </span><br><span class="line">            <span class="keyword">break</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//如找到了一个合适的位置  </span></span><br><span class="line">    <span class="keyword">if</span> (j != i - <span class="number">1</span>)  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="comment">//将比a[i]大的数据向后移  </span></span><br><span class="line">        <span class="keyword">int</span> temp = a[i];  </span><br><span class="line">        <span class="keyword">for</span> (k = i - <span class="number">1</span>; k &gt; j; k--)  </span><br><span class="line">            a[k + <span class="number">1</span>] = a[k];  </span><br><span class="line">        <span class="comment">//将a[i]放到正确位置上  </span></span><br><span class="line">        a[k + <span class="number">1</span>] = temp;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将搜索和数据后移两个步骤合并</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insertsort2</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> n)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line"><span class="keyword">int</span> i, j;  </span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; n; i++)  </span><br><span class="line">    <span class="keyword">if</span> (a[i] &lt; a[i - <span class="number">1</span>])  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">int</span> temp = a[i];  </span><br><span class="line">        <span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span> &amp;&amp; a[j] &gt; temp; j--)  </span><br><span class="line">            a[j + <span class="number">1</span>] = a[j];  </span><br><span class="line">        a[j + <span class="number">1</span>] = temp;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用数据交换代替数据后移</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insertsort3</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> n)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line"><span class="keyword">int</span> i, j;  </span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; n; i++)  </span><br><span class="line">    <span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span> &amp;&amp; a[j] &gt; a[j + <span class="number">1</span>]; j--)  </span><br><span class="line">    <span class="comment">//交换元素</span></span><br><span class="line">        Swap(a[j], a[j + <span class="number">1</span>]);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p><img src="http://images0.cnblogs.com/blog2015/776259/201507/280754329387398.png" alt="img"></p>
+<p>核心代码(使用覆盖来代替交换，东拆西补法)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span> arr[],<span class="keyword">int</span> _left,<span class="keyword">int</span> _right)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = _left;</span><br><span class="line">        <span class="keyword">int</span> right = _right;</span><br><span class="line">        <span class="keyword">int</span> temp = arr[left];</span><br><span class="line">        <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">            <span class="keyword">while</span>(left &lt; right &amp;&amp; arr[right] &gt;= temp)</span><br><span class="line">                right--;</span><br><span class="line">            <span class="keyword">if</span>(left &lt; right)&#123;</span><br><span class="line">                arr[left] = arr[right];</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(left &lt; right &amp;&amp; arr[left] &lt;= temp)</span><br><span class="line">                left++;</span><br><span class="line">            <span class="keyword">if</span>(left &lt; right)&#123;</span><br><span class="line">                arr[right] = arr[left];</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//此时left等于right</span></span><br><span class="line">        arr[right] = temp;</span><br><span class="line">        quickSort(arr,_left,left - <span class="number">1</span>);</span><br><span class="line">        quickSort(arr,left + <span class="number">1</span>,_right);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="归并排序-二路归并"><a href="#归并排序-二路归并" class="headerlink" title="归并排序(二路归并)"></a>归并排序(二路归并)</h2><p>归并排序的基本思路就是将数组分为两组A、B，然后分别将A、B进行归并排序，令其有序，重复以上步骤。递归结束的条件是：当分出来的小组只有一个数组时，就可以认为这个小组组内已经达到了有序。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将有二个有序数列a[first...mid]和a[mid + 1...last]合并。  </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergearray</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> first, <span class="keyword">int</span> mid, <span class="keyword">int</span> last, <span class="keyword">int</span> temp[])</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">int</span> i = first, j = mid + <span class="number">1</span>;  </span><br><span class="line">    <span class="keyword">int</span> m = mid,   n = last;  </span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">0</span>;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">while</span> (i &lt;= m &amp;&amp; j &lt;= n)  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">if</span> (a[i] &lt;= a[j])  </span><br><span class="line">            temp[k++] = a[i++];  </span><br><span class="line">        <span class="keyword">else</span>  </span><br><span class="line">            temp[k++] = a[j++];  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">while</span> (i &lt;= m)  </span><br><span class="line">        temp[k++] = a[i++];  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">while</span> (j &lt;= n)  </span><br><span class="line">        temp[k++] = a[j++];  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; k; i++)  </span><br><span class="line">        a[first + i] = temp[i];  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergesort</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> first, <span class="keyword">int</span> last, <span class="keyword">int</span> temp[])</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (first &lt; last)  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">int</span> mid = (first + last) / <span class="number">2</span>;  </span><br><span class="line">        mergesort(a, first, mid, temp);    <span class="comment">//左边有序  </span></span><br><span class="line">        mergesort(a, mid + <span class="number">1</span>, last, temp); <span class="comment">//右边有序  </span></span><br><span class="line">        mergearray(a, first, mid, last, temp); <span class="comment">//再将二个有序数列合并  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>(1) Ri &lt;= R2i+1 且 Ri &lt;= R2i+2 (小根堆)</p>
+<p>(2) Ri &gt;= R2i+1 且 Ri &gt;= R2i+2 (大根堆)</p>
+<p>设当前元素在数组中以R[i]表示，那么(小根堆)，</p>
+<p>(1) 它的左孩子结点是：R[2*i+1];</p>
+<p>(2) 它的右孩子结点是：R[2*i+2];</p>
+<p>(3) 它的父结点是：R[(i-1)/2];</p>
+<p>(4) R[i] &lt;= R[2*i+1] 且 R[i] &lt;= R[2i+2]。</p>
+<p><img src="http://images2015.cnblogs.com/blog/318837/201604/318837-20160422104522991-406805984.png" alt="img"></p>
+<p>核心代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">HeapAdjust</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> parent, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp = array[parent]; <span class="comment">// temp保存当前父节点</span></span><br><span class="line">    <span class="keyword">int</span> child = <span class="number">2</span> * parent + <span class="number">1</span>; <span class="comment">// 先获得左孩子</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">while</span> (child &lt; length) &#123;</span><br><span class="line">        <span class="comment">// 如果有右孩子结点，并且右孩子结点的值大于左孩子结点，则选取右孩子结点</span></span><br><span class="line">        <span class="keyword">if</span> (child + <span class="number">1</span> &lt; length &amp;&amp; array[child] &lt; array[child + <span class="number">1</span>]) &#123;</span><br><span class="line">            child++;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 如果父结点的值已经大于孩子结点的值，则直接结束</span></span><br><span class="line">        <span class="keyword">if</span> (temp &gt;= array[child])</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把孩子结点的值赋给父结点</span></span><br><span class="line">        array[parent] = array[child];</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 选取孩子结点的左孩子结点,继续向下筛选</span></span><br><span class="line">        parent = child;</span><br><span class="line">        child = <span class="number">2</span> * child + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    array[parent] = temp;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">heapSort</span><span class="params">(<span class="keyword">int</span>[] list)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 循环建立初始堆,从第一个非叶节点开始循环</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = list.length / <span class="number">2</span> - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        HeapAdjust(list, i, list.length);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 进行n-1次循环，完成排序</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = list.length - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="comment">// 最后一个元素和第一元素进行交换</span></span><br><span class="line">        <span class="keyword">int</span> temp = list[i];</span><br><span class="line">        list[i] = list[<span class="number">0</span>];</span><br><span class="line">        list[<span class="number">0</span>] = temp;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 筛选 R[0] 结点，得到i-1个结点的堆</span></span><br><span class="line">        HeapAdjust(list, <span class="number">0</span>, i);</span><br><span class="line">        System.out.format(<span class="string">"第 %d 趟: \t"</span>, list.length - i);</span><br><span class="line">        printPart(list, <span class="number">0</span>, list.length - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序算法的运作如下：（从后往前）</p>
+<ol>
+<li>比较相邻的元素。如果第一个比第二个大，就交换他们两个。</li>
+<li>对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。</li>
+<li>针对所有的元素重复以上的步骤，除了最后一个。</li>
+<li>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。[1] </li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] a)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = a.length - <span class="number">1</span>; i &gt; <span class="number">0</span>; --i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (a[j + <span class="number">1</span>] &lt; a[j])</span><br><span class="line">                &#123;</span><br><span class="line">                    temp = a[j];</span><br><span class="line">                    a[j] = a[j + <span class="number">1</span>];</span><br><span class="line">                    a[j + <span class="number">1</span>] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序的基本思想是：将整个待排元素序列分割成若干个子序列（增量序列），分别进行直接插入排序，然后依次缩减增量，待整个序列中元素基本有序（增量足够小）是，再对全体元素进行依次直接插入排序。</p>
+<p>关键点:每次都分成gap组，因此每个组的起点分别为a[0]到a[gap - 1]</p>
+<p>希尔排序的两种方式：</p>
+<ol>
+<li><p>严格定义法：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shellsort1</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> n)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line"><span class="keyword">int</span> i, j, gap;  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">for</span> (gap = n / <span class="number">2</span>; gap &gt; <span class="number">0</span>; gap /= <span class="number">2</span>) <span class="comment">//步长  </span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; gap; i++)        <span class="comment">//直接插入排序  </span></span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">for</span> (j = i + gap; j &lt; n; j += gap)   </span><br><span class="line">            <span class="keyword">if</span> (a[j] &lt; a[j - gap])  </span><br><span class="line">            &#123;  </span><br><span class="line">                <span class="keyword">int</span> temp = a[j];  </span><br><span class="line">                <span class="keyword">int</span> k = j - gap;  </span><br><span class="line">                <span class="keyword">while</span> (k &gt;= <span class="number">0</span> &amp;&amp; a[k] &gt; temp)  </span><br><span class="line">                &#123;  </span><br><span class="line">                    a[k + gap] = a[k];  </span><br><span class="line">                    k -= gap;  </span><br><span class="line">                &#125;  </span><br><span class="line">                a[k + gap] = temp;  </span><br><span class="line">            &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将原来的每组整体分别完成直接插入排序改进为各组同时进行直接插入排序。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shellsort2</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> n)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line"><span class="keyword">int</span> j, gap;  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">for</span> (gap = n / <span class="number">2</span>; gap &gt; <span class="number">0</span>; gap /= <span class="number">2</span>)  </span><br><span class="line">    <span class="keyword">for</span> (j = gap; j &lt; n; j++)<span class="comment">//从数组第gap个元素开始  </span></span><br><span class="line">        <span class="keyword">if</span> (a[j] &lt; a[j - gap])<span class="comment">//每个元素与自己组内的数据进行直接插入排序  </span></span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">int</span> temp = a[j];  </span><br><span class="line">            <span class="keyword">int</span> k = j - gap;  </span><br><span class="line">            <span class="keyword">while</span> (k &gt;= <span class="number">0</span> &amp;&amp; a[k] &gt; temp)  </span><br><span class="line">            &#123;  </span><br><span class="line">                a[k + gap] = a[k];  </span><br><span class="line">                k -= gap;  </span><br><span class="line">            &#125;  </span><br><span class="line">            a[k + gap] = temp;  </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><p>根据关键字中各位的值，通过对排序的N个元素进行若干趟的“分配”与“收集”来实现排序。</p>
+<p>LSD(低位优先法):<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取x这个数的d位数上的数字</span></span><br><span class="line">    <span class="comment">// 比如获取123的1位数，结果返回3</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getDigit</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a[] = &#123;</span><br><span class="line">                <span class="number">1</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">100</span></span><br><span class="line">        &#125;; <span class="comment">// 本实例中的最大数是百位数，所以只要到100就可以了</span></span><br><span class="line">        <span class="keyword">return</span> ((x / a[d]) % <span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">radixSort</span><span class="params">(<span class="keyword">int</span>[] list, <span class="keyword">int</span> begin, <span class="keyword">int</span> end, <span class="keyword">int</span> digit)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> radix = <span class="number">10</span>; <span class="comment">// 基数</span></span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[radix]; <span class="comment">// 存放各个桶的数据统计个数</span></span><br><span class="line">        <span class="keyword">int</span>[] bucket = <span class="keyword">new</span> <span class="keyword">int</span>[end - begin + <span class="number">1</span>];</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 按照从低位到高位的顺序执行排序过程</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> d = <span class="number">1</span>; d &lt;= digit; d++) &#123;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">// 置空各个桶的数据统计</span></span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; radix; i++) &#123;</span><br><span class="line">                count[i] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">// 统计各个桶将要装入的数据个数</span></span><br><span class="line">            <span class="keyword">for</span> (i = begin; i &lt;= end; i++) &#123;</span><br><span class="line">                j = getDigit(list[i], d);</span><br><span class="line">                count[j]++;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">// count[i]表示第i个桶的右边界索引</span></span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; radix; i++) &#123;</span><br><span class="line">                count[i] = count[i] + count[i - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">// 将数据依次装入桶中</span></span><br><span class="line">            <span class="comment">// 这里要从右向左扫描，保证排序稳定性</span></span><br><span class="line">            <span class="keyword">for</span> (i = end; i &gt;= begin; i--) &#123;</span><br><span class="line">                j = getDigit(list[i], d); <span class="comment">// 求出关键码的第k位的数字， 例如：576的第3位是5</span></span><br><span class="line">                bucket[count[j] - <span class="number">1</span>] = list[i]; <span class="comment">// 放入对应的桶中，count[j]-1是第j个桶的右边界索引</span></span><br><span class="line">                count[j]--; <span class="comment">// 对应桶的装入数据索引减一</span></span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">// 将已分配好的桶中数据再倒出来，此时已是对应当前位数有序的表</span></span><br><span class="line">            <span class="keyword">for</span> (i = begin, j = <span class="number">0</span>; i &lt;= end; i++, j++) &#123;</span><br><span class="line">                list[i] = bucket[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1066,13 +1094,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-count">37</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
