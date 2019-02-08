@@ -319,177 +319,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/10/Java nio详解/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jasper"/>
-      <meta itemprop="description" content=""/>
-      <meta itemprop="image" content="/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/06/10/Java nio详解/" class="post-title-link" itemprop="url">Java nio详解</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-06-10 08:34:14" itemprop="dateCreated datePublished" datetime="2018-06-10T08:34:14+08:00">2018-06-10</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>NIO意为New IO，是java1.4之后推出的基于块的io库，速度更快。</p>
-<h2 id="标准输入输出NIO"><a href="#标准输入输出NIO" class="headerlink" title="标准输入输出NIO"></a>标准输入输出NIO</h2><p>核心类：</p>
-<ul>
-<li>Buffer</li>
-<li>Channel</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用java NIO api拷贝文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> src</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> dst</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyFileUseNIO</span><span class="params">(String src,String dst)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    <span class="comment">//声明源文件和目标文件</span></span><br><span class="line">            FileInputStream fi=<span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(src));</span><br><span class="line">            FileOutputStream fo=<span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(dst));</span><br><span class="line">            <span class="comment">//获得传输通道channel</span></span><br><span class="line">            FileChannel inChannel=fi.getChannel();</span><br><span class="line">            FileChannel outChannel=fo.getChannel();</span><br><span class="line">            <span class="comment">//获得容器buffer</span></span><br><span class="line">            ByteBuffer buffer=ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                <span class="comment">//判断是否读完文件</span></span><br><span class="line">                <span class="keyword">int</span> eof =inChannel.read(buffer);</span><br><span class="line">                <span class="keyword">if</span>(eof==-<span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">break</span>;  </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//重设一下buffer的position=0，limit=position</span></span><br><span class="line">                buffer.flip();</span><br><span class="line">                <span class="comment">//开始写</span></span><br><span class="line">                outChannel.write(buffer);</span><br><span class="line">                <span class="comment">//写完要重置buffer，重设position=0,limit=capacity</span></span><br><span class="line">                buffer.clear();</span><br><span class="line">            &#125;</span><br><span class="line">            inChannel.close();</span><br><span class="line">            outChannel.close();</span><br><span class="line">            fi.close();</span><br><span class="line">            fo.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="网络编程NIO（异步IO）"><a href="#网络编程NIO（异步IO）" class="headerlink" title="网络编程NIO（异步IO）"></a>网络编程NIO（异步IO）</h2><p>异步 I/O 是一种没有阻塞地读写数据的方法。</p>
-<p>异步 I/O 的一个优势在于，它允许您同时根据大量的输入和输出执行 I/O。<strong>同步程序常常要求助于轮询，或者创建许许多多的线程以处理大量的连接</strong>。使用异步 I/O，您可以监听任何数量的通道上的事件，不用轮询，也不用额外的线程。</p>
-<p>核心类：</p>
-<ul>
-<li>Selector</li>
-</ul>
-<p><img src="http://tutorials.jenkov.com/images/java-nio/overview-selectors.png" alt="img"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiPortEcho</span> </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">int</span> ports[];</span><br><span class="line"> <span class="keyword">private</span> ByteBuffer echoBuffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">MultiPortEcho</span><span class="params">(<span class="keyword">int</span> ports[])</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.ports = ports;</span><br><span class="line">      go();</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">      <span class="comment">// 1. 创建一个selector，select是NIO中的核心对象</span></span><br><span class="line">      <span class="comment">// 它用来监听各种感兴趣的IO事件</span></span><br><span class="line">      Selector selector = Selector.open();</span><br><span class="line">      <span class="comment">// 为每个端口打开一个监听, 并把这些监听注册到selector中</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ports.length; ++i) &#123;</span><br><span class="line">           <span class="comment">//2. 打开一个ServerSocketChannel</span></span><br><span class="line">           <span class="comment">//其实我们没监听一个端口就需要一个channel</span></span><br><span class="line">           ServerSocketChannel ssc = ServerSocketChannel.open();</span><br><span class="line">           ssc.configureBlocking(<span class="keyword">false</span>);<span class="comment">//设置为非阻塞</span></span><br><span class="line">           ServerSocket ss = ssc.socket();</span><br><span class="line">           InetSocketAddress address = <span class="keyword">new</span> InetSocketAddress(ports[i]);</span><br><span class="line">           ss.bind(address);<span class="comment">//监听一个端口</span></span><br><span class="line">           <span class="comment">//3. 注册到selector</span></span><br><span class="line">           <span class="comment">//register的第一个参数永远都是selector</span></span><br><span class="line">           <span class="comment">//第二个参数是我们要监听的事件</span></span><br><span class="line">           <span class="comment">//OP_ACCEPT是新建立连接的事件</span></span><br><span class="line">           <span class="comment">//也是适用于ServerSocketChannel的唯一事件类型</span></span><br><span class="line">           SelectionKey key = ssc.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line">           System.out.println(<span class="string">"Going to listen on "</span> + ports[i]);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//4. 开始循环，我们已经注册了一些IO兴趣事件</span></span><br><span class="line">      <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">           <span class="comment">//这个方法会阻塞，直到至少有一个已注册的事件发生。当一个或者更多的事件发生时</span></span><br><span class="line">           <span class="comment">// select() 方法将返回所发生的事件的数量。</span></span><br><span class="line">           <span class="keyword">int</span> num = selector.select();</span><br><span class="line">           <span class="comment">//返回发生了事件的 SelectionKey 对象的一个 集合</span></span><br><span class="line">           Set selectedKeys = selector.selectedKeys();</span><br><span class="line">           <span class="comment">//我们通过迭代 SelectionKeys 并依次处理每个 SelectionKey 来处理事件</span></span><br><span class="line">           <span class="comment">//对于每一个 SelectionKey，您必须确定发生的是什么 I/O 事件，以及这个事件影响哪些 I/O 对象。</span></span><br><span class="line">           Iterator it = selectedKeys.iterator();</span><br><span class="line">           <span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">                SelectionKey key = (SelectionKey) it.next();</span><br><span class="line">                <span class="comment">//5. 监听新连接。程序执行到这里，我们仅注册了 ServerSocketChannel</span></span><br><span class="line">                <span class="comment">//并且仅注册它们“接收”事件。为确认这一点</span></span><br><span class="line">                <span class="comment">//我们对 SelectionKey 调用 readyOps() 方法，并检查发生了什么类型的事件</span></span><br><span class="line">                <span class="keyword">if</span> ((key.readyOps() &amp; SelectionKey.OP_ACCEPT) == SelectionKey.OP_ACCEPT) &#123;</span><br><span class="line">                     <span class="comment">//6. 接收了一个新连接。因为我们知道这个服务器套接字上有一个传入连接在等待</span></span><br><span class="line">                     <span class="comment">//所以可以安全地接受它；也就是说，不用担心 accept() 操作会阻塞</span></span><br><span class="line">                     ServerSocketChannel ssc = (ServerSocketChannel) key.channel();</span><br><span class="line">                     SocketChannel sc = ssc.accept();</span><br><span class="line">                     sc.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">                     <span class="comment">// 7. 讲新连接注册到selector。将新连接的 SocketChannel 配置为非阻塞的</span></span><br><span class="line">                     <span class="comment">//而且由于接受这个连接的目的是为了读取来自套接字的数据，所以我们还必须将 SocketChannel 注册到 Selector上</span></span><br><span class="line">                     SelectionKey newKey = sc.register(selector,SelectionKey.OP_READ);</span><br><span class="line">                     it.remove();</span><br><span class="line">                     System.out.println(<span class="string">"Got connection from "</span> + sc);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((key.readyOps() &amp; SelectionKey.OP_READ) == SelectionKey.OP_READ) &#123;</span><br><span class="line">                     <span class="comment">// Read the data</span></span><br><span class="line">                     SocketChannel sc = (SocketChannel) key.channel();</span><br><span class="line">                     <span class="comment">// Echo data</span></span><br><span class="line">                     <span class="keyword">int</span> bytesEchoed = <span class="number">0</span>;</span><br><span class="line">                     <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                          echoBuffer.clear();</span><br><span class="line">                          <span class="keyword">int</span> r = sc.read(echoBuffer);</span><br><span class="line">                          <span class="keyword">if</span> (r &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                               <span class="keyword">break</span>;</span><br><span class="line">                          &#125;</span><br><span class="line">                          echoBuffer.flip();</span><br><span class="line">                          sc.write(echoBuffer);</span><br><span class="line">                          bytesEchoed += r;</span><br><span class="line">                     &#125;</span><br><span class="line">                     System.out.println(<span class="string">"Echoed "</span> + bytesEchoed + <span class="string">" from "</span> + sc);</span><br><span class="line">                     it.remove();</span><br><span class="line">                &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">// System.out.println( "going to clear" );</span></span><br><span class="line">           <span class="comment">// selectedKeys.clear();</span></span><br><span class="line">           <span class="comment">// System.out.println( "cleared" );</span></span><br><span class="line">      &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">static</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args2[])</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">      String args[]=&#123;<span class="string">"9001"</span>,<span class="string">"9002"</span>,<span class="string">"9003"</span>&#125;;</span><br><span class="line">      <span class="keyword">if</span> (args.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">           System.err.println(<span class="string">"Usage: java MultiPortEcho port [port port ...]"</span>);</span><br><span class="line">           System.exit(<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">int</span> ports[] = <span class="keyword">new</span> <span class="keyword">int</span>[args.length];</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; args.length; ++i) &#123;</span><br><span class="line">           ports[i] = Integer.parseInt(args[i]);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">new</span> MultiPortEcho(ports);</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/05/初级-链表-合并两个有序链表/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1929,6 +1758,195 @@
             <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>设计一个支持 push，pop，top 操作，并能在常数时间内检索到最小元素的栈。</p>
 <p>push(x) – 将元素 x 推入栈中。<br>pop() – 删除栈顶的元素。<br>top() – 获取栈顶元素。<br>getMin() – 检索栈中的最小元素。<br>示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MinStack minStack = new MinStack();</span><br><span class="line">minStack.push(-2);</span><br><span class="line">minStack.push(0);</span><br><span class="line">minStack.push(-3);</span><br><span class="line">minStack.getMin();   --&gt; 返回 -3.</span><br><span class="line">minStack.pop();</span><br><span class="line">minStack.top();      --&gt; 返回 0.</span><br><span class="line">minStack.getMin();   --&gt; 返回 -2.</span><br></pre></td></tr></table></figure></p>
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>使用最小栈的栈顶元素来存储当前数据栈中的最小元素，注意push和pop操作时双栈数据的同步问题即可。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Stack&lt;Integer&gt; dataStack;</span><br><span class="line"><span class="keyword">private</span> Stack&lt;Integer&gt; minStack;</span><br><span class="line">    </span><br><span class="line"><span class="comment">/** initialize your data structure here. */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">MinStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    dataStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    minStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    dataStack.push(x);</span><br><span class="line">    <span class="keyword">if</span>(minStack.empty())</span><br><span class="line">        minStack.push(x);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">if</span>(minStack.peek() &gt;= x)</span><br><span class="line">            minStack.push(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> data = dataStack.pop();</span><br><span class="line">    <span class="keyword">if</span>(data == minStack.peek())</span><br><span class="line">        minStack.pop();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> dataStack.peek();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> minStack.peek();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/Git Merge和Git Rebase详解/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jasper"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/05/01/Git Merge和Git Rebase详解/" class="post-title-link" itemprop="url">Git Merge和Git Rebase详解</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-01 08:34:14" itemprop="dateCreated datePublished" datetime="2018-05-01T08:34:14+08:00">2018-05-01</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="git-merge参数简介"><a href="#git-merge参数简介" class="headerlink" title="git merge参数简介"></a>git merge参数简介</h2><ol>
+<li><p>–ff快速合并，git merge默认参数<br> 如果合并过程出现冲突，git会显示出冲突并等待手动解决（<strong>解决完之后，需要add修改，然后再次提交，此时会有merge conflict的提交信息</strong>）</p>
+</li>
+<li><p>–ff-only只有能快速合并的情况才合并<br> 如果合并过程出现冲突，git会自动abort此次merge</p>
+</li>
+<li><p>–no-ff不使用快速合并<br> 会生成一个新的提交记录，这个记录只是标识在这里进行了一次merge操作</p>
+</li>
+<li><p>–squash压缩合并<br> 将待合并的分支内容压缩成一个新的提交合并进来</p>
+</li>
+</ol>
+<p><strong>快速合并</strong>指的是master分支切出dev分支后没有新的提交，也就是说只有dev分支有更新，此时才可以快速合并</p>
+<p>git merge会自动识别出最佳的同源合并点，然后进行共同祖先节点+分支1最新提交点+分支2最新提交点的<strong>三方合并</strong>，生成新的提交点</p>
+<h2 id="git-merge图解"><a href="#git-merge图解" class="headerlink" title="git merge图解"></a>git merge图解</h2><p><img src="http://upload-images.jianshu.io/upload_images/697285-b52fdd23cfc86d35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<h2 id="git-rebase图解"><a href="#git-rebase图解" class="headerlink" title="git rebase图解"></a>git rebase图解</h2><p><img src="http://upload-images.jianshu.io/upload_images/697285-d12ab4a3d26ebcfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>这些命令会把你的”mywork”分支里的每个提交(commit)取消掉，并且把它们临时保存为补丁(patch)(这些补丁放到”.git/rebase”目录中),然后把”mywork”分支更新 为最新的”origin”分支，最后把保存的这些补丁应用到”mywork”分支上。</p>
+<p>当’mywork’分支更新之后，它会指向这些新创建的提交(commit),而那些老的提交会被丢弃。 如果运行垃圾收集命令(pruning garbage collection), 这些被丢弃的提交就会删除. （请查看 git gc)</p>
+<h2 id="git-rebase解决冲突的方法"><a href="#git-rebase解决冲突的方法" class="headerlink" title="git rebase解决冲突的方法"></a>git rebase解决冲突的方法</h2><ul>
+<li><p>rebase出现冲突时，git会停止rebase并让用户手动解决冲突。<strong>当解决完成之后，用git add命令添加修改，然后无需执行git commit，只需要执行git rebase –continue</strong>，这样git会继续应用（apply）余下的补丁</p>
+</li>
+<li><p>可以在任何时候执行 git rebase –abort来终止rebase的行动，并且正在rebase的分支会回到rebase之前的状态</p>
+</li>
+</ul>
+<h2 id="git-rebase和git-merge的区别"><a href="#git-rebase和git-merge的区别" class="headerlink" title="git rebase和git merge的区别"></a>git rebase和git merge的区别</h2><p><img src="http://upload-images.jianshu.io/upload_images/697285-9ae8ecdf2a9f7b5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>假设C3提交于9:00AM,C5提交于10:00AM,C4提交于11:00AM，C6提交于12:00AM,</p>
+<p>对于使用git merge来合并所看到的commit的顺序（从新到旧）是：C7 ,C6,C4,C5,C3,C2,C1</p>
+<p>对于使用git rebase来合并所看到的commit的顺序（从新到旧）是：C7 ,C6‘,C5’,C4,C3,C2,C1</p>
+<p>因为C6’提交只是C6提交的克隆，C5’提交只是C5提交的克隆，从用户的角度看使用git rebase来合并后所看到的commit的顺序（从新到旧）是：C7 ,C6,C5,C4,C3,C2,C1</p>
+<h2 id="rebase黄金法则"><a href="#rebase黄金法则" class="headerlink" title="rebase黄金法则"></a>rebase黄金法则</h2><p>绝对不要在公共的分支上使用rebase</p>
+<p>含义：</p>
+<ol>
+<li><strong>不要==出现rebase ==本地公共分支== onto ==本地其他分支的情况</strong></li>
+<li><strong>允许==rebase ==本地公共分支== onto ==远端公共分支</strong>，这样历史树会比较清晰，而且有一种“新增改动commit”的感觉，大多数情况下，更加符合直接</li>
+</ol>
 
           
         
