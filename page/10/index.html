@@ -1259,195 +1259,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/20/Http与Https的区别/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jasper"/>
-      <meta itemprop="description" content=""/>
-      <meta itemprop="image" content="/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/11/20/Http与Https的区别/" class="post-title-link" itemprop="url">Http与Https的区别</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-11-20 00:34:14" itemprop="dateCreated datePublished" datetime="2017-11-20T00:34:14+08:00">2017-11-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-23 13:48:48" itemprop="dateModified" datetime="2018-04-23T13:48:48+08:00">2018-04-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p><strong>安全套接字层</strong>超文本传输协议HTTPS，为了数据传输的安全，HTTPS在HTTP的基础上加入了SSL协议，SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。</p>
-<h2 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h2><ol>
-<li>https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。</li>
-<li>http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。</li>
-<li>http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</li>
-<li>http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</li>
-</ol>
-<h2 id="HTTPS的通信过程"><a href="#HTTPS的通信过程" class="headerlink" title="HTTPS的通信过程"></a>HTTPS的通信过程</h2><p><img src="http://www.mahaixiang.cn/uploads/allimg/1507/1-150H120343I41.jpg" alt="img"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2517129-53d3514677aeb681.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/648" alt="img"></p>
-<ol>
-<li>客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</li>
-<li>Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。</li>
-<li>客户端的浏览器与Web服务器开始协商SSL连接的安全等级，也就是信息加密的等级。</li>
-<li>客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</li>
-<li>Web服务器利用自己的私钥解密出会话密钥。</li>
-<li>Web服务器利用会话密钥加密与客户端之间的通信。</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/20/Git Merge和Git Rebase详解/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1596,6 +1407,195 @@
 <ol>
 <li><strong>不要==出现rebase ==本地公共分支== onto ==本地其他分支的情况</strong></li>
 <li><strong>允许==rebase ==本地公共分支== onto ==远端公共分支</strong>，这样历史树会比较清晰，而且有一种“新增改动commit”的感觉，大多数情况下，更加符合直接</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/20/Http与Https的区别/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jasper"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/11/20/Http与Https的区别/" class="post-title-link" itemprop="url">Http与Https的区别</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-20 00:34:14" itemprop="dateCreated datePublished" datetime="2017-11-20T00:34:14+08:00">2017-11-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-04-23 13:48:48" itemprop="dateModified" datetime="2018-04-23T13:48:48+08:00">2018-04-23</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p><strong>安全套接字层</strong>超文本传输协议HTTPS，为了数据传输的安全，HTTPS在HTTP的基础上加入了SSL协议，SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。</p>
+<h2 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h2><ol>
+<li>https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。</li>
+<li>http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。</li>
+<li>http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</li>
+<li>http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</li>
+</ol>
+<h2 id="HTTPS的通信过程"><a href="#HTTPS的通信过程" class="headerlink" title="HTTPS的通信过程"></a>HTTPS的通信过程</h2><p><img src="http://www.mahaixiang.cn/uploads/allimg/1507/1-150H120343I41.jpg" alt="img"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2517129-53d3514677aeb681.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/648" alt="img"></p>
+<ol>
+<li>客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</li>
+<li>Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。</li>
+<li>客户端的浏览器与Web服务器开始协商SSL连接的安全等级，也就是信息加密的等级。</li>
+<li>客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</li>
+<li>Web服务器利用自己的私钥解密出会话密钥。</li>
+<li>Web服务器利用会话密钥加密与客户端之间的通信。</li>
 </ol>
 
           
@@ -2350,7 +2350,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -2435,7 +2435,7 @@
                     
                     <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">标签</span>
-                  
+                  </a>
                 </div>
               
             </nav>
